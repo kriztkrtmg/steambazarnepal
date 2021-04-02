@@ -1,0 +1,117 @@
+
+.store__productContainer{
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.7);
+    margin: 20px 5px;
+    height: 400px;
+}
+
+/*----------------PRODUCT HEADER---------------------------*/
+
+.store__productHeader{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 56px;
+    padding: 5px 10px;
+    background-color: rgba(43, 57, 57, 1);
+    color: #fff;
+}
+
+/*--------------TITLE----------------*/
+
+.productHeader__title{
+    display: flex;
+    align-items: center;
+    margin:0px 10px;
+    background-color: rgba(43, 57, 57, 1);
+    
+}
+
+.productHeader__title>.MuiSvgIcon-root {
+    background-color: transparent;
+    font-size: xx-large;
+    color: orange;
+}
+
+.productHeader__title > p {
+    background-color: transparent;
+    text-transform: uppercase;
+    margin-left: 10px;
+    font-weight: 600;
+}
+
+/*---------------------SEARCH FIELD---------------*/
+
+.productHeader__searchInput{
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 5px;
+    display: flex;
+    height: 40px;
+    align-items: center;
+    flex: 1;
+    cursor: pointer;
+    margin: 0px 10px;
+}
+/*
+.productHeader__searchInput:focus-within {
+    box-shadow: 0px 0px 0px 2px blue;
+}
+*/
+.searchInput__input{
+    background-color: transparent;
+    display: flex;
+    flex: 1;
+}
+
+.searchInput__input > input {
+    border-radius: 5px 0px 0px 5px;
+    flex-grow: 1;
+    border: none;
+    outline-width: 0;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 0px 10px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.searchInput__inputSearchIcon {
+    background-color: green;
+    color: #000;
+    height: 40px;
+    width: 45px;
+    display: flex;
+    align-items: center;
+    border-radius: 0px 5px 5px 0px;
+    justify-content: center;
+}
+
+.searchInput__inputSearchIcon:hover {
+    background-color: darkgreen;
+}
+
+.searchInput__inputSearchIcon > .MuiSvgIcon-root {
+    background-color: transparent;
+}
+
+/*----------------FILTER-------------------------*/
+
+.productHeader__filter {
+    background-color: transparent;
+}
+
+
+/*-------------------PRODUCT LIST-----------------*/
+
+.store__productList{
+    display: flex;
+    margin: 10px;
+    padding: 10px;
+    background-color: transparent;
+    flex-wrap: wrap;
+    overflow: scroll;
+    overflow-x: hidden;
+}

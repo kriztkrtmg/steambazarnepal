@@ -1,0 +1,235 @@
+
+.header {
+    background-color: #171a21;
+    height: 46px;
+    padding: 5px 10px;
+    display: flex;
+    top: 0;
+    position: sticky;
+    justify-content: space-between;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.65);
+    box-shadow: 0px 5px 8px -9px rgba(255, 255, 255, 0.75);
+    z-index: 1000;
+}
+
+.header__left > img {
+    display: flex;
+    width: 100px;
+    object-fit: contain;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+
+.header__center {
+    display: flex;
+    align-items: center;
+}
+
+.header__option{
+    display: flex;
+    align-items: center;
+    margin: 0px 10px;
+    cursor: pointer;
+}
+
+
+.header__option > .MuiSvgIcon-root {
+    font-size:x-large;
+    color: #9ACD32;
+}
+
+.header__optionTitle{
+    font-weight: 600;
+    margin-left: 2px;
+    text-transform: capitalize;
+}
+
+.header__optionCart{
+    font-weight: 700;
+    color: #fff;
+}
+
+.header__optionCart:hover{
+    color: green;
+}
+.header__option:hover > .MuiSvgIcon-root  {
+    color: green;
+}
+
+.header__option:hover {
+    color: green;
+}
+
+.header__right{
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+}
+
+.header__accountNull > img{
+    height: 30px;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+.header__account{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 20px;
+}
+
+.header__accountBalance{
+    cursor: default;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header__accountBalance > div {
+    color: #9ACD32;
+}
+
+.header__accountBalance >div > span {
+    color: #fff;
+    font-weight: 600;
+}
+
+.header__accountBalance > p{
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #9ACD32;
+}
+
+.header__account>.MuiIconButton-root {
+  color: #fff;
+}
+.header__accountBalance > div {
+    font-weight: 600;
+}
+
+.header__accountName {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    font-weight: 600;
+}
+
+.header__accountProfile > img {
+    width: 34px;
+    object-fit: contain;
+}
+
+.header__toggle {
+    display: none;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+
+@media only screen and (max-width: 1200px) {
+    .header {
+       
+        height: 50px;
+
+    }
+    .header__option {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0px 15px;
+        cursor: pointer;
+    }
+
+    .header__optionTitle {
+        font-weight: 600;
+        text-transform: capitalize;
+    }
+
+}
+
+/*-------------------------------------------------------------------------------------------*/
+
+@media only screen and (max-width: 992px) {
+  
+    .header__option {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0px 5px 0px 10px;
+        cursor: pointer;
+    }
+
+    
+   .header__left>img {
+       display: flex;
+       width: 80px;
+       object-fit: contain;
+       align-items: center;
+       justify-content: center;
+       cursor: pointer;
+   }
+
+   .header__option>.MuiSvgIcon-root {
+       font-size:large;
+       color: #9ACD32;
+   }
+
+   .header__optionTitle {
+       font-weight: 600;
+       font-size: 14px;
+       text-transform: capitalize;
+   }
+
+   .header__account {
+       margin-left: 8px;
+   }
+
+   .header__accountBalance {
+       cursor: default;
+       display: flex;
+       flex-direction: column;
+       align-items: center;
+       font-size: 14px;
+   }
+
+   .header__accountBalance>p {
+       font-weight: 600;
+       font-size: 12px;
+       text-transform: uppercase;
+       color: #9ACD32;
+   }
+
+   .header__accountName {
+       cursor: pointer;
+       display: flex;
+       font-size: 14px;
+       align-items: center;
+       margin-left: 10px;
+       font-weight: 600;
+   }
+}
+
+/*--------------------------------------------------------------------------------------------------------*/
+@media only screen and (max-width: 768px) {
+
+    .header__center {
+       display: none;
+   }
+
+   .header__right {
+       display: none;
+   }
+
+   .header__toggle{
+       display: flex;
+   }
+
+   .header__toggle > .MuiIconButton-root {
+       color: white;
+   }
+
+}

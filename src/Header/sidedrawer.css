@@ -1,0 +1,74 @@
+.slide_drawer {
+    height: 100vh;
+    background-color: #171a21;
+    color: rgba(255, 255, 255, 0.65);
+    box-shadow: 2px 0px 10px rgba(255, 255, 255, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 80%;
+    max-width: 250px;
+    z-index: 300;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-out;
+}
+
+.animate_slide {
+    transform: translateX(0)
+}
+
+.account__balance {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0px 5px 8px -9px rgba(255, 255, 255, 0.75);
+}
+
+.account__balance>.MuiIconButton-root {
+    color: #fff;
+}
+
+.account__balance>div {
+    color: #9ACD32;
+    font-weight: 600;
+}
+
+.account__name {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    font-weight: 600;
+}
+
+.account__profile>img {
+    width: 30px;
+    object-fit: contain;
+}
+
+.account__profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 5px 8px -9px rgba(255, 255, 255, 0.75);
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.account__Null{
+    display: flex;
+    justify-content: center;
+    box-shadow: 0px 5px 8px -9px rgba(255, 255, 255, 0.75);
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.account__Null>img {
+    height: 30px;
+    object-fit: contain;
+    cursor: pointer;
+    
+}
