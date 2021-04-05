@@ -1,28 +1,12 @@
 import React, { useEffect, useState } from "react";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import "./buysection.css";
-import ProductCart from "../Product/ProductCart";
+import BuyItem from "../Product/buyItem";
 import db from "../CONFIG";
 import Bill from "./Bill";
 
 function BuySection() {
   const [cartItem, setCartItem] = useState([]);
-
-  const getTotalPrice = () => {
-    let total = 0;
-    cartItem.forEach((item) => {
-      total += item.data.price * item.data.quantity;
-    });
-    return total;
-  };
-
-  const getCount = () => {
-    let count = 0;
-    cartItem.forEach((item) => {
-      count += item.data.quantity;
-    });
-    return count;
-  };
 
   useEffect(() => {
     db.collection("buy").onSnapshot((snapshot) =>
@@ -44,9 +28,9 @@ function BuySection() {
         </div>
         <div className="buylist__list">
           {cartItem.map((item) => (
-            <ProductCart
+            <BuyItem
               id={item.id}
-              key={item.data.id}
+              key={item.id}
               gameIcon={item.data.gameIcon}
               name={item.data.name}
               image={item.data.image}
@@ -57,7 +41,7 @@ function BuySection() {
         </div>
       </div>
 
-      <Bill getCount={getCount()} getTotalPrice={getTotalPrice} />
+      <Bill cartItem={cartItem} />
     </div>
   );
 }

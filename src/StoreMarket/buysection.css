@@ -3,13 +3,13 @@
 .storemarket__buySection {
     display: flex;
     justify-content: space-between;
-    height: 300px;
+    height: 350px;
 }
 
 /*------------BUYLIST------------------*/
 
 .storemarket__buyList {
-    flex: 0.75;
+    flex: 0.6;
     display: flex;
     flex-direction: column;
     background-color: rgba(255, 255, 255, 0.7);
@@ -20,7 +20,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 40px;
+    height: 20px;
     padding: 10px;
     background-color: rgba(43, 57, 57, 1);
     color: #fff;
@@ -51,7 +51,7 @@
 /*--------------CHECKOUT-----------------*/
 
 .storemarket__buyCheckout {
-    flex: 0.25;
+    flex: 0.4;
     display: flex;
     flex-direction: column;
     background-color: rgba(255, 255, 255, 0.7);
@@ -141,7 +141,7 @@
 }
 
 
-.checkout__descriptionConfirm>p {
+.checkout__descriptionConfirmMessage {
     background-color: transparent;
     margin: 10px 10px 0px 10px;
     font-weight: 600;

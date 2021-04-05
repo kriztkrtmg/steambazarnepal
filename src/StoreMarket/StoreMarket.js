@@ -4,7 +4,7 @@ import StoreSection from "./StoreSection";
 
 function StoreMarket() {
   return (
-    <div style={{ margin: "20px 10px" }}>
+    <div style={{ padding: "15px 20px", backgroundColor: "#171a21" }}>
       <BuySection />
       <StoreSection />
     </div>

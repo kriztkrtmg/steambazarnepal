@@ -1,25 +1,26 @@
-.product {
+
+
+.buyItem {
     position: relative;
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
-    height: 125px;
-    width: 125px;
-    margin: 10px 10px;
-    background-color: white;
-    /*transition: transform 200ms ease-in;*/
+    height: 130px;
+    width: 130px;
+    margin: 5px 10px;
+    background-color: #000;
     cursor: pointer;
 }
 
-.product__image > img {
+.buyItem__image>img {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 125px;
+    height: 130px;
     object-fit: contain;
 }
 
-.product__gameIcon > img {
+.buyItem__gameIcon>img {
     width: 20px;
     object-fit: contain;
     position: absolute;
@@ -27,7 +28,7 @@
     right: 2px;
 }
 
-.product > h4 {
+.buyItem>h4 {
     font-size: 12px;
     font-weight: 600;
     position: absolute;
@@ -36,8 +37,7 @@
     color: white;
 }
 
-
-.product > p {
+.buyItem>p {
     position: absolute;
     bottom: 3px;
     right: 25px;

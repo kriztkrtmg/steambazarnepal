@@ -1,9 +1,9 @@
 import React from "react";
-import "./product.css";
+import "./storeItem.css";
 import NumberFormat from "react-number-format";
 import db from "../CONFIG";
 
-function Product({ gameIcon, name, image, price, quantity, id }) {
+function StoreItem({ gameIcon, name, image, price, quantity, id }) {
   const handleStoreClick = (event) => {
     event.preventDefault();
 
@@ -39,26 +39,29 @@ function Product({ gameIcon, name, image, price, quantity, id }) {
   };
 
   return (
-    <div className="product" onClick={handleStoreClick}>
-      <div className="product__image">
-        <img src={image} alt="" />
-      </div>
-      <h4>
-        <NumberFormat
-          value={price}
-          displayType="text"
-          thousandSeparator={true}
-          thousandsGroupStyle="lakh"
-          prefix={"Rs: "}
-        />
-      </h4>
+    <div className="storeCard">
+      <div className="storeItem" onClick={handleStoreClick}>
+        <div className="storeItem__image">
+          <img src={image} alt="" />
+        </div>
+        <h4>
+          <NumberFormat
+            value={price}
+            displayType="text"
+            thousandSeparator={true}
+            thousandsGroupStyle="lakh"
+            prefix={"Rs: "}
+          />
+        </h4>
 
-      <p>x{quantity}</p>
-      <div className="product__gameIcon">
-        <img src={gameIcon} alt="" />
+        <p>x{quantity}</p>
+        <div className="storeItem__gameIcon">
+          <img src={gameIcon} alt="" />
+        </div>
       </div>
+      <div className="storeItem__description">{name}</div>
     </div>
   );
 }
 
-export default Product;
+export default StoreItem;

@@ -7,7 +7,6 @@ import EmailIcon from "@material-ui/icons/Email";
 import ContactSupportIcon from "@material-ui/icons/ContactSupport";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
-//import AddShoppingCartRoundedIcon from "@material-ui/icons/AddShoppingCartRounded";
 import DeckRoundedIcon from "@material-ui/icons/DeckRounded";
 import { IconButton } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -18,6 +17,14 @@ import NumberFormat from "react-number-format";
 import SideDrawer from "./SideDrawer";
 import Backdrop from "./Backdrop";
 
+import Button from "@material-ui/core/Button";
+
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+
+import DialogTitle from "@material-ui/core/DialogTitle";
+
 import { useSelector, useDispatch } from "react-redux";
 
 import {
@@ -26,6 +33,11 @@ import {
   selectUser,
   selectPhoto,
 } from "../features/user/userSlice";
+import {
+  selectBalance,
+  recharge,
+  selectReward,
+} from "../features/balance/balanceSlice";
 
 import { auth, provider } from "../CONFIG";
 import { useHistory } from "react-router-dom";
@@ -34,6 +46,8 @@ function Header() {
   const dispatch = useDispatch();
   const photo = useSelector(selectPhoto);
   const user = useSelector(selectUser);
+  const balance = useSelector(selectBalance);
+  const reward = useSelector(selectReward);
   const [sideDrawerToggle, setSideDrawerToggle] = useState(false);
 
   const history = useHistory();
@@ -56,6 +70,22 @@ function Header() {
       .catch((error) => {
         console.log(error.message);
       });
+  };
+
+  const [rechargeDialog, setRechargeDialog] = useState(false); //To open recharge dialog box....
+  const [rechargeAmount, setRechargeAmount] = useState(); //To get user input recharge amount....
+
+  const handleRecharge = () => {
+    setRechargeDialog(true);
+  };
+
+  const handleRechargeClose = () => {
+    setRechargeDialog(false);
+  };
+
+  const handleRechargeSuccess = () => {
+    dispatch(recharge(Number(rechargeAmount) || 0));
+    setRechargeDialog(false);
   };
 
   return (
@@ -83,11 +113,21 @@ function Header() {
         </div>
         <div className="header__option">
           <StyleIcon />
-          <div className="header__optionTitle">inventory</div>
+          <div
+            className="header__optionTitle"
+            onClick={() => history.push("/inventory")}
+          >
+            inventory
+          </div>
         </div>
         <div className="header__option">
           <LocalAtmIcon />
-          <div className="header__optionTitle">sell</div>
+          <div
+            className="header__optionTitle"
+            onClick={() => history.push("/sell")}
+          >
+            sell
+          </div>
         </div>
         <div className="header__option">
           <EmailIcon />
@@ -101,19 +141,32 @@ function Header() {
 
       <div className="header__right">
         {!user ? (
-          <div className="header__accountNull" onClick={handleLogin}>
-            <img
-              src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/steamworks_docs/english/sits_small.png"
-              alt="logo"
-            />
-          </div>
+          <img
+            onClick={handleLogin}
+            style={{ cursor: "pointer" }}
+            src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/steamworks_docs/english/sits_small.png"
+            alt="logo"
+          />
         ) : (
           <>
             <div className="header__account">
               <div className="header__accountBalance">
                 <div>
                   <NumberFormat
-                    value={12345}
+                    value={reward}
+                    displayType="text"
+                    thousandSeparator={true}
+                    thousandsGroupStyle="lakh"
+                  />
+                </div>
+                <p>Rp</p>
+              </div>
+            </div>
+            <div className="header__account">
+              <div className="header__accountBalance">
+                <div>
+                  <NumberFormat
+                    value={balance}
                     displayType="text"
                     thousandSeparator={true}
                     thousandsGroupStyle="lakh"
@@ -123,14 +176,11 @@ function Header() {
                 </div>
                 <p>Balance</p>
               </div>
-              <IconButton size="small">
-                <AddCircleOutlineIcon />
-              </IconButton>
+              <AddCircleOutlineIcon
+                className="balance__recharge"
+                onClick={handleRecharge}
+              />
             </div>
-            {/*<div className="header__option">
-              <AddShoppingCartRoundedIcon />
-              <div className="header__optionCart">1200</div>
-            </div> */}
 
             <div className="header__account">
               <div className="header__accountProfile">
@@ -156,6 +206,31 @@ function Header() {
           ""
         )}
       </div>
+
+      <Dialog
+        open={rechargeDialog}
+        onClose={handleRechargeClose}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">Balance Recharge</DialogTitle>
+        <DialogContent>
+          <input
+            className="balanceRechargeInputBox"
+            placeholder="Enter amount"
+            type="number"
+            value={rechargeAmount}
+            onChange={(e) => setRechargeAmount(e.target.value)}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleRechargeClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleRechargeSuccess} color="primary">
+            Recharge
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }

@@ -1,9 +1,9 @@
 import React from "react";
-import "./product.css";
+import "./buyItem.css";
 import NumberFormat from "react-number-format";
 import db from "../CONFIG";
 
-function ProductCart({ gameIcon, name, image, price, quantity, id }) {
+function BuyItem({ gameIcon, name, image, price, quantity, id }) {
   const handleBuyClick = (event) => {
     event.preventDefault();
 
@@ -39,8 +39,8 @@ function ProductCart({ gameIcon, name, image, price, quantity, id }) {
   };
 
   return (
-    <div className="product" onClick={handleBuyClick}>
-      <div className="product__image">
+    <div className="buyItem" onClick={handleBuyClick}>
+      <div className="buyItem__image">
         <img src={image} alt="" />
       </div>
       <h4>
@@ -54,11 +54,11 @@ function ProductCart({ gameIcon, name, image, price, quantity, id }) {
       </h4>
 
       <p>x{quantity}</p>
-      <div className="product__gameIcon">
+      <div className="buyItem__gameIcon">
         <img src={gameIcon} alt="" />
       </div>
     </div>
   );
 }
 
-export default ProductCart;
+export default BuyItem;
