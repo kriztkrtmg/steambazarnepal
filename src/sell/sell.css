@@ -247,7 +247,7 @@
 .deals__instantSell{
     justify-content: center;
     align-items: center;
-    flex: 0.4;
+    flex: 0.5;
     display: flex;
     flex-direction: column;
 }
@@ -278,7 +278,7 @@
 }
 
 .deals__communitySell{
-    flex: 0.6;
+    flex: 0.5;
     display: flex;
     flex-direction: column;
     align-items: center;

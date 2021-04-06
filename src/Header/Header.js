@@ -109,7 +109,12 @@ function Header() {
         </div>
         <div className="header__option">
           <DeckRoundedIcon />
-          <div className="header__optionTitle">Marketplace</div>
+          <div
+            className="header__optionTitle"
+            onClick={() => history.push("/community")}
+          >
+            Marketplace
+          </div>
         </div>
         <div className="header__option">
           <StyleIcon />

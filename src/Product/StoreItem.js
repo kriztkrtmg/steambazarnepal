@@ -7,8 +7,18 @@ function StoreItem({ gameIcon, name, image, price, quantity, id }) {
   const handleStoreClick = (event) => {
     event.preventDefault();
 
-    const cartItem = db.collection("buy").doc(id);
+    const cartItem = db.collection("buy").doc();
 
+    cartItem.get().then((doc) => {
+      cartItem.set({
+        gameIcon: gameIcon,
+        name: name,
+        image: image,
+        price: price,
+        quantity: 1,
+      });
+    });
+    /*
     cartItem.get().then((doc) => {
       if (doc.exists) {
         cartItem.update({
@@ -24,6 +34,7 @@ function StoreItem({ gameIcon, name, image, price, quantity, id }) {
         });
       }
     });
+    */
 
     const productItem = db.collection("product").doc(id);
 

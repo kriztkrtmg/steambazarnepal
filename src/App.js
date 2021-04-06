@@ -6,6 +6,7 @@ import StoreMarket from "./StoreMarket/StoreMarket";
 import LandingPage from "./Landingpage/LandingPage";
 import Inventory from "./Inventory/Inventory";
 import Sell from "./sell/Sell";
+import CommunityMarket from "./Community/CommunityMarket";
 
 function App() {
   return (
@@ -15,6 +16,9 @@ function App() {
         <Switch>
           <Route exact path="/storemarket">
             <StoreMarket />
+          </Route>
+          <Route exact path="/community">
+            <CommunityMarket />
           </Route>
           <Route exact path="/inventory">
             <Inventory />

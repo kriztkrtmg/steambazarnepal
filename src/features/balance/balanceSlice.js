@@ -3,8 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 export const balanceSlice = createSlice({
   name: "balance",
   initialState: {
-    value: 500,
-    reward: 15,
+    value: 0,
+    reward: 0,
   },
   reducers: {
     recharge: (state, action) => {
@@ -14,11 +14,15 @@ export const balanceSlice = createSlice({
       state.value -= action.payload;
     },
     rewardUp: (state, action) => {
-      state.reward += action.payload;
+      let rewardString = action.payload.toFixed(); //34.34-string
+      let rewardNumber = Number(rewardString);
+      state.reward += rewardNumber;
     },
 
     rewardCut: (state, action) => {
-      state.reward -= action.payload;
+      let rewardString = action.payload.toFixed();
+      let rewardNumber = Number(rewardString);
+      state.reward -= rewardNumber;
     },
   },
 });

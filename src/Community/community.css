@@ -1,0 +1,227 @@
+.community{
+    height: 100vh;
+    padding-top: 10px;
+    background-color:#1b2838;
+}
+
+.community__topBar{
+    background-color: #228B22;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0px 10%;
+}
+
+.community__body{
+    padding: 0px 10%;
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.community__data{
+    margin: 5px;
+    flex: 0.8;
+    flex-direction: column;
+}
+
+.community__header{
+    margin: 10px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 2.25em;
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0);
+    color: #afafaf;
+}
+
+.name{
+    height: 2.25em;
+    flex: 0.7;
+    padding-left: 10px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+}
+
+.quantity{
+    height: 2.25em;
+    flex: 0.15;
+    text-transform: uppercase;
+    border-left: 1px solid rgba(255, 255, 255, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.price{
+    height: 2.25em;
+    flex: 0.15;
+    text-transform: uppercase;
+    border-left: 1px solid rgba(255, 255, 255, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.community__itemContainer{
+    display: flex;
+    flex-direction: column;
+}
+
+.community__product{
+    margin: 10px 0px;
+    padding: 5px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(0, 0, 0, 0.2);
+    color: #afafaf;
+    border: 1px solid rgba(0, 0, 0, 0);
+    cursor: pointer;
+}
+
+.community__product:hover{
+    border: 1px solid #4582A5;
+}
+
+.community__productImgTitle{
+    flex:1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.community__productImage{
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 75px;
+    width: 75px;
+    background-color: #1b2838;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+.community__productImage >img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 75px;
+    object-fit: contain;
+}
+
+.community__productTitle{
+    margin-left: 10px;
+}
+
+.community__productTitle >h4 {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.community__productTitle >p{
+    font-size: 14px;
+}
+
+.community__productQuantity{
+    flex: 0.1;
+    align-items: center;
+    justify-content: center;
+}
+
+.community__productPrice{
+    flex: 0.2;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.community__productPrice >h4 {
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.community__productPrice > p{
+    font-size: 14px;
+    color: #fff;
+    font-weight: 600;
+}
+
+
+.community__search{
+    padding: 15px;
+    margin: 15px 5px 5px 5px;
+    flex: 0.2;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.community__searchTitle{
+    color: #4582A5;
+}
+
+.community__searchInput{
+    display: flex;
+    align-items: center;
+    margin: 15px 0px;
+    height: 28px;
+    color: #fff;
+    padding: 2px 0px 2px 4px;
+    background-color: #324965;
+    cursor: pointer;
+}
+
+.community__searchInput > input {
+    flex: 1;
+    background-color: #324965;
+    border: none;
+    outline-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.7);
+    height: 28px;
+    font-size: 14px;
+}
+
+
+
+@media screen and (max-width: 992px) {
+
+    .community__body{
+        flex-direction: column-reverse;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .quantity{
+        display: none;
+    }
+
+    .community__productQuantity{
+        display: none;
+    }
+
+    .name{
+        flex: 0.7;
+    }
+
+    .price{
+        flex: 0.3;
+    }
+
+    .community__productImgTitle{
+        flex: 0.7;
+    }
+
+    .community__productPrice{
+        flex: 0.3;
+    }
+}
