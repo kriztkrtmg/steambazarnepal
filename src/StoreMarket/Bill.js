@@ -161,7 +161,7 @@ function Bill({ cartItem }) {
     return total;
   };
 
-  const purchaseReward = parseFloat(0.02 * totalPrice()).toFixed(2);
+  const purchaseReward = parseInt(0.02 * totalPrice()).toFixed(2);
 
   function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -233,7 +233,7 @@ function Bill({ cartItem }) {
               <div className="checkout__descriptionConfirmMessage">
                 <p>
                   <NumberFormat
-                    value={purchaseReward}
+                    value={Number(purchaseReward)}
                     displayType="text"
                     thousandSeparator={true}
                     thousandsGroupStyle="lakh"

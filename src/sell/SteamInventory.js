@@ -10,32 +10,61 @@ import Button from "@material-ui/core/Button";
 
 import { useDispatch } from "react-redux";
 import { recharge, rewardUp } from "../features/balance/balanceSlice";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 
 import db from "../CONFIG";
 
 function SteamInventory({ gameIcon, name, image, price, quantity, id }) {
   const dispatch = useDispatch();
 
-  const [sell, setSell] = useState(false); //First Dialog box to sell item
-  const [instantSell, setInstantSell] = useState(false); //Dialog box open after clicking instant sell button...
+  const [sell, setSell] = useState(false); //On clicking an item, opening and closing first dialog box state.....
+  const [instantSell, setInstantSell] = useState(false); //Dialog box open after clicking (Ok, Instant sell) button state...
+  const [communityDialogOpen, setCommunityDialogOpen] = useState(false); //Dialog box open after clicking sell on community button..
+  const instantSellRate = Number(parseFloat(price - price * 0.15).toFixed(2)); //instant Sell price
+  const instantReward = Number(parseInt(price * 0.03).toFixed(2)); //instant reward point value
 
-  //first Dialog box function
+  const [communitySell, setCommunitySell] = useState(0); // You receive: (Seller price input) state
+
+  const [noInputPrice, setNoInputPrice] = useState(false); // Error Snackbar open if user click (Ok, sell on community) button without putting price in You Receive Input field.
+  const [itemSetOnCommunity, setItemSetOnCommunity] = useState(false); //Snackbar open after user successfully listed the item in community market.
+
+  const communityBuyerRate =
+    Number(communitySell) + Number(communitySell * 0.1); //Buyer Pays: price(10% charge)
+
+  const communityReward = Number(parseInt(communitySell * 0.01).toFixed()); //reward point when selling in community market
+
+  //A material-ui Lab code for snackbar (it's imported from material-ui)
+  function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
+
+  /*1:First Dialog box function when clicking an item. */
+
+  //1(a) Opening a dialog box
   const handleSell = () => {
     setSell(true);
   };
 
+  //1(b) Closing a first dialog box
   const handleClose = () => {
     setSell(false);
   };
 
-  const handleCloseInstantSell = () => {
-    setInstantSell(false);
-  };
+  /*2: Dialog box function when clicking (Ok, Instant sell) button. */
 
+  //2(a) Opening a dialog box
   const handleInstant = () => {
     setInstantSell(true);
   };
 
+  //2(b) Closing a dialog box (triggered on clicking Cancel button and outside the dialog box)
+  const handleCloseInstantSell = () => {
+    setInstantSell(false);
+  };
+
+  //2(c) Triggered on clicking confirm button in final confirmation dialog box of instant sell choice.
+  //This will also close all dialog box...(both first and second)
   const handleInstantConfirm = () => {
     dispatch(recharge(Number(instantSellRate) || 0));
     dispatch(rewardUp(Number(instantReward) || 0));
@@ -46,20 +75,59 @@ function SteamInventory({ gameIcon, name, image, price, quantity, id }) {
     setSell(false);
   };
 
-  const instantSellRate = parseFloat(price - price * 0.15).toFixed(2); //instant Sell value
-  const instantReward = parseFloat(price * 0.03).toFixed(2); //instant reward value
+  /*3: Dialog box function when clicking (Ok, sell on community) button. */
 
-  const [communitySell, setCommunitySell] = useState(); // seller get price....
-
-  const handleCommunitySell = (e) => {
-    e.preventDefault();
-    setCommunitySell(e.target.value);
+  //3(a) Opening a dialog box on clicking (Ok, sell on community) button.
+  const handleCommunity = () => {
+    //generate error snackbar if user forget to input price...
+    if (communitySell === 0) {
+      setNoInputPrice(true);
+    } else {
+      setCommunityDialogOpen(true);
+    }
   };
 
-  const communityBuyerRate =
-    Number(communitySell) + Number(communitySell * 0.1);
-  //Community Buyer rate
-  const communityReward = parseFloat(communitySell * 0.01).toFixed(2); //community reward
+  //3(b) Closing a error snackbar
+  const handleErrorSnackbar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setNoInputPrice(false);
+  };
+
+  //3(c) Closing a dialog on clicking cancel button as well as outside the dialog box
+  const handleCloseCommunitySell = () => {
+    setCommunityDialogOpen(false);
+  };
+
+  //3(d) Triggered on clicking confirm button in final confirmation dialog box of community sell choice.
+  //This will also close all dialog box...(both first and second)
+  //This will also trigger a snackbar which tells the item is listed in community market.
+  const handleCommunityConfirm = () => {
+    db.collection("community").doc(id).set({
+      gameIcon: gameIcon,
+      image: image,
+      name: name,
+      price: communityBuyerRate,
+      quantity: 1,
+    });
+
+    setItemSetOnCommunity(true);
+    setCommunityDialogOpen(false);
+    setSell(false);
+
+    //db.collection("sell").doc(id).delete();
+  };
+
+  //3(e) Closing success snackbar
+  const handleSuccessSnackbar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setItemSetOnCommunity(false);
+  };
+
+  //-------------------------------------------------------------------//
 
   return (
     <div className="SteamInventoryCard">
@@ -81,6 +149,7 @@ function SteamInventory({ gameIcon, name, image, price, quantity, id }) {
         </div>
       </div>
       <div className="inventoryItem__description">{name}</div>
+      {/*First dialog box when clicking an item to sell */}
       <Dialog
         open={sell}
         onClose={handleClose}
@@ -132,7 +201,7 @@ function SteamInventory({ gameIcon, name, image, price, quantity, id }) {
                       prefix={"Reward Point (RP) : "}
                     />
                   </p>
-                  <p>3% reward point on instant sell.</p>
+                  <p>3% round off RP on instant sell.</p>
                 </div>
               </div>
               <div className="deals__communitySell">
@@ -142,7 +211,7 @@ function SteamInventory({ gameIcon, name, image, price, quantity, id }) {
                   <input
                     type="number"
                     value={communitySell}
-                    onChange={handleCommunitySell}
+                    onChange={(e) => setCommunitySell(e.target.value)}
                   />
                 </div>
                 <div className="buyerPays">
@@ -168,7 +237,7 @@ function SteamInventory({ gameIcon, name, image, price, quantity, id }) {
                       prefix={"Reward Point (RP) : "}
                     />
                   </p>
-                  <p>1% reward point on community sell.</p>
+                  <p>1% round off RP on community sell.</p>
                 </div>
               </div>
             </div>
@@ -176,12 +245,15 @@ function SteamInventory({ gameIcon, name, image, price, quantity, id }) {
         </DialogContent>
         <DialogActions className="dialog__action">
           <button onClick={handleInstant} color="primary">
-            Ok, Install Sell
+            Ok, Instant Sell
           </button>
-          <button color="primary">OK, Sell On Community</button>
+          <button color="primary" onClick={handleCommunity}>
+            OK, Sell On Community
+          </button>
         </DialogActions>
       </Dialog>
-      {/*Instant sell confirmation dialog box */}
+
+      {/*Instant sell confirmation dialog box(This dialog box opens when we clicked (ok, Instant sell) button) */}
       <Dialog
         open={instantSell}
         onClose={handleCloseInstantSell}
@@ -203,6 +275,61 @@ function SteamInventory({ gameIcon, name, image, price, quantity, id }) {
           </Button>
         </DialogActions>
       </Dialog>
+      {/* Community sell confirmation dialog box */}
+      <Dialog
+        open={communityDialogOpen}
+        onClose={handleCloseCommunitySell}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">
+          Are you sure you want to list your item {name} on community market?
+        </DialogTitle>
+        <DialogContent>
+          <p>
+            Someone from community will buy your item. Upon successful community
+            transaction, you will receive :
+          </p>
+          <h4>Balance: {communitySell}</h4>
+          <h4>Reward point (RP): {communityReward}</h4>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseCommunitySell} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleCommunityConfirm} color="primary">
+            Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/*Error snackbar if price is not set by user on community market */}
+      <Snackbar
+        open={noInputPrice}
+        autoHideDuration={6000}
+        onClose={handleErrorSnackbar}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+      >
+        <Alert onClose={handleErrorSnackbar} severity="error">
+          You must put your selling price!
+        </Alert>
+      </Snackbar>
+      {/*Success snackbar after user successfully listed item on community market */}
+      <Snackbar
+        open={itemSetOnCommunity}
+        autoHideDuration={6000}
+        onClose={handleSuccessSnackbar}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+      >
+        <Alert onClose={handleSuccessSnackbar} severity="success">
+          Your item is listed on community market
+        </Alert>
+      </Snackbar>
     </div>
   );
 }

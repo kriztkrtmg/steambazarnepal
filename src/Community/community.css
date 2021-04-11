@@ -1,5 +1,5 @@
 .community{
-    height: 100vh;
+    height: 1000px;
     padding-top: 10px;
     background-color:#1b2838;
 }
@@ -17,7 +17,6 @@
     padding: 0px 10%;
     display: flex;
     justify-content: space-between;
-    height: 100%;
 }
 
 .community__data{
@@ -65,6 +64,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+}
+
+.price:hover{
+    background-color: green;
 }
 
 .community__itemContainer{
@@ -152,6 +156,26 @@
     font-weight: 600;
 }
 
+.community__pagination{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+    padding: 10px 0px 40px 0px;
+}
+
+.MuiPaginationItem-icon {
+    color: #fff;
+}
+
+.MuiPaginationItem-root{
+    color: #fff !important;
+}
+
+.Mui-selected{
+    color: orange !important;
+}
 
 .community__search{
     padding: 15px;

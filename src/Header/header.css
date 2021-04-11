@@ -97,6 +97,11 @@
     cursor: pointer;
 }
 
+.balance__transfer {
+    color: #fff;
+    cursor: pointer;
+}
+
 .balanceRechargeInputBox{
     padding: 0px 10px;
     height: 34px;

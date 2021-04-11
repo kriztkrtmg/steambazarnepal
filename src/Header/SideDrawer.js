@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import "./sidedrawer.css";
 import SideDrawerOption from "./SideDrawerOption";
 import StoreRoundedIcon from "@material-ui/icons/StoreRounded";
-//import DeckRoundedIcon from "@material-ui/icons/DeckRounded";
+import DeckRoundedIcon from "@material-ui/icons/DeckRounded";
 import LocalAtmIcon from "@material-ui/icons/LocalAtm";
 import EmailIcon from "@material-ui/icons/Email";
 import ContactSupportIcon from "@material-ui/icons/ContactSupport";
@@ -10,19 +10,119 @@ import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import { IconButton } from "@material-ui/core";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import NumberFormat from "react-number-format";
-import { useSelector } from "react-redux";
 import { selectUser, selectPhoto } from "../features/user/userSlice";
 import StyleIcon from "@material-ui/icons/Style";
+import { useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import RemoveIcon from "@material-ui/icons/Remove";
+
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Button from "@material-ui/core/Button";
+import {
+  selectBalance,
+  recharge,
+  selectReward,
+  balanceCut,
+} from "../features/balance/balanceSlice";
+
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+
+//A material-ui Lab code for snackbar (it's imported from material-ui)
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 function SideDrawer({ show, handleLogin }) {
+  const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const photo = useSelector(selectPhoto);
+  const history = useHistory();
+
+  const balance = useSelector(selectBalance);
+  const reward = useSelector(selectReward);
+  const [rechargeDialog, setRechargeDialog] = useState(false); //To open recharge dialog box....
+  const [rechargeAmount, setRechargeAmount] = useState(); //To get user input recharge amount....
+
+  const [transferDialog, setTransferDialog] = useState(false); //To open transfer dialog box....
+  const [transferAmount, setTransferAmount] = useState(); //To get user input transfer amount....
+  const [highTransferBalance, setHighTransferBalance] = useState(false);
+  const [successTransfer, setSuccessTransfer] = useState(false);
+
+  const handleRecharge = () => {
+    setRechargeDialog(true);
+  };
+
+  const handleRechargeClose = () => {
+    setRechargeDialog(false);
+  };
+
+  const handleRechargeSuccess = () => {
+    dispatch(recharge(Number(rechargeAmount) || 0));
+    setRechargeDialog(false);
+  };
+
+  const handleTransfer = () => {
+    setTransferDialog(true);
+  };
+
+  const handleTransferClose = () => {
+    setTransferDialog(false);
+  };
+
+  const handleTransferSuccess = () => {
+    if (transferAmount > balance) {
+      setHighTransferBalance(true);
+    } else {
+      dispatch(balanceCut(Number(transferAmount) || 0));
+      setSuccessTransfer(true);
+    }
+    setTransferDialog(false);
+  };
+
+  const handleErrorSnackbar = () => {
+    setHighTransferBalance(false);
+  };
+
+  const handleSuccessSnackbar = () => {
+    setSuccessTransfer(false);
+  };
+
+  const storeMarket = () => {
+    history.push("/storemarket");
+  };
+  const community = () => {
+    history.push("/community");
+  };
+  const inventory = () => {
+    history.push("/inventory");
+  };
+  const sell = () => {
+    history.push("/sell");
+  };
 
   return (
     <div className={`slide_drawer ${show && "animate_slide"}`}>
-      <SideDrawerOption title="marketplace" Icon={StoreRoundedIcon} />
-      <SideDrawerOption title="inventory" Icon={StyleIcon} />
-      <SideDrawerOption title="sell" Icon={LocalAtmIcon} />
+      <SideDrawerOption
+        title="store"
+        Icon={StoreRoundedIcon}
+        clickMe={storeMarket}
+      />
+      <SideDrawerOption
+        title="marketplace"
+        Icon={DeckRoundedIcon}
+        clickMe={community}
+      />
+      <SideDrawerOption
+        title="inventory"
+        Icon={StyleIcon}
+        clickMe={inventory}
+      />
+      <SideDrawerOption title="sell" Icon={LocalAtmIcon} clickMe={sell} />
       <SideDrawerOption title="support" Icon={EmailIcon} />
       <SideDrawerOption title="guide" Icon={ContactSupportIcon} />
 
@@ -38,7 +138,22 @@ function SideDrawer({ show, handleLogin }) {
           <div className="account__balance">
             <div>
               <NumberFormat
-                value={12345}
+                value={reward}
+                displayType="text"
+                thousandSeparator={true}
+                thousandsGroupStyle="lakh"
+                prefix={"Reward Point (RP) = "}
+              />
+            </div>
+          </div>
+          <div className="account__balance">
+            <RemoveIcon
+              className="balance__transfer"
+              onClick={handleTransfer}
+            />
+            <div>
+              <NumberFormat
+                value={balance}
                 displayType="text"
                 thousandSeparator={true}
                 thousandsGroupStyle="lakh"
@@ -47,7 +162,7 @@ function SideDrawer({ show, handleLogin }) {
               />
             </div>
             <IconButton size="small">
-              <AddCircleOutlineIcon />
+              <AddCircleOutlineIcon onClick={handleRecharge} />
             </IconButton>
           </div>
           <div className="account__profile">
@@ -59,6 +174,86 @@ function SideDrawer({ show, handleLogin }) {
           </div>
         </>
       )}
+      <Dialog
+        open={rechargeDialog}
+        onClose={handleRechargeClose}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">Balance Recharge</DialogTitle>
+        <DialogContent>
+          <input
+            className="balanceRechargeInputBox"
+            placeholder="Enter amount"
+            type="number"
+            value={rechargeAmount}
+            onChange={(e) => setRechargeAmount(e.target.value)}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleRechargeClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleRechargeSuccess} color="primary">
+            Recharge
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog
+        open={transferDialog}
+        onClose={handleTransferClose}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">
+          Transfer Balance to your Esewa
+        </DialogTitle>
+        <DialogContent>
+          <input
+            className="balanceRechargeInputBox"
+            placeholder="Enter amount"
+            type="number"
+            value={transferAmount}
+            onChange={(e) => setTransferAmount(e.target.value)}
+          />
+        </DialogContent>
+        <p>This dialog box is not complete</p>
+        <DialogActions>
+          <Button onClick={handleTransferClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleTransferSuccess} color="primary">
+            Transfer
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Snackbar
+        open={highTransferBalance}
+        autoHideDuration={null}
+        onClose={handleErrorSnackbar}
+        anchorOrigin={{
+          vertical: "center",
+          horizontal: "center",
+        }}
+      >
+        <Alert onClose={handleErrorSnackbar} severity="error">
+          Transfer failed!!! Transfer amount is higher than your balance.
+        </Alert>
+      </Snackbar>
+
+      <Snackbar
+        open={successTransfer}
+        autoHideDuration={null}
+        onClose={handleSuccessSnackbar}
+        anchorOrigin={{
+          vertical: "center",
+          horizontal: "center",
+        }}
+      >
+        <Alert onClose={handleSuccessSnackbar} severity="success">
+          Transfer successful.
+        </Alert>
+      </Snackbar>
     </div>
   );
 }

@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-function SideDrawerOption({ title, Icon }) {
+function SideDrawerOption({ title, Icon, clickMe }) {
   return (
     <>
-      <Option>
+      <Option onClick={clickMe}>
         <Icon />
         <Title>{title}</Title>
       </Option>

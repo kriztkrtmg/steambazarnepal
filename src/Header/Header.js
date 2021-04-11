@@ -13,8 +13,10 @@ import MenuIcon from "@material-ui/icons/Menu";
 import CloseIcon from "@material-ui/icons/Close";
 import StyleIcon from "@material-ui/icons/Style";
 import NumberFormat from "react-number-format";
+import RemoveIcon from "@material-ui/icons/Remove";
 
 import SideDrawer from "./SideDrawer";
+//import SideDrawerTest from "./SideDrawerTest";
 import Backdrop from "./Backdrop";
 
 import Button from "@material-ui/core/Button";
@@ -24,6 +26,9 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 
 import DialogTitle from "@material-ui/core/DialogTitle";
+
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -37,10 +42,16 @@ import {
   selectBalance,
   recharge,
   selectReward,
+  balanceCut,
 } from "../features/balance/balanceSlice";
 
 import { auth, provider } from "../CONFIG";
 import { useHistory } from "react-router-dom";
+
+//A material-ui Lab code for snackbar (it's imported from material-ui)
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 function Header() {
   const dispatch = useDispatch();
@@ -75,6 +86,12 @@ function Header() {
   const [rechargeDialog, setRechargeDialog] = useState(false); //To open recharge dialog box....
   const [rechargeAmount, setRechargeAmount] = useState(); //To get user input recharge amount....
 
+  const [transferDialog, setTransferDialog] = useState(false); //To open transfer dialog box....
+  const [transferAmount, setTransferAmount] = useState(); //To get user input transfer amount....
+
+  const [highTransferBalance, setHighTransferBalance] = useState(false);
+  const [successTransfer, setSuccessTransfer] = useState(false);
+
   const handleRecharge = () => {
     setRechargeDialog(true);
   };
@@ -86,6 +103,32 @@ function Header() {
   const handleRechargeSuccess = () => {
     dispatch(recharge(Number(rechargeAmount) || 0));
     setRechargeDialog(false);
+  };
+
+  const handleTransfer = () => {
+    setTransferDialog(true);
+  };
+
+  const handleTransferClose = () => {
+    setTransferDialog(false);
+  };
+
+  const handleTransferSuccess = () => {
+    if (transferAmount > balance) {
+      setHighTransferBalance(true);
+    } else {
+      dispatch(balanceCut(Number(transferAmount) || 0));
+      setSuccessTransfer(true);
+    }
+    setTransferDialog(false);
+  };
+
+  const handleErrorSnackbar = () => {
+    setHighTransferBalance(false);
+  };
+
+  const handleSuccessSnackbar = () => {
+    setSuccessTransfer(false);
   };
 
   return (
@@ -168,6 +211,10 @@ function Header() {
               </div>
             </div>
             <div className="header__account">
+              <RemoveIcon
+                className="balance__transfer"
+                onClick={handleTransfer}
+              />
               <div className="header__accountBalance">
                 <div>
                   <NumberFormat
@@ -181,6 +228,7 @@ function Header() {
                 </div>
                 <p>Balance</p>
               </div>
+
               <AddCircleOutlineIcon
                 className="balance__recharge"
                 onClick={handleRecharge}
@@ -236,6 +284,62 @@ function Header() {
           </Button>
         </DialogActions>
       </Dialog>
+
+      <Dialog
+        open={transferDialog}
+        onClose={handleTransferClose}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">
+          Transfer Balance to your Esewa
+        </DialogTitle>
+        <DialogContent>
+          <input
+            className="balanceRechargeInputBox"
+            placeholder="Enter amount"
+            type="number"
+            value={transferAmount}
+            onChange={(e) => setTransferAmount(e.target.value)}
+          />
+        </DialogContent>
+        <p>This dialog box is not complete</p>
+        <DialogActions>
+          <Button onClick={handleTransferClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleTransferSuccess} color="primary">
+            Transfer
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Snackbar
+        open={highTransferBalance}
+        autoHideDuration={6000}
+        onClose={handleErrorSnackbar}
+        anchorOrigin={{
+          vertical: "center",
+          horizontal: "center",
+        }}
+      >
+        <Alert onClose={handleErrorSnackbar} severity="error">
+          Transfer failed!!! Transfer amount is higher than your balance.
+        </Alert>
+      </Snackbar>
+
+      <Snackbar
+        open={successTransfer}
+        autoHideDuration={6000}
+        onClose={handleSuccessSnackbar}
+        anchorOrigin={{
+          vertical: "center",
+          horizontal: "center",
+        }}
+      >
+        <Alert onClose={handleSuccessSnackbar} severity="success">
+          Transfer successful.
+        </Alert>
+      </Snackbar>
     </div>
   );
 }
