@@ -18,13 +18,14 @@ const Option = styled.div`
   box-shadow: 0px 5px 8px -9px rgba(255, 255, 255, 0.75);
   display: flex;
   align-items: center;
-  margin: 10px 0px;
-  padding: 10px 0px 10px 20px;
+  margin: 7px 0px;
+  padding: 7px 0px 7px 20px;
   cursor: pointer;
   :hover {
-    color: green;
+    background-color: rgba(255, 255, 255, 0.7);
+    color: #000;
     .MuiSvgIcon-root {
-      color: green;
+      color: #000;
     }
   }
   .MuiSvgIcon-root {

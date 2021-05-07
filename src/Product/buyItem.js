@@ -2,8 +2,21 @@ import React from "react";
 import "./buyItem.css";
 import NumberFormat from "react-number-format";
 import db from "../CONFIG";
+import ProductHover from "./ProductHover";
 
-function BuyItem({ gameIcon, name, image, price, quantity, id }) {
+function BuyItem({
+  gameIcon,
+  name,
+  image,
+  price,
+  quantity,
+  id,
+  gameName,
+  hero,
+  quality,
+  type,
+  rarity,
+}) {
   const handleBuyClick = (event) => {
     event.preventDefault();
 
@@ -57,6 +70,7 @@ function BuyItem({ gameIcon, name, image, price, quantity, id }) {
       <div className="buyItem__gameIcon">
         <img src={gameIcon} alt="" />
       </div>
+      <ProductHover name={name} rarity={rarity} type={type} hero={hero} />
     </div>
   );
 }

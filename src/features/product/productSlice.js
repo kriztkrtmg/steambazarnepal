@@ -3,17 +3,49 @@ import { createSlice } from "@reduxjs/toolkit";
 export const productSlice = createSlice({
   name: "product",
   initialState: {
-    cartItem: [],
+    loadImage: null,
+    loadGameName: null,
+    loadType: null,
+    loadHeroName: null,
+    loadRarity: null,
+    loadGameIcon: null,
   },
   reducers: {
-    itemInCart: (state, action) => {
-      state.cartItem = action.payload;
+    loadImage: (state, action) => {
+      state.loadImage = action.payload;
+    },
+    loadGameName: (state, action) => {
+      state.loadGameName = action.payload;
+    },
+    loadGameIcon: (state, action) => {
+      state.loadGameIcon = action.payload;
+    },
+    loadHeroName: (state, action) => {
+      state.loadHeroName = action.payload;
+    },
+    loadType: (state, action) => {
+      state.loadType = action.payload;
+    },
+    loadRarity: (state, action) => {
+      state.loadRarity = action.payload;
     },
   },
 });
 
-export const { itemInCart } = productSlice.actions;
+export const {
+  loadImage,
+  loadType,
+  loadRarity,
+  loadHeroName,
+  loadGameName,
+  loadGameIcon,
+} = productSlice.actions;
 
-export const selectCartItem = (state) => state.product.cartItem;
+export const selectImage = (state) => state.product.loadImage;
+export const selectType = (state) => state.product.loadType;
+export const selectRarity = (state) => state.product.loadRarity;
+export const selectHero = (state) => state.product.loadHeroName;
+export const selectGame = (state) => state.product.loadGameName;
+export const selectGameIcon = (state) => state.product.loadGameIcon;
 
 export default productSlice.reducer;

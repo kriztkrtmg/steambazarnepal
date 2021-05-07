@@ -15,17 +15,17 @@ function ItemInventory({ gameIcon, name, image, price, quantity, id }) {
 
   return (
     <div className="inventory__cart">
-      <div className="product">
-        <div className="product__image">
+      <div className="inventory__product">
+        <div className="inventory__image">
           <img src={image} alt="" />
         </div>
         <p>x{quantity}</p>
-        <div className="product__gameIcon">
+        <div className="inventory__gameIcon">
           <img src={gameIcon} alt="" />
         </div>
       </div>
-      <div className="product__data">
-        <div className="product__Name">{name}</div>
+      <div className="inventory__data">
+        <div className="inventory__Name">{name}</div>
         <button onClick={handleWithdraw}>WithDraw</button>
       </div>
     </div>

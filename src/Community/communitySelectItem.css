@@ -1,0 +1,274 @@
+
+.itemContainer{
+     height: 900px;
+     padding: 10px 15%;
+     background-color: #171a21;
+     display: flex;
+     flex-direction: column;
+     color: rgba(255, 255, 255, 0.7);
+}
+
+.item__allDetails{
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.item__image{
+    height: 250px;
+    width: 250px;
+    padding: 0px 5%;
+    background-position: center center;
+    background-size: cover;
+}
+
+.item__image > img {
+   width: 100%;
+   object-fit: contain;
+}
+
+.item__description{
+    padding: 5% 0px;
+    display: flex;
+    flex-direction: column;  
+}
+
+.item__game{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.game__logo >img{
+    width: 35px;
+    object-fit: contain;
+}
+
+.game__title{
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.hero__name {
+    font-weight: 600;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.item__lists{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+
+.community__eachProduct {
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(0, 0, 0, 0);
+    cursor: pointer;
+    width: 150px;
+    height: 260px;
+}
+
+.community__eachProduct:hover {
+    border: 1px solid green;
+}
+
+.community__productName{
+    display: none;
+}
+
+.community__eachProductImage {
+    position: relative;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 150px;
+    width: 150px;
+    background-color: rgba(0, 0, 0, 0.6);
+    cursor: pointer;
+
+}
+
+.community__eachProductImage>img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    object-fit: contain;
+}
+
+.eachProduct__gameIcon>img {
+    width: 21px;
+    object-fit: contain;
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+}
+
+.community__eachProductTitle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+    color:rgba(255, 255, 255, 0.5);
+}
+
+
+.community__eachProductPrice {
+    margin: 10px 0px;
+    display: flex;
+    font-size: 16px;
+    color: green;
+    font-weight: 600;
+}
+
+.eachProduct__seller{
+    display: flex;
+    align-items: center;
+}
+
+.eachProduct__seller>img {
+    margin-left: 5px;
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+.buy__now > button {
+    padding: 5px;
+    font-size: 14px;
+}
+
+.button__disable:disabled{
+    background-color: red;
+}
+
+@media screen and (max-width: 1200px) {
+    .item__lists{
+        flex-direction: column;
+    }
+
+    .community__productName{
+        display: flex;
+        align-items: center;
+        flex: 1;
+        margin-left: 10px;
+    }
+
+    .community__eachProduct{
+        flex-direction: row;
+        height: 100px;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .community__eachProductImage{
+        height: 100px;
+        width: 100px;
+    }
+
+    .community__eachProductImage>img {
+        height: 100px;
+    }
+
+    .community__eachProductTitle{
+        flex-direction: row;
+        align-items: center;
+        margin-right: 10px;
+    }
+
+    .community__eachProductPrice{
+        margin: 0px 10px 0px 0px;
+    }
+
+    .eachProduct__seller{
+        margin: 0px 20px;
+    }
+
+    .eachProduct__seller>img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .buy__now{
+        margin-bottom: 10px;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .community__productName{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 768px) {
+
+    .itemContainer{
+        height: 100%;
+    }
+
+    .item__allDetails{
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .item__description{
+        margin: 0px 0px 20px 0px;
+        padding: 0;
+    }
+
+    .community__eachProductTitle{
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .community__eachProductPrice{
+        margin: 0;
+    }
+
+    .eachProduct__seller{
+        margin: 0;
+    }
+    .eachProduct__seller > h4 {
+        font-size: 16px;
+        font-weight: 400;
+    }
+
+    .eachProduct__seller >img {
+        height: 20px;
+        width: 20px;
+        object-fit: contain;
+    }
+
+    .community__productName{
+        display: flex;
+    }
+}
+
+@media screen and (max-width: 575px) {
+
+    .community__productName{
+        display: none;
+    }
+
+    .item__name{
+        font-size: 14px;
+    }
+
+    .game__logo>img{
+        width: 28px;
+    }
+
+    .game__title >h5 {
+        font-size: 12px;
+    }
+}

@@ -12,27 +12,41 @@ import { useDispatch } from "react-redux";
 import { recharge, rewardUp } from "../features/balance/balanceSlice";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
+import ProductHover from "../Product/ProductHover";
 
 import db from "../CONFIG";
 
-function SteamInventory({ gameIcon, name, image, price, quantity, id }) {
+function SteamInventory({
+  gameIcon,
+  name,
+  image,
+  price,
+  quantity,
+  id,
+  gameName,
+  hero,
+  type,
+  quality,
+  rarity,
+}) {
   const dispatch = useDispatch();
 
   const [sell, setSell] = useState(false); //On clicking an item, opening and closing first dialog box state.....
   const [instantSell, setInstantSell] = useState(false); //Dialog box open after clicking (Ok, Instant sell) button state...
   const [communityDialogOpen, setCommunityDialogOpen] = useState(false); //Dialog box open after clicking sell on community button..
-  const instantSellRate = Number(parseFloat(price - price * 0.15).toFixed(2)); //instant Sell price
-  const instantReward = Number(parseInt(price * 0.03).toFixed(2)); //instant reward point value
+  const instantSellRate = Number(parseInt(price - price * 0.15)); //instant Sell price
+  const instantReward = Number(parseInt(instantSellRate * 0.03).toFixed(2)); //instant reward point value
 
-  const [communitySell, setCommunitySell] = useState(0); // You receive: (Seller price input) state
+  const [communitySell, setCommunitySell] = useState(); // You receive: (Seller price input) state
 
   const [noInputPrice, setNoInputPrice] = useState(false); // Error Snackbar open if user click (Ok, sell on community) button without putting price in You Receive Input field.
   const [itemSetOnCommunity, setItemSetOnCommunity] = useState(false); //Snackbar open after user successfully listed the item in community market.
 
-  const communityBuyerRate =
-    Number(communitySell) + Number(communitySell * 0.1); //Buyer Pays: price(10% charge)
+  const communityBuyerRate = Number(
+    parseInt(Number(communitySell) + Number(communitySell * 0.1))
+  ); //Buyer Pays: price(10% charge)
 
-  const communityReward = Number(parseInt(communitySell * 0.01).toFixed()); //reward point when selling in community market
+  const communityReward = Number(parseInt(communitySell * 0.02)); //reward point when selling in community market
 
   //A material-ui Lab code for snackbar (it's imported from material-ui)
   function Alert(props) {
@@ -80,7 +94,7 @@ function SteamInventory({ gameIcon, name, image, price, quantity, id }) {
   //3(a) Opening a dialog box on clicking (Ok, sell on community) button.
   const handleCommunity = () => {
     //generate error snackbar if user forget to input price...
-    if (communitySell === 0) {
+    if (!communitySell) {
       setNoInputPrice(true);
     } else {
       setCommunityDialogOpen(true);
@@ -110,13 +124,18 @@ function SteamInventory({ gameIcon, name, image, price, quantity, id }) {
       name: name,
       price: communityBuyerRate,
       quantity: 1,
+      hero: hero,
+      quality: quality,
+      gameName: gameName,
+      type: type,
+      rarity: rarity,
     });
 
     setItemSetOnCommunity(true);
     setCommunityDialogOpen(false);
     setSell(false);
 
-    //db.collection("sell").doc(id).delete();
+    db.collection("sell").doc(id).delete();
   };
 
   //3(e) Closing success snackbar
@@ -147,6 +166,7 @@ function SteamInventory({ gameIcon, name, image, price, quantity, id }) {
         <div className="inventoryItem__gameIcon">
           <img src={gameIcon} alt="" />
         </div>
+        <ProductHover name={name} rarity={rarity} type={type} hero={hero} />
       </div>
       <div className="inventoryItem__description">{name}</div>
       {/*First dialog box when clicking an item to sell */}
@@ -170,9 +190,12 @@ function SteamInventory({ gameIcon, name, image, price, quantity, id }) {
               </div>
               <div className="item__details">
                 <div className="item__name">{name}</div>
+                <h6>
+                  {rarity} {type}
+                </h6>
                 <div className="item__gameIcon">
                   <img src={gameIcon} alt="" />
-                  <p>Dota2</p>
+                  <p>{gameName}</p>
                 </div>
               </div>
             </div>
@@ -209,6 +232,7 @@ function SteamInventory({ gameIcon, name, image, price, quantity, id }) {
                 <div className="youReceive">
                   You Receive (Rs) :
                   <input
+                    placeholder="Enter amount"
                     type="number"
                     value={communitySell}
                     onChange={(e) => setCommunitySell(e.target.value)}
@@ -237,7 +261,7 @@ function SteamInventory({ gameIcon, name, image, price, quantity, id }) {
                       prefix={"Reward Point (RP) : "}
                     />
                   </p>
-                  <p>1% round off RP on community sell.</p>
+                  <p>2% round off RP on community sell.</p>
                 </div>
               </div>
             </div>
@@ -289,7 +313,7 @@ function SteamInventory({ gameIcon, name, image, price, quantity, id }) {
             Someone from community will buy your item. Upon successful community
             transaction, you will receive :
           </p>
-          <h4>Balance: {communitySell}</h4>
+          <h4>Balance: {parseInt(communitySell, 10)}</h4>
           <h4>Reward point (RP): {communityReward}</h4>
         </DialogContent>
         <DialogActions>

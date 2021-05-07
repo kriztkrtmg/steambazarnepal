@@ -5,17 +5,23 @@
     justify-content: space-between;
     align-items: center;
     margin: 5px 10px;
+   
 }
 
 .storeItem {
+     border: 2px solid rgba(0, 0, 0, 0);
      position: relative;
      background-position: center center;
      background-size: cover;
      background-repeat: no-repeat;
      height: 130px;
      width: 130px;
-     background-color: #000;
+     background-color: rgba(0, 0, 0, 0.9);
      cursor: pointer;
+}
+
+.storeItem:hover {
+    border: 2px solid blue;
 }
 
 .storeItem__image > img {
@@ -30,8 +36,8 @@
     width: 20px;
     object-fit: contain;
     position: absolute;
-    bottom: 0.5px;
-    right: 2px;
+    bottom: 0;
+    right: 0;
 }
 
 .storeItem > h4 {
@@ -61,4 +67,20 @@
     font-size: 14px;
     font-weight: 600;
     text-align: center;
+}
+
+.onHover__giveDetails {
+    visibility: hidden;
+    background-color: #000;
+    color: rgba(255, 255, 255, 0.7);
+    padding: 5px;
+    width: 90%;
+    position: absolute;
+    z-index: 1;
+    top: 103%;
+    border: 3px solid green;
+}
+
+.storeItem:hover .onHover__giveDetails {
+    visibility: visible;
 }

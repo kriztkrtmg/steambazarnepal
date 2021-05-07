@@ -15,7 +15,7 @@
 
 .header__left > img {
     display: flex;
-    width: 100px;
+    width: 120px;
     object-fit: contain;
     align-items: center;
     justify-content: center;
@@ -29,12 +29,12 @@
 }
 
 .header__option{
+    position: relative;
     display: flex;
     align-items: center;
     margin: 0px 10px;
     cursor: pointer;
 }
-
 
 .header__option > .MuiSvgIcon-root {
     font-size:x-large;
@@ -51,9 +51,48 @@
     color: green;
 }
 
-.header__option:hover {
+.header__option:hover  {
     color: green;
 }
+
+/*--------------Header Option Description ToolTip------------------------*/
+
+.header__option .tooltip__text{
+    visibility: hidden;
+    background-color: #4F7942;
+    color: rgba(255, 255, 255, 0.75);
+    text-align: center;
+    font-size: 12px;
+    padding:5px 0px;
+    min-width: 250px;
+    position: absolute;
+    z-index: 1;
+    top: 150%;
+}
+
+.header__option:hover .tooltip__text{
+    visibility: visible;
+}
+
+.header__account .tooltip__text {
+    visibility: hidden;
+    background-color: #4F7942;
+    color: #000;
+    text-align: center;
+    font-size: 12px;
+    padding: 5px 0px;
+    min-width: 150px;
+    position: absolute;
+    z-index: 1;
+    top: 110%;
+}
+
+.header__account:hover .tooltip__text {
+    visibility: visible;
+}
+
+
+/*---------------Right side of header------------------------*/
 
 .header__right{
     display: flex;
@@ -62,10 +101,12 @@
 }
 
 .header__account{
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-left: 20px;
+    cursor: pointer;
 }
 
 .header__accountBalance{
@@ -73,6 +114,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    cursor: pointer;
 }
 
 .header__accountBalance > div {
@@ -124,6 +166,32 @@
 .header__toggle {
     display: none;
 }
+
+
+/*-----Toggle option profile dropdown-------*/
+
+.dropdown__menu {
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    background-color: #fff;
+    min-width: 180px;
+    top: 110%;
+    overflow: auto;
+    z-index: 1;
+    cursor: pointer;
+    right: 0;
+}
+
+.dropdown__option {
+    background-color: transparent;
+    color: black;
+    font-weight: 600;
+    padding: 10px 10px 10px 15px;
+}
+
+.dropdown__option:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
 /*-----------------------------------------------------------------------------------------------------------------*/
 
 @media only screen and (max-width: 1200px) {
@@ -143,6 +211,18 @@
         text-transform: capitalize;
     }
 
+    .header__option .tooltip__text {
+       min-width: 250px;
+       top: 100%;
+    }
+
+    
+    .header__account .tooltip__text {
+       min-width: 150px;
+       top: 110%;
+    }
+
+    
 }
 
 /*-------------------------------------------------------------------------------------------*/
@@ -231,3 +311,5 @@
    }
 
 }
+
+

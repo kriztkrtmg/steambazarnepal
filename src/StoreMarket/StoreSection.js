@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./storesection.css";
 import StoreItem from "../Product/StoreItem";
 import StoreRoundedIcon from "@material-ui/icons/StoreRounded";
 import SearchIcon from "@material-ui/icons/Search";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import { useDispatch } from "react-redux";
+import { loadGameName } from "../features/product/productSlice";
 
 import db from "../CONFIG";
+import { ClickAwayListener } from "@material-ui/core";
 
 function StoreSection() {
+  const dispatch = useDispatch();
   const [product, setProduct] = useState([]);
   const [open, setOpen] = useState(false);
 
@@ -17,34 +21,30 @@ function StoreSection() {
   };
 
   const handleLowToHighSort = (event) => {
-    db.collection("product")
-      .orderBy("price", "asc")
-      .onSnapshot((snapshot) =>
-        setProduct(
-          snapshot.docs.map((doc) => ({
-            id: doc.id,
-            data: doc.data(),
-          }))
-        )
-      );
+    product.sort((first, second) => {
+      return first.data.price - second.data.price;
+    });
 
     setOpen(false);
   };
 
   const handleHighToLowSort = (event) => {
-    db.collection("product")
-      .orderBy("price", "desc")
-      .onSnapshot((snapshot) =>
-        setProduct(
-          snapshot.docs.map((doc) => ({
-            id: doc.id,
-            data: doc.data(),
-          }))
-        )
-      );
-
+    product.sort((first, second) => {
+      return second.data.price - first.data.price;
+    });
     setOpen(false);
   };
+
+  const anchorRef = useRef(null);
+
+  const handleSortDropdownClose = (event) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+      return;
+    }
+    setOpen(false);
+  };
+
+  const prevOpen = useRef(open);
 
   useEffect(() => {
     db.collection("product").onSnapshot((snapshot) =>
@@ -55,7 +55,41 @@ function StoreSection() {
         }))
       )
     );
+
+    if (prevOpen.current === true && open === false) {
+      anchorRef.current.focus();
+    }
+    prevOpen.current = open;
+    // eslint-disable-next-line
   }, []);
+
+  const handleDota2 = () => {
+    dispatch(loadGameName("Dota 2"));
+    db.collection("product")
+      .where("gameName", "==", "Dota 2")
+      .onSnapshot((snapshot) =>
+        setProduct(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            data: doc.data(),
+          }))
+        )
+      );
+  };
+
+  const handleCsgo = () => {
+    dispatch(loadGameName("Counter-Strike: Global Offensive"));
+    db.collection("product")
+      .where("gameName", "==", "Counter-Strike: Global Offensive")
+      .onSnapshot((snapshot) =>
+        setProduct(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            data: doc.data(),
+          }))
+        )
+      );
+  };
 
   return (
     <div className="store__productContainer">
@@ -73,22 +107,52 @@ function StoreSection() {
           </div>
         </div>
         <div className="productHeader__filter">
-          <button onClick={handleDropdown}>
-            Sort By
-            <ArrowDropDownIcon />
-          </button>
-          {open ? (
-            <div className="filter__sort">
-              <div className="filter__sortOption" onClick={handleLowToHighSort}>
-                Low Price
-              </div>
-              <div className="filter__sortOption" onClick={handleHighToLowSort}>
-                High Price
-              </div>
+          <div className="sort__byGame">
+            <div className="sort__gameLogo" onClick={handleDota2}>
+              <img
+                src="https://1.bp.blogspot.com/-GplgZlvkXSc/Uk_3BipvAlI/AAAAAAAAAJE/NIU9Sm2vSVU/s1600/Dota2-Filled.png"
+                alt=""
+              />
             </div>
-          ) : (
-            ""
-          )}
+            <div className="sort__gameLogo" onClick={handleCsgo}>
+              <img
+                src="https://www.meme-arsenal.com/memes/d81f1fc73c38e2cfacbd493b5d58509c.jpg"
+                alt=""
+              />
+            </div>
+            {/*Rust Icon
+            
+            <div className="sort__gameLogo">
+              <img src="https://i.imgur.com/znQvBMih.jpg" alt="" />
+            </div>
+            */}
+          </div>
+          <div className="button__sort">
+            <button onClick={handleDropdown} ref={anchorRef}>
+              Price
+              <ArrowDropDownIcon />
+            </button>
+            {open ? (
+              <ClickAwayListener onClickAway={handleSortDropdownClose}>
+                <span className="filter__sort">
+                  <div
+                    className="filter__sortOption"
+                    onClick={handleLowToHighSort}
+                  >
+                    Low
+                  </div>
+                  <div
+                    className="filter__sortOption"
+                    onClick={handleHighToLowSort}
+                  >
+                    High
+                  </div>
+                </span>
+              </ClickAwayListener>
+            ) : (
+              ""
+            )}
+          </div>
         </div>
       </div>
       <div className="store__productList">
@@ -101,6 +165,11 @@ function StoreSection() {
             name={item.data.name}
             price={item.data.price}
             quantity={item.data.quantity}
+            hero={item.data.hero}
+            gameName={item.data.gameName}
+            type={item.data.type}
+            quality={item.data.quality}
+            rarity={item.data.rarity}
           />
         ))}
       </div>

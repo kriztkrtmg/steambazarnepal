@@ -36,6 +36,11 @@ function BuySection() {
               image={item.data.image}
               price={item.data.price}
               quantity={item.data.quantity}
+              hero={item.data.hero}
+              gameName={item.data.gameName}
+              type={item.data.type}
+              quality={item.data.quality}
+              rarity={item.data.rarity}
             />
           ))}
         </div>

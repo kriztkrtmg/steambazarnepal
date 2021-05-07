@@ -1,5 +1,4 @@
 
-
 .buyItem {
     position: relative;
     background-position: center center;
@@ -10,6 +9,7 @@
     margin: 5px 10px;
     background-color: #000;
     cursor: pointer;
+    border: 2px solid rgba(0, 0, 0, 0);
 }
 
 .buyItem__image>img {
@@ -24,8 +24,8 @@
     width: 20px;
     object-fit: contain;
     position: absolute;
-    bottom: 0.5px;
-    right: 2px;
+    bottom: 0;
+    right: 0;
 }
 
 .buyItem>h4 {
@@ -45,3 +45,27 @@
     font-size: 12px;
     font-weight: 600;
 }
+
+.onHover__giveDetails {
+    visibility: hidden;
+    background-color: #000;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    padding: 5px;
+    max-width: 130px;
+    position: absolute;
+    z-index: 1;
+    top: 103%;
+    border: 3px solid green;
+
+}
+
+
+.buyItem:hover .onHover__giveDetails {
+    visibility: visible;
+}
+
+.buyItem:hover {
+    border: 2px solid blue;
+}
+

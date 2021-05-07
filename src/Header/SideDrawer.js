@@ -6,9 +6,7 @@ import DeckRoundedIcon from "@material-ui/icons/DeckRounded";
 import LocalAtmIcon from "@material-ui/icons/LocalAtm";
 import EmailIcon from "@material-ui/icons/Email";
 import ContactSupportIcon from "@material-ui/icons/ContactSupport";
-import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
-import { IconButton } from "@material-ui/core";
-import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+
 import NumberFormat from "react-number-format";
 import { selectUser, selectPhoto } from "../features/user/userSlice";
 import StyleIcon from "@material-ui/icons/Style";
@@ -18,7 +16,6 @@ import { useSelector, useDispatch } from "react-redux";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import RemoveIcon from "@material-ui/icons/Remove";
 
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Button from "@material-ui/core/Button";
@@ -37,7 +34,7 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-function SideDrawer({ show, handleLogin }) {
+function SideDrawer({ show, handleLogin, handleLogOut }) {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const photo = useSelector(selectPhoto);
@@ -93,7 +90,7 @@ function SideDrawer({ show, handleLogin }) {
   };
 
   const storeMarket = () => {
-    history.push("/storemarket");
+    history.push("/store");
   };
   const community = () => {
     history.push("/community");
@@ -127,14 +124,19 @@ function SideDrawer({ show, handleLogin }) {
       <SideDrawerOption title="guide" Icon={ContactSupportIcon} />
 
       {!user ? (
-        <div className="account__Null" onClick={handleLogin}>
+        <div className="account__Null">
           <img
+            onClick={handleLogin}
             src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/steamworks_docs/english/sits_small.png"
             alt="logo"
           />
         </div>
       ) : (
-        <>
+        <div className="account__profile">
+          <div className="account__name">
+            <img src={photo} alt="logo" />
+            <div>{user}</div>
+          </div>
           <div className="account__balance">
             <div>
               <NumberFormat
@@ -147,32 +149,29 @@ function SideDrawer({ show, handleLogin }) {
             </div>
           </div>
           <div className="account__balance">
-            <RemoveIcon
-              className="balance__transfer"
-              onClick={handleTransfer}
-            />
             <div>
               <NumberFormat
                 value={balance}
                 displayType="text"
                 thousandSeparator={true}
                 thousandsGroupStyle="lakh"
-                prefix={"Balance = Rs: "}
+                prefix={"Your Balance = Rs: "}
                 suffix={" /-"}
               />
             </div>
-            <IconButton size="small">
-              <AddCircleOutlineIcon onClick={handleRecharge} />
-            </IconButton>
           </div>
-          <div className="account__profile">
-            <img src={photo} alt="facebook Logo" />
-            <div className="account__name">
-              <div>{user}</div>
-              <ArrowDropDownIcon />
-            </div>
+          <div className="account__dropdown">Set Trade Url</div>
+          <div className="account__dropdown" onClick={handleRecharge}>
+            Recharge Balance
           </div>
-        </>
+          <div className="account__dropdown" onClick={handleTransfer}>
+            Withdraw Balance
+          </div>
+          <div className="account__dropdown">Transaction History</div>
+          <div className="account__dropdown" onClick={handleLogOut}>
+            Log Out
+          </div>
+        </div>
       )}
       <Dialog
         open={rechargeDialog}

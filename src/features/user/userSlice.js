@@ -17,17 +17,22 @@ export const userSlice = createSlice({
       state.photo = action.payload;
     },
 
-    logoutName: (state) => {
-      state.photo = null;
+    logoutName: (state, action) => {
+      state.name = action.payload;
     },
 
-    logoutPhoto: (state) => {
-      state.photo = null;
+    logoutPhoto: (state, action) => {
+      state.photo = action.payload;
     },
   },
 });
 
-export const { loginName, loginPhoto } = userSlice.actions;
+export const {
+  loginName,
+  loginPhoto,
+  logoutName,
+  logoutPhoto,
+} = userSlice.actions;
 
 export const selectUser = (state) => state.user.name;
 export const selectPhoto = (state) => state.user.photo;

@@ -1,3 +1,4 @@
+/*-----Main Container------*/
 .sell {
     background-color: #171a21;
     padding: 15px 20px;
@@ -7,8 +8,9 @@
     justify-content: space-between;
 }
 
+/*----All content wrap*/
 .sell__steamInventory{
-    height: 400px;
+    height: 600px;
     display: flex;
     flex: 1;
     flex-direction: column;
@@ -17,6 +19,7 @@
 
 }
 
+/*-----Sell header-------*/
 .steamInventory__header{
     display: flex;
     justify-content: space-between;
@@ -32,14 +35,26 @@
     display: flex;
     align-items: center;
     cursor: pointer;
-    background-color: rgba(255, 255, 255, 0.7);
     border-radius: 5px;
     height: 26px;
+    flex: 0.5;
+}
+
+.gameLogo>img{
+    height: 30px;
+    margin-right: 5px;
+    object-fit: contain;
+    border: 1px solid rgba(0, 0, 0, 0);
+}
+.gameLogo>img:hover {
+    border: 1px solid #fff;
 }
 
 .searchInput{
     background-color: transparent;
     display: flex;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 5px;
     flex: 1;
 }
 
@@ -75,7 +90,10 @@
     background-color: transparent;
 }
 
+
+/*A container includes all items*/
 .steamInventory__item{
+    height: 100%;
     display: flex;
     margin: 5px;
     padding: 5px;
@@ -85,7 +103,9 @@
     overflow-x: hidden;
 }
 
+/*Each item card*/
 .SteamInventoryCard{
+    position: relative;
     display: flex;
     width: 130px;
     height: 180px;
@@ -94,6 +114,7 @@
     align-items: center;
     margin: 5px 10px;
 }
+
 
 .inventoryItem{
     position: relative;
@@ -104,6 +125,28 @@
     width: 130px;
     background-color: #000;
     cursor: pointer;
+    border: 2px solid rgba(0, 0, 0, 0);
+}
+.inventoryItem .onHover__giveDetails {
+    visibility: hidden;
+    background-color: #000;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    padding: 5px;
+    max-width: 130px;
+    position: absolute;
+    z-index: 1;
+    top: 103%;
+    border: 3px solid green;
+}
+
+.inventoryItem:hover .onHover__giveDetails {
+    visibility: visible;
+   
+}
+
+.inventoryItem:hover{
+     border: 2px solid blue;
 }
 
 .inventoryItem__image >img{
@@ -118,8 +161,8 @@
      width: 20px;
      object-fit: contain;
      position: absolute;
-     bottom: 0.5px;
-     right: 2px;
+     bottom: 0;
+     right: 0;
 }
 
 .inventoryItem >h4 {
@@ -155,6 +198,10 @@
        flex-direction: column;
        justify-content: center;
        height: 50px;
+   }
+
+   .searchSection{
+       margin-top: 5px;
    }
 }
 
@@ -320,7 +367,7 @@
 }
 
 .youReceive > input {
-    max-width: 100px;
+    max-width: 140px;
      background-color: rgba(255, 255, 255, 0.7);
      border-radius: 5px;
      height: 20px;

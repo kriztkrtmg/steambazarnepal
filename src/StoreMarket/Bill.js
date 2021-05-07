@@ -90,6 +90,11 @@ function Bill({ cartItem }) {
         image: item.data.image,
         price: item.data.price,
         quantity: item.data.quantity,
+        hero: item.data.hero,
+        quality: item.data.quality,
+        gameName: item.data.gameName,
+        type: item.data.type,
+        rarity: item.data.rarity,
       })
     );
 
@@ -101,6 +106,11 @@ function Bill({ cartItem }) {
         image: item.data.image,
         price: item.data.price,
         quantity: item.data.quantity,
+        hero: item.data.hero,
+        quality: item.data.quality,
+        gameName: item.data.gameName,
+        type: item.data.type,
+        rarity: item.data.rarity,
       })
     );
 
@@ -217,7 +227,16 @@ function Bill({ cartItem }) {
                 alt="logo"
               />
 
-              <p>You need to login in order to make purchase.</p>
+              <p
+                style={{
+                  border: "2px solid green",
+                  borderRadius: 5,
+                  marginTop: 10,
+                  padding: 5,
+                }}
+              >
+                You need to login in order to make purchase.
+              </p>
             </>
           ) : (
             <>

@@ -2,8 +2,21 @@ import React from "react";
 import "./storeItem.css";
 import NumberFormat from "react-number-format";
 import db from "../CONFIG";
+import ProductHover from "./ProductHover";
 
-function StoreItem({ gameIcon, name, image, price, quantity, id }) {
+function StoreItem({
+  gameIcon,
+  name,
+  image,
+  price,
+  quantity,
+  id,
+  gameName,
+  hero,
+  type,
+  quality,
+  rarity,
+}) {
   const handleStoreClick = (event) => {
     event.preventDefault();
 
@@ -21,6 +34,11 @@ function StoreItem({ gameIcon, name, image, price, quantity, id }) {
           image: image,
           price: price,
           quantity: 1,
+          hero: hero,
+          rarity: rarity,
+          quality: quality,
+          gameName: gameName,
+          type: type,
         });
       }
     });
@@ -58,6 +76,7 @@ function StoreItem({ gameIcon, name, image, price, quantity, id }) {
         <div className="storeItem__gameIcon">
           <img src={gameIcon} alt="" />
         </div>
+        <ProductHover name={name} rarity={rarity} type={type} hero={hero} />
       </div>
       <div className="storeItem__description">{name}</div>
     </div>

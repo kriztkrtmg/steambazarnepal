@@ -3,10 +3,11 @@ import "./App.css";
 import Header from "./Header/Header";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import StoreMarket from "./StoreMarket/StoreMarket";
-import LandingPage from "./Landingpage/LandingPage";
+import Store from "./Store/Store";
 import Inventory from "./Inventory/Inventory";
 import Sell from "./sell/Sell";
 import CommunityMarket from "./Community/CommunityMarket";
+import CommunitySelectItem from "./Community/CommunitySelectItem";
 
 function App() {
   return (
@@ -14,12 +15,13 @@ function App() {
       <Router>
         <Header />
         <Switch>
-          <Route exact path="/storemarket">
-            <StoreMarket />
+          <Route exact path="/store">
+            <Store />
           </Route>
           <Route exact path="/community">
             <CommunityMarket />
           </Route>
+          <Route path="/community/:name" children={<CommunitySelectItem />} />
           <Route exact path="/inventory">
             <Inventory />
           </Route>
@@ -27,7 +29,7 @@ function App() {
             <Sell />
           </Route>
           <Route exact path="/">
-            <LandingPage />
+            <StoreMarket />
           </Route>
         </Switch>
       </Router>
