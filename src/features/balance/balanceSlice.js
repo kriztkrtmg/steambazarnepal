@@ -9,7 +9,7 @@ export const balanceSlice = createSlice({
   reducers: {
     recharge: (state, action) => {
       let rewardString = action.payload.toFixed(); //34.34-string
-      let rewardNumber = Number(rewardString);
+      let rewardNumber = Number(rewardString); //34.34 - number
       state.value += rewardNumber;
     },
     balanceCut: (state, action) => {
@@ -31,12 +31,8 @@ export const balanceSlice = createSlice({
   },
 });
 
-export const {
-  recharge,
-  balanceCut,
-  rewardUp,
-  rewardCut,
-} = balanceSlice.actions;
+export const { recharge, balanceCut, rewardUp, rewardCut } =
+  balanceSlice.actions;
 
 export const selectBalance = (state) => state.balance.value;
 export const selectReward = (state) => state.balance.reward;

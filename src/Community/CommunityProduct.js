@@ -1,7 +1,8 @@
 import React from "react";
-import NumberFormat from "react-number-format";
-import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+
+//Redux and slices
+import { useDispatch } from "react-redux";
 import {
   loadImage,
   loadType,
@@ -10,6 +11,9 @@ import {
   loadHeroName,
   loadGameIcon,
 } from "../features/product/productSlice";
+
+//Other imports
+import NumberFormat from "react-number-format";
 
 function CommunityProduct({
   name,
@@ -25,6 +29,7 @@ function CommunityProduct({
 }) {
   const dispatch = useDispatch();
 
+  //This will be changed later...Now this is just to send some data to redux and render the selected item after clicking an item from community market------
   const sendImage = () => {
     dispatch(loadImage(image));
     dispatch(loadType(type));

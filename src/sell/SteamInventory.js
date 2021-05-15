@@ -1,20 +1,25 @@
 import React, { useState } from "react";
+
+//Redux and slices
+import { useDispatch } from "react-redux";
+import { notificationCount } from "../features/user/userSlice";
+import { recharge, rewardUp } from "../features/balance/balanceSlice";
+
+//Material-UI imports
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
-
-import NumberFormat from "react-number-format";
-import Button from "@material-ui/core/Button";
-
-import { useDispatch } from "react-redux";
-import { recharge, rewardUp } from "../features/balance/balanceSlice";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
-import ProductHover from "../Product/ProductHover";
 
+//Database import
 import db from "../CONFIG";
+import firebase from "firebase"; //Only for notification timestamp
+
+//Other imports
+import NumberFormat from "react-number-format";
 
 function SteamInventory({
   gameIcon,
@@ -30,11 +35,10 @@ function SteamInventory({
   rarity,
 }) {
   const dispatch = useDispatch();
-
   const [sell, setSell] = useState(false); //On clicking an item, opening and closing first dialog box state.....
   const [instantSell, setInstantSell] = useState(false); //Dialog box open after clicking (Ok, Instant sell) button state...
   const [communityDialogOpen, setCommunityDialogOpen] = useState(false); //Dialog box open after clicking sell on community button..
-  const instantSellRate = Number(parseInt(price - price * 0.15)); //instant Sell price
+  const instantSellRate = Number(parseInt(price - price * 0.3)); //instant Sell price
   const instantReward = Number(parseInt(instantSellRate * 0.03).toFixed(2)); //instant reward point value
 
   const [communitySell, setCommunitySell] = useState(); // You receive: (Seller price input) state
@@ -54,7 +58,6 @@ function SteamInventory({
   }
 
   /*1:First Dialog box function when clicking an item. */
-
   //1(a) Opening a dialog box
   const handleSell = () => {
     setSell(true);
@@ -66,7 +69,6 @@ function SteamInventory({
   };
 
   /*2: Dialog box function when clicking (Ok, Instant sell) button. */
-
   //2(a) Opening a dialog box
   const handleInstant = () => {
     setInstantSell(true);
@@ -87,10 +89,17 @@ function SteamInventory({
 
     setInstantSell(false);
     setSell(false);
+
+    dispatch(notificationCount());
+    db.collection("notification").add({
+      message: `${name} sold instantly to website. Balance (Rs) : ${instantSellRate} /- has been credited to your website wallet.`,
+      time: firebase.firestore.FieldValue.serverTimestamp(),
+      image:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaD0Q45xrXb6J_YCgnefcHz76apJspQSho7M0mqS7vQnZP3mPj1jjWkBJngPSD4Lhi2UI&usqp=CAU",
+    });
   };
 
   /*3: Dialog box function when clicking (Ok, sell on community) button. */
-
   //3(a) Opening a dialog box on clicking (Ok, sell on community) button.
   const handleCommunity = () => {
     //generate error snackbar if user forget to input price...
@@ -136,6 +145,14 @@ function SteamInventory({
     setSell(false);
 
     db.collection("sell").doc(id).delete();
+
+    dispatch(notificationCount());
+    db.collection("notification").add({
+      message: `Your item ${name} is listed on community market for sale.`,
+      time: firebase.firestore.FieldValue.serverTimestamp(),
+      image:
+        "https://pngimage.net/wp-content/uploads/2018/05/estoque-icon-png-7.png",
+    });
   };
 
   //3(e) Closing success snackbar
@@ -149,26 +166,27 @@ function SteamInventory({
   //-------------------------------------------------------------------//
 
   return (
-    <div className="SteamInventoryCard">
-      <div className="inventoryItem" onClick={handleSell}>
-        <div className="inventoryItem__image">
+    <>
+      <div className="steamInventory__item" onClick={handleSell}>
+        <div className="steamInventory__itemTop">
           <img src={image} alt="" />
+          <div className="steamInventory__name">{name}</div>
+          <div className="steamInventory__rarity">
+            {rarity} {type}
+          </div>
         </div>
-        <h4>
+        <p>
           <NumberFormat
             value={price}
             displayType="text"
             thousandSeparator={true}
             thousandsGroupStyle="lakh"
             prefix={"Rs: "}
+            suffix={" /-"}
           />
-        </h4>
-        <div className="inventoryItem__gameIcon">
-          <img src={gameIcon} alt="" />
-        </div>
-        <ProductHover name={name} rarity={rarity} type={type} hero={hero} />
+        </p>
+        <button className="steamInventory__sell">Sell Now</button>
       </div>
-      <div className="inventoryItem__description">{name}</div>
       {/*First dialog box when clicking an item to sell */}
       <Dialog
         open={sell}
@@ -283,20 +301,28 @@ function SteamInventory({
         onClose={handleCloseInstantSell}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">
-          Are you sure you want to instantly sell your item {name} at Rs:{" "}
-          {instantSellRate}?
+        <DialogTitle id="form-dialog-title" className="dialog__title">
+          Are you sure you want to instantly sell your item {name} ?
         </DialogTitle>
         <DialogContent>
-          You will get Reward Point {instantReward}.
+          <div style={{ color: "#61c9ce" }}>
+            <h4>You will receive :</h4>
+            <h4>
+              <NumberFormat
+                value={instantSellRate}
+                displayType="text"
+                thousandSeparator={true}
+                thousandsGroupStyle="lakh"
+                prefix={"Balance (Rs) : "}
+                suffix={" /-"}
+              />
+            </h4>
+            <h4>Reward Point (RP) : {instantReward}</h4>
+          </div>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseInstantSell} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleInstantConfirm} color="primary">
-            Confirm
-          </Button>
+        <DialogActions className="dialog__action">
+          <button onClick={handleCloseInstantSell}>Cancel</button>
+          <button onClick={handleInstantConfirm}>Confirm</button>
         </DialogActions>
       </Dialog>
       {/* Community sell confirmation dialog box */}
@@ -305,24 +331,31 @@ function SteamInventory({
         onClose={handleCloseCommunitySell}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">
+        <DialogTitle id="form-dialog-title" className="dialog__title">
           Are you sure you want to list your item {name} on community market?
         </DialogTitle>
         <DialogContent>
-          <p>
-            Someone from community will buy your item. Upon successful community
-            transaction, you will receive :
-          </p>
-          <h4>Balance: {parseInt(communitySell, 10)}</h4>
-          <h4>Reward point (RP): {communityReward}</h4>
+          <div style={{ color: "#61c9ce" }}>
+            <p>
+              Someone from community will buy your item. Upon successful
+              community transaction, you will receive :
+            </p>
+            <h4>
+              <NumberFormat
+                value={parseInt(communitySell, 10)}
+                displayType="text"
+                thousandSeparator={true}
+                thousandsGroupStyle="lakh"
+                prefix={"Balance (Rs) : "}
+                suffix={" /-"}
+              />
+            </h4>
+            <h4>Reward point (RP) : {communityReward}</h4>
+          </div>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseCommunitySell} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleCommunityConfirm} color="primary">
-            Confirm
-          </Button>
+        <DialogActions className="dialog__action">
+          <button onClick={handleCloseCommunitySell}>Cancel</button>
+          <button onClick={handleCommunityConfirm}>Confirm</button>
         </DialogActions>
       </Dialog>
 
@@ -331,10 +364,6 @@ function SteamInventory({
         open={noInputPrice}
         autoHideDuration={6000}
         onClose={handleErrorSnackbar}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "center",
-        }}
       >
         <Alert onClose={handleErrorSnackbar} severity="error">
           You must put your selling price!
@@ -346,15 +375,15 @@ function SteamInventory({
         autoHideDuration={6000}
         onClose={handleSuccessSnackbar}
         anchorOrigin={{
-          vertical: "top",
           horizontal: "center",
+          vertical: "top",
         }}
       >
         <Alert onClose={handleSuccessSnackbar} severity="success">
           Your item is listed on community market
         </Alert>
       </Snackbar>
-    </div>
+    </>
   );
 }
 

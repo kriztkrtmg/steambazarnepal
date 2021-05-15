@@ -2,7 +2,7 @@
 .itemContainer{
      height: 900px;
      padding: 10px 15%;
-     background-color: #171a21;
+     background-color: #1a1830;
      display: flex;
      flex-direction: column;
      color: rgba(255, 255, 255, 0.7);
@@ -70,11 +70,12 @@
     margin: 5px;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
     background-color: rgba(0, 0, 0, 0.6);
     border: 1px solid rgba(0, 0, 0, 0);
-    cursor: pointer;
     width: 150px;
-    height: 260px;
+    height: 280px;
 }
 
 .community__eachProduct:hover {
@@ -93,7 +94,6 @@
     height: 150px;
     width: 150px;
     background-color: rgba(0, 0, 0, 0.6);
-    cursor: pointer;
 
 }
 
@@ -116,10 +116,9 @@
 .community__eachProductTitle {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    margin-left: 10px;
-    color:rgba(255, 255, 255, 0.5);
+    color:rgba(255, 255, 255, 0.65);
 }
 
 
@@ -127,8 +126,7 @@
     margin: 10px 0px;
     display: flex;
     font-size: 16px;
-    color: green;
-    font-weight: 600;
+    color: #9acd32;
 }
 
 .eachProduct__seller{
@@ -143,13 +141,58 @@
     object-fit: contain;
 }
 
-.buy__now > button {
-    padding: 5px;
-    font-size: 14px;
+.buy__now {
+    margin: 15px 0px;
 }
 
-.button__disable:disabled{
-    background-color: red;
+.buy__nowButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: 40px;
+    background-color: #1a4011;
+    margin: 0 28.87px;
+    color: rgba(255, 255, 255, 0.65);
+    border-radius: 0;
+    border: none;
+    font-weight: 600;
+}
+
+
+.buy__nowButton::before,
+.buy__nowButton::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+}
+
+.buy__nowButton::before {
+    right: 100%;
+    border-right: 11.55px solid #1a4011;
+}
+
+.buy__nowButton::after {
+    left: 100%;
+    width: 0;
+    border-left: 11.55px solid #1a4011;
+}
+
+.buy__nowButton:hover {
+    color: #fff;
+    background-color: #1a1830;
+    cursor: pointer;
+}
+
+
+.buy__nowButton:hover::after {
+    border-left: 11.55px solid #1a1830;
+}
+
+.buy__nowButton:hover::before {
+    border-right: 11.55px solid #1a1830;
 }
 
 @media screen and (max-width: 1200px) {
@@ -199,9 +242,7 @@
         height: 30px;
     }
 
-    .buy__now{
-        margin-bottom: 10px;
-    }
+
 }
 
 @media screen and (max-width: 992px) {
@@ -233,13 +274,14 @@
 
     .community__eachProductPrice{
         margin: 0;
+        font-size: 14px;
     }
 
     .eachProduct__seller{
-        margin: 0;
+        margin: 5px 0px;
     }
     .eachProduct__seller > h4 {
-        font-size: 16px;
+        font-size: 14px;
         font-weight: 400;
     }
 
@@ -251,6 +293,38 @@
 
     .community__productName{
         display: flex;
+    }
+
+    .buy__now {
+        margin: 5px 0px 0px 0px;
+    }
+
+    .buy__nowButton {
+        height: 30px;
+        margin: 0 8.66px;
+        font-weight: 600;
+    }
+
+    .buy__nowButton::before,
+    .buy__nowButton::after {
+        border-top: 15px solid transparent;
+        border-bottom: 15px solid transparent;
+    }
+
+    .buy__nowButton::before {
+        border-right: 8.66px solid #1a4011;
+    }
+
+    .buy__nowButton::after {
+        border-left: 8.66px solid #1a4011;
+    }
+
+    .buy__nowButton:hover::after {
+        border-left: 8.66px solid #1a1830;
+    }
+
+    .buy__nowButton:hover::before {
+        border-right: 8.66px solid #1a1830;
     }
 }
 

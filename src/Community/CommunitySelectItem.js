@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import db from "../CONFIG";
-import "./communitySelectItem.css";
-import CommunityEachProduct from "./CommunityEachProduct";
-import Pagination from "@material-ui/lab/Pagination";
 
+//Import redux and slices
 import {
   selectImage,
   selectGame,
@@ -15,21 +12,31 @@ import {
 } from "../features/product/productSlice";
 import { useSelector } from "react-redux";
 
+//Import database
+import db from "../CONFIG";
+
+//Css import
+import "./communitySelectItem.css";
+
+//Import components
+import CommunityEachProduct from "./CommunityEachProduct";
+
+//Import material-UI
+import Pagination from "@material-ui/lab/Pagination";
+
 function CommunitySelectItem() {
-  const image = useSelector(selectImage);
-  const gameName = useSelector(selectGame);
-  const hero = useSelector(selectHero);
-  const type = useSelector(selectType);
-  const rarity = useSelector(selectRarity);
-  const gameIcon = useSelector(selectGameIcon);
-  const { name } = useParams();
-  const [itemFetch, setItemFetch] = useState([]);
+  const image = useSelector(selectImage); //Get image
+  const gameName = useSelector(selectGame); //Get item name
+  const hero = useSelector(selectHero); //Get hero name
+  const type = useSelector(selectType); //Get item type
+  const rarity = useSelector(selectRarity); //Get item rarity
+  const gameIcon = useSelector(selectGameIcon); //Get game icon
+  const { name } = useParams(); //Dynamic routing params
+  const [itemFetch, setItemFetch] = useState([]); // Get all item of same name------
 
   /*--------------Pagination---------------*/
-
   //total number of items in community
   const totalItem = itemFetch.length;
-
   const [currentPage, setCurrentPage] = useState(1); //Current page of pagination
   const itemPerPage = Number(5); //Number of items in each page
 
@@ -41,10 +48,21 @@ function CommunitySelectItem() {
   //total pagination pages
   const noOfPage = Number(parseInt(totalItem / itemPerPage)) + Number(1);
 
+  //Pagination function----
   const handlePagination = (event, value) => {
     setCurrentPage(value);
   };
 
+  //Used in pagination result sentence
+  let result = indexOfLastItem;
+  if (indexOfLastItem >= totalItem) {
+    result = totalItem;
+  } else {
+    result = indexOfLastItem;
+  }
+
+  //Use effect hook----------------------------------
+  //Here it loads all the item from same name in an ascending order---------------
   useEffect(() => {
     db.collection("community")
       .where("name", "==", name)
@@ -58,13 +76,6 @@ function CommunitySelectItem() {
         )
       );
   }, [name]);
-
-  let result = indexOfLastItem;
-  if (indexOfLastItem >= totalItem) {
-    result = totalItem;
-  } else {
-    result = indexOfLastItem;
-  }
 
   return (
     <div className="itemContainer">

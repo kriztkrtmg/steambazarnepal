@@ -231,8 +231,8 @@ function SideDrawer({ show, handleLogin, handleLogOut }) {
         autoHideDuration={null}
         onClose={handleErrorSnackbar}
         anchorOrigin={{
-          vertical: "center",
           horizontal: "center",
+          vertical: "top",
         }}
       >
         <Alert onClose={handleErrorSnackbar} severity="error">
@@ -245,8 +245,8 @@ function SideDrawer({ show, handleLogin, handleLogOut }) {
         autoHideDuration={null}
         onClose={handleSuccessSnackbar}
         anchorOrigin={{
-          vertical: "center",
           horizontal: "center",
+          vertical: "top",
         }}
       >
         <Alert onClose={handleSuccessSnackbar} severity="success">

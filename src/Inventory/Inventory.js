@@ -1,12 +1,21 @@
 import React, { useEffect, useState } from "react";
+
+//Css import
 import "./inventory.css";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+
+//Database import
 import db from "../CONFIG";
+
+//Material-Ui import
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+
+//Component Import
 import ItemInventory from "./ItemInventory";
 
 function Inventory() {
-  const [inventoryItem, setInventoryItem] = useState([]);
+  const [inventoryItem, setInventoryItem] = useState([]); //Store all the item of website inventory in an array state
 
+  //Use effect hook---------------
   useEffect(() => {
     db.collection("inventory").onSnapshot((snapshot) =>
       setInventoryItem(
@@ -18,21 +27,35 @@ function Inventory() {
     );
   }, []);
   return (
-    <div className="inventory">
-      <div className="inventory__header">
-        <ShoppingCartIcon />
-        <h4>Your Inventory</h4>
+    <div className="webInventory">
+      <div className="webInventory__header">
+        <div className="webInventory__title">
+          <ShoppingCartIcon />
+          <h4>Your steambazar Inventory</h4>
+        </div>
+        <div className="webInventory__message">
+          These are the items that you cancelled from your community sell
+          listing or purchased from store and community market but did not claim
+          yet.
+        </div>
+        <div className="webInventory__message">
+          You can claim item by clicking the withdraw button and then accepting
+          the trade offer on your steam account.
+        </div>
+        <div className="webInventory__message">
+          Items listed here are only available to withdraw.
+        </div>
       </div>
-      <div className="inventory__item">
+
+      <div className="webInventory__itemContainer">
         {inventoryItem.map((item) => (
           <ItemInventory
             id={item.id}
             key={item.data.id}
-            gameIcon={item.data.gameIcon}
-            name={item.data.name}
             image={item.data.image}
-            price={item.data.price}
-            quantity={item.data.quantity}
+            name={item.data.name}
+            rarity={item.data.rarity}
+            type={item.data.type}
           />
         ))}
       </div>

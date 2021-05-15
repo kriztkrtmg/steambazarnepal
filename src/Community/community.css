@@ -1,7 +1,7 @@
 .community{
     height: 100%;
     padding-top: 10px;
-    background-color:#171a21;
+    background-color: #1a1830;
 }
 
 .community__topBar{
@@ -10,15 +10,159 @@
     flex-direction: column;
     justify-content: center;
     padding: 0px 10%;
-    background-color: #48D1CC;
+    background-image: linear-gradient(#1a1830, #1a4011, #1a1830);
+    margin-bottom: 10px;
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .community__body{
     padding: 0px 10%;
     display: flex;
     justify-content: space-between;
-    flex-direction: column-reverse;
+    flex-direction: column;
 }
+
+.community__navbar{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #0d0c1b;
+      position: relative;
+      height: 80px;
+      margin: 0 23.09px;
+      color: #61c9ce;
+}
+
+.community__navbar::before,
+.community__navbar::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    border-top: 40px solid transparent;
+    border-bottom: 40px solid transparent;
+}
+
+.community__navbar::before {
+    right: 100%;
+    border-right: 23.09px solid #0d0c1b;
+}
+
+.community__navbar::after {
+    left: 100%;
+    width: 0;
+    border-left: 23.09px solid #0d0c1b;
+}
+
+.community__navbarLeft{
+    display: flex;
+    align-items: center;
+    flex: 0.9;
+}
+
+.community__navbarLeftGameFilter {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1a1830;
+    position: relative;
+    height: 70px;
+    margin: 0 20.21px;
+    color: #61c9ce;
+    flex: 1;
+}
+
+.community__navbarLeftGameFilter::before,
+.community__navbarLeftGameFilter::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    border-top: 35px solid transparent;
+    border-bottom: 35px solid transparent;
+}
+
+.community__navbarLeftGameFilter::before {
+    right: 100%;
+    border-right: 20.21px solid #1a1830;
+}
+
+.community__navbarLeftGameFilter::after {
+    left: 100%;
+    width: 0;
+    border-left: 20.21px solid #1a1830;
+}
+
+.community__navbarLeftGameFilter:hover{
+    background-color: #1a4011;
+}
+
+.community__navbarLeftGameFilter:hover::before{
+    border-right: 20.21px solid #1a4011;
+}
+
+.community__navbarLeftGameFilter:hover::after {
+    border-left: 20.21px solid #1a4011;
+}
+
+.community__navbarLeftGameFilter>img {
+    padding: 0px 10px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.filterPriceQuantity{
+    display: flex;
+    align-items: center;
+}
+
+.community__navbarRight {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1a1830;
+    position: relative;
+    height: 70px;
+    margin: 0 20.21px;
+    color: #61c9ce;
+}
+
+.community__navbarRight::before,
+.community__navbarRight::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    border-top: 35px solid transparent;
+    border-bottom: 35px solid transparent;
+}
+
+.community__navbarRight::before {
+    right: 100%;
+    border-right: 20.21px solid #1a1830;
+}
+
+.community__navbarRight::after {
+    left: 100%;
+    width: 0;
+    border-left: 20.21px solid #1a1830;
+}
+
+/* .community__navbarRight:hover {
+    background-color: #1a4011;
+}
+
+.community__navbarRight:hover::before {
+    border-right: 20.21px solid #1a4011;
+}
+
+.community__navbarRight:hover::after {
+    border-left: 20.21px solid #1a4011;
+} */
+
+
+
+
+
 
 .community__data{
     margin: 5px;
@@ -61,7 +205,7 @@
     background-repeat: no-repeat;
     height: 200px;
     width: 200px;
-    background-color: #171a21;
+    background-color: #1a1830;
     cursor: pointer;
 
 }
@@ -269,6 +413,22 @@
 }
 
 @media screen and (max-width: 1200px) {
+
+    .community__navbar{
+        flex-direction: column;
+        padding: 10px;
+        height: 100%;
+    }
+
+    .community__navbarLeft{
+        margin-bottom: 10px;
+        width: 100%;
+    }
+
+    .gameTitle{
+        display: none;
+    }
+
     .community__product {
         margin: 5px;
         padding-bottom: 5px;
@@ -339,6 +499,11 @@
 
 
 @media screen and (max-width: 768px) {
+
+    .filterPriceQuantity{
+        flex-direction: column;
+    }
+
     .community__product{
         width: 150px;
         height: 200px;
