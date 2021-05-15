@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { selectUser } from "../features/user/userSlice";
 
 //Css import
 import "./sell.css";
@@ -19,7 +21,7 @@ import Pagination from "@material-ui/lab/Pagination";
 function Sell() {
   const [sellItem, setSellItem] = useState([]); //Load all the steam inventory items(currently loads demo items)
   const [sort, setSort] = useState(false); //Price sorting
-
+  const user = useSelector(selectUser);
   /*----------Pagination-----------------*/
   const [currentPage, setCurrentPage] = useState(1); //Current page of pagination
   const itemPerPage = Number(10); //Number of items in each page
@@ -104,73 +106,88 @@ function Sell() {
   //End of imports and functions-----------------------------------
 
   return (
-    <div className="sell">
-      <div className="sellHeader">
-        <div className="sellHeader__left">
-          <StoreRoundedIcon />
-          <p>Steam Inventory</p>
+    <>
+      {!user ? (
+        <div
+          style={{
+            height: "100vh",
+            backgroundColor: "#181230",
+            color: "#61c9ce",
+            textAlign: "center",
+          }}
+        >
+          <h1>You need to login to sell your item from steam inventory</h1>
         </div>
+      ) : (
+        <div className="sell">
+          <div className="sellHeader">
+            <div className="sellHeader__left">
+              <StoreRoundedIcon />
+              <p>Steam Inventory</p>
+            </div>
 
-        <div className="sellHeader__center">
-          <div className="filter__byGame" onClick={handleDota2}>
-            <img
-              src="https://1.bp.blogspot.com/-GplgZlvkXSc/Uk_3BipvAlI/AAAAAAAAAJE/NIU9Sm2vSVU/s1600/Dota2-Filled.png"
-              alt=""
-            />
-            <div className="gameTitle">Dota2</div>
-          </div>
-          <div className="filter__byGame" onClick={handleCsgo}>
-            <img
-              src="https://www.meme-arsenal.com/memes/d81f1fc73c38e2cfacbd493b5d58509c.jpg"
-              alt=""
-            />
-            <div className="gameTitle">CSGO</div>
-          </div>
-          <div className="filter__byPrice" onClick={sortPrice}>
-            <p>Price</p>
-            {sort ? <ExpandMoreIcon /> : <ExpandLessIcon />}
-          </div>
-        </div>
+            <div className="sellHeader__center">
+              <div className="filter__byGame" onClick={handleDota2}>
+                <img
+                  src="https://1.bp.blogspot.com/-GplgZlvkXSc/Uk_3BipvAlI/AAAAAAAAAJE/NIU9Sm2vSVU/s1600/Dota2-Filled.png"
+                  alt=""
+                />
+                <div className="gameTitle">Dota2</div>
+              </div>
+              <div className="filter__byGame" onClick={handleCsgo}>
+                <img
+                  src="https://www.meme-arsenal.com/memes/d81f1fc73c38e2cfacbd493b5d58509c.jpg"
+                  alt=""
+                />
+                <div className="gameTitle">CSGO</div>
+              </div>
+              <div className="filter__byPrice" onClick={sortPrice}>
+                <p>Price</p>
+                {sort ? <ExpandMoreIcon /> : <ExpandLessIcon />}
+              </div>
+            </div>
 
-        <div className="sellHeader__right">
-          <div className="search__box">
-            <input placeholder="search item" />
+            <div className="sellHeader__right">
+              <div className="search__box">
+                <input placeholder="search item" />
+              </div>
+              <div className="search__icon">
+                <SearchIcon />
+              </div>
+            </div>
           </div>
-          <div className="search__icon">
-            <SearchIcon />
+          <div className="steamInventory__itemContainer">
+            {currentPost.map((item) => (
+              <SteamInventory
+                id={item.id}
+                key={item.id}
+                gameIcon={item.data.gameIcon}
+                name={item.data.name}
+                image={item.data.image}
+                price={item.data.price}
+                quantity={item.data.quantity}
+                hero={item.data.hero}
+                quality={item.data.quality}
+                gameName={item.data.gameName}
+                type={item.data.type}
+                rarity={item.data.rarity}
+              />
+            ))}
+          </div>
+          <div className="sell__pagination">
+            <div className="sell__paginationResult">
+              Showing {indexOfFirstItem + 1}-{result} of {totalItem} items
+            </div>
+            <Pagination
+              count={noOfPage}
+              defaultPage={currentPage}
+              size="small"
+              onChange={handlePagination}
+            />
           </div>
         </div>
-      </div>
-      <div className="steamInventory__itemContainer">
-        {currentPost.map((item) => (
-          <SteamInventory
-            id={item.id}
-            key={item.id}
-            gameIcon={item.data.gameIcon}
-            name={item.data.name}
-            image={item.data.image}
-            price={item.data.price}
-            quantity={item.data.quantity}
-            hero={item.data.hero}
-            quality={item.data.quality}
-            gameName={item.data.gameName}
-            type={item.data.type}
-            rarity={item.data.rarity}
-          />
-        ))}
-      </div>
-      <div className="sell__pagination">
-        <div className="sell__paginationResult">
-          Showing {indexOfFirstItem + 1}-{result} of {totalItem} items
-        </div>
-        <Pagination
-          count={noOfPage}
-          defaultPage={currentPage}
-          size="small"
-          onChange={handlePagination}
-        />
-      </div>
-    </div>
+      )}
+    </>
   );
 }
 

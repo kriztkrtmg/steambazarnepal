@@ -6,8 +6,8 @@ export const userSlice = createSlice({
     name: "Project Demo",
     photo:
       "https://upload.wikimedia.org/wikipedia/en/8/8c/Facebook_Home_logo_old.svg",
-    //name: null,
-    //photo: null,
+    /* name: null,
+    photo: null, */
     count: 0,
   },
   reducers: {

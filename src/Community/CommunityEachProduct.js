@@ -7,7 +7,7 @@ import {
   balanceCut,
   rewardUp,
 } from "../features/balance/balanceSlice";
-import { notificationCount } from "../features/user/userSlice";
+import { notificationCount, selectUser } from "../features/user/userSlice";
 
 //Material-Ui imports
 import Dialog from "@material-ui/core/Dialog";
@@ -42,16 +42,21 @@ function CommunityEachProduct({
   const [balanceLowMessage, setBalanceLowMessage] = useState(false); //Balance low snackbar
   const [confirmBillOpen, setConfirmBillOpen] = useState(false); //To open bill type of dialog
   const [successMessage, setSuccessMessage] = useState(false); //Success Snackbar
+  const [noUser, setNoUser] = useState(false); //No user message snackbar
 
   const balance = useSelector(selectBalance); //Fetch balance from balanceSlice
   const purchaseReward = Number(parseInt(0.02 * price).toFixed()); // reward point calculation
-
+  const user = useSelector(selectUser); //User name
   //Dialog box open after clicking a button (Buy now)
   const handleClickOpenBalance = () => {
-    if (price > balance) {
-      setBalanceLowMessage(true); //Show error snackbar if balance is low than item price
+    if (user) {
+      if (price > balance) {
+        setBalanceLowMessage(true); //Show error snackbar if balance is low than item price
+      } else {
+        setConfirmBillOpen(true); //Open dialog box for confirmation
+      }
     } else {
-      setConfirmBillOpen(true); //Open dialog box for confirmation
+      setNoUser(true);
     }
   };
 
@@ -60,13 +65,14 @@ function CommunityEachProduct({
     return <MuiAlert elevation={6} variant="filled" {...props} />;
   }
 
-  //Function to close both success and error snackbar
+  //Function to close both success and error snackbar, and also No user snackbar
   const handleCloseMessage = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
     setBalanceLowMessage(false);
     setSuccessMessage(false);
+    setNoUser(false);
   };
 
   //Function to close confirmation dialog box
@@ -180,6 +186,22 @@ function CommunityEachProduct({
           </button>
         </DialogActions>
       </Dialog>
+
+      {/*No user message snackbar */}
+      <Snackbar
+        open={noUser}
+        autoHideDuration={6000}
+        onClose={handleCloseMessage}
+        anchorOrigin={{
+          horizontal: "center",
+          vertical: "top",
+        }}
+      >
+        <Alert onClose={handleCloseMessage} severity="error">
+          You need to login in order to make a purchase.
+        </Alert>
+      </Snackbar>
+
       {/*Balance low message snackbar*/}
       <Snackbar
         open={balanceLowMessage}
