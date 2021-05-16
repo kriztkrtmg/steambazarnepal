@@ -252,3 +252,60 @@
     border-right: 11.55px solid #cf3464;
 }
 
+/*-------------Media query...(Mobile device)--------------*/
+@media screen and (max-width: 768px) {
+    .storeBotItem{
+        width: 100px;
+        height: 180px;
+        margin: 5px;
+        padding: 5px 0px;
+    }
+
+    .storeBotItem > img{
+        height: 80px;
+        transform: scale(1.07);
+    }
+
+    .storeBotItem__name{
+        max-width: 100px;
+        font-size: 12px;
+    }
+
+    .storeBotItem__rarity{
+        max-width: 100px;
+        font-size: 10px;
+    }
+
+    .storeBotItem >p{
+        font-weight: normal;
+        font-size: 12px;
+    }
+
+    .storeBotItem__buy{
+        height: 20px;
+        margin: 0 5.77px;
+    }
+
+    .storeBotItem__buy::before,
+    .storeBotItem__buy::after {
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+    }
+
+    .storeBotItem__buy::before {
+        border-right: 5.77px solid #0d0c1b;
+    }
+
+    .storeBotItem__buy::after {
+        border-left: 5.77px solid #0d0c1b;
+    }
+
+    .storeBotItem:hover>.storeBotItem__buy::before {
+        border-right: 5.77px solid #cf3464;
+    }
+
+    .storeBotItem:hover>.storeBotItem__buy::after {
+        border-left: 5.77px solid #cf3464;
+    }
+
+}

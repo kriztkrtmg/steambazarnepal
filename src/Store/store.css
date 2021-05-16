@@ -177,12 +177,16 @@
 @media screen and (max-width: 700px) {
     .storeHeader {
         flex-direction: column;
-        height: 200px;
+        height: 150px;
         border-radius: 5px;
     }
 
     .storeHeader__left>.MuiSvgIcon-root {
         font-size: x-large;
+    }
+
+    .storeHeader__left{
+        height: 30px;
     }
 
     .storeHeader__center {

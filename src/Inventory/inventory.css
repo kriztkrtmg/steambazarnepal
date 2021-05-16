@@ -155,3 +155,61 @@
 .webInventory__send:hover::after {
     border-left: 11.55px solid #cf3464;
 }
+
+@media screen and (max-width: 768px) {
+    .webInventory__item{
+        width: 120px;
+        height: 200px;
+        margin: 5px 2px;
+        padding: 5px 0px;
+    }
+
+    
+
+    .webInventory__itemTop>img {
+        height: 100px;
+        width: 120px;
+    }
+
+    .webInventory__item:hover>.webInventory__itemTop>img {
+        transform: scale(1.1);
+    }
+
+    .webInventory__name {
+        max-width: 120px;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    .webInventory__rarity {
+        max-width: 120px;
+        font-size: 12px;
+    }
+
+    .webInventory__send {
+        height: 20px;
+        margin: 0 5.77px;
+    }
+
+    .webInventory__send::before,
+    .webInventory__send::after {
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+    }
+
+    .webInventory__send::before {
+        border-right: 5.77px solid #0d0c1b;
+    }
+
+    .webInventory__send::after {
+        border-left: 5.77px solid #0d0c1b;
+    }
+
+    .webInventory__send:hover::before {
+        border-right: 5.77px solid #cf3464;
+    }
+
+    .webInventory__send:hover::after {
+        border-left: 5.77px solid #cf3464;
+    }
+}

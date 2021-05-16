@@ -500,32 +500,98 @@
 
 @media screen and (max-width: 768px) {
 
+    .community__navbar{
+        height: 120px;
+    }
+
+    .community__navbarLeft{
+        flex: 0.8;
+    }
+
+    .community__navbarLeftGameFilter {
+        height: 50px;
+        margin: 0 14.43px;
+    }
+
+    .community__navbarLeftGameFilter::before,
+    .community__navbarLeftGameFilter::after {
+        border-top: 25px solid transparent;
+        border-bottom: 25px solid transparent;
+    }
+
+    .community__navbarLeftGameFilter::before {
+        border-right: 14.43px solid #1a1830;
+    }
+
+    .community__navbarLeftGameFilter::after {
+        border-left: 14.43px solid #1a1830;
+    }
+
+    .community__navbarLeftGameFilter:hover::before {
+        border-right: 14.43px solid #1a4011;
+    }
+
+    .community__navbarLeftGameFilter:hover::after {
+        border-left: 14.43px solid #1a4011;
+    }
+
+    .community__navbarLeftGameFilter>img {
+        padding: 0px 5px;
+        height: 36px;
+    }
+
     .filterPriceQuantity{
         flex-direction: column;
     }
 
+    .community__navbarRight {
+        height: 50px;
+        margin: 0 14.43px;
+    }
+
+    .community__navbarRight::before,
+    .community__navbarRight::after {
+        border-top: 25px solid transparent;
+        border-bottom: 25px solid transparent;
+    }
+
+    .community__navbarRight::before {
+        border-right: 14.43px solid #1a1830;
+    }
+
+    .community__navbarRight::after {
+        border-left: 14.43px solid #1a1830;
+    }
+
+    .searchBox{
+        max-width: 150px;
+    }
+
     .community__product{
-        width: 150px;
-        height: 200px;
+        margin: 5px;
+        width: 120px;
+        height: 180px;
     }
 
     .community__productImage{
-        height: 150px;
-        width: 150px;
+        height: 120px;
+        width: 120px;
     }
 
     .community__productImage>img{
-        height: 150px;
+        height: 120px;
     }
 
     .product__gameIcon >img {
-        width: 20px;
+        width: 16px;
         bottom: 1px;
         right: 1px;
     }
 
     .community__productQuantity{
-        font-size: 12px;
+        font-size: 10px;
+        bottom: 3px;
+        left: 3px;
     }
 
     .community__productTitle > h4{
@@ -533,9 +599,8 @@
     }
 
     .community__productPrice>p{
-        font-size: 12px;
+        font-size: 10px;
     }
-
 
     .community__pagination{
         flex-direction: column-reverse;

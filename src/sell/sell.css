@@ -288,11 +288,68 @@
 
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 768px) {
+    .steamInventory__item{
+        width: 120px;
+        height: 200px;
+        margin: 5px 2px;
+        padding: 5px 0px;
+    }
+
+    .steamInventory__itemTop>img {
+        height: 100px;
+        width: 120px;
+    }
+
+    .steamInventory__name {
+        max-width: 120px;
+        font-size: 14px;
+    }
+
+    .steamInventory__rarity {
+        max-width: 120px;
+        font-size: 12px;
+    }
+
+    .steamInventory__sell {
+        height: 20px;
+        background-color: #0d0c1b;
+        margin: 0 5.77px;
+    }
+
+    .steamInventory__sell::before,
+    .steamInventory__sell::after {
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+    }
+
+    .steamInventory__sell::before {
+        border-right: 5.77px solid #0d0c1b;
+    }
+
+    .steamInventory__sell::after {
+        border-left: 5.77px solid #0d0c1b;
+    }
+
+    .steamInventory__item:hover>.steamInventory__sell::before {
+        border-right: 5.77px solid #cf3464;
+    }
+
+    .steamInventory__item:hover>.steamInventory__sell::after {
+        border-left: 5.77px solid #cf3464;
+    }
+
+}
+
+@media screen and (max-width: 720px) {
     .sellHeader {
         flex-direction: column;
-        height: 200px;
+        height: 150px;
         border-radius: 5px;
+    }
+
+    .sellHeader__left{
+        height: 30px;
     }
 
     .sellHeader__left>p {
