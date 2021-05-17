@@ -360,6 +360,128 @@
     display: none;
 }
 
+/*------------Transaction History fullscreen styling----------------*/
+.transaction__historyTop{
+    background-color: #141225;
+    color: #c6c4d8;
+}
+
+.transaction__title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0% 5%;
+}
+
+.transaction__title > .MuiSvgIcon-root {
+    font-size: xx-large;
+}
+
+.transaction__title > .MuiSvgIcon-root:hover{
+    color: red;
+    cursor: pointer;
+}
+
+.transaction__body{
+    display: flex;
+    flex-direction: column;
+    margin: 0% 7%;
+}
+
+.transaction__header{
+    display: flex;
+    color: #61c9ce;
+    background-color: #0d0c1b;
+}
+
+.transaction__headerDate{
+    flex: 0.1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #1a4011;
+    text-transform: capitalize;
+}
+
+.transaction__headerDescription{
+    flex: 0.7;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    border: 1px solid #1a4011;
+    text-transform: capitalize;
+}
+
+.transaction__headerChange{
+    flex: 0.2;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #1a4011;
+}
+
+.transaction__change{
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid #1a4011;
+}
+
+.transaction__changeRB{
+    display: flex;
+    justify-content: space-around;
+}
+
+.transaction__changeRP{
+    display: flex;
+    justify-content: center;
+    flex: 1;
+    border: 1px solid #1a4011;
+}
+
+.transaction__changeBalance{
+    display: flex;
+    justify-content: center;
+    flex: 1;
+    border: 1px solid #1a4011;
+}
+
+.transaction__headerWallet{
+    flex: 0.2;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #61c9ce;
+}
+
+.transaction__wallet{
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid #61c9ce;
+}
+
+.transaction__walletRB{
+    display: flex;
+    justify-content: space-around;
+}
+
+.transaction__walletRP{
+    display: flex;
+    justify-content: center;
+    flex: 1;
+    border: 1px solid #61c9ce;
+}
+
+.transaction__walletBalance{
+    display: flex;
+    justify-content: center;
+    border: 1px solid #61c9ce;
+    flex: 1;
+}
+
+.transaction__history {
+    display: flex;
+    flex-direction: column;
+    color: #61c9ce;
+}
+
 
 /*-----Toggle option profile dropdown-------*/
 

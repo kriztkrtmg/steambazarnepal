@@ -97,6 +97,15 @@ function SteamInventory({
       image:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaD0Q45xrXb6J_YCgnefcHz76apJspQSho7M0mqS7vQnZP3mPj1jjWkBJngPSD4Lhi2UI&usqp=CAU",
     });
+
+    db.collection("transaction").add({
+      date: firebase.firestore.FieldValue.serverTimestamp(),
+      message: "Store transaction. ( Item sold Instantly )",
+      signRP: true,
+      costRP: instantReward,
+      signBalance: true,
+      costBalance: instantSellRate,
+    });
   };
 
   /*3: Dialog box function when clicking (Ok, sell on community) button. */
@@ -153,6 +162,16 @@ function SteamInventory({
       image:
         "https://pngimage.net/wp-content/uploads/2018/05/estoque-icon-png-7.png",
     });
+
+    //Transaction history if item is sold...for future use...
+    /* db.collection("transaction").add({
+      date: firebase.firestore.FieldValue.serverTimestamp(),
+      message: "Community Market transaction. ( Purchase )",
+      signRP: true,
+      costRP: purchaseReward,
+      signBalance: false,
+      costBalance: price,
+    }); */
   };
 
   //3(e) Closing success snackbar

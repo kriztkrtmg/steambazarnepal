@@ -94,6 +94,15 @@ function StoreBotItem({
         image:
           "https://images.vexels.com/media/users/3/200033/isolated/preview/8a79cffb92025393ed5a1c501f4c57ea-online-buy-icon-by-vexels.png",
       });
+
+      db.collection("transaction").add({
+        date: firebase.firestore.FieldValue.serverTimestamp(),
+        message: "Item purchased from store. ( Balance )",
+        signRP: true,
+        costRP: purchaseReward,
+        signBalance: false,
+        costBalance: price,
+      });
     }
   };
 
@@ -126,6 +135,13 @@ function StoreBotItem({
         time: firebase.firestore.FieldValue.serverTimestamp(),
         image:
           "https://cdn4.iconfinder.com/data/icons/shopping-kalor/142/buynow-512.png",
+      });
+
+      db.collection("transaction").add({
+        date: firebase.firestore.FieldValue.serverTimestamp(),
+        message: "Item purchased from store. ( Reward Point )",
+        signRP: false,
+        costRP: price,
       });
     }
   };

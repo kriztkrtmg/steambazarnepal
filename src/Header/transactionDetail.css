@@ -1,0 +1,44 @@
+
+.transaction__historyDetail {
+    margin-top: 1px;
+    padding: 10px 0px;
+    background-color: #0d0c1b;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+.transaction__historyDate {
+    flex: 0.1;
+    display: flex;
+    justify-content: center;
+}
+
+.transaction__historyDescription {
+    flex: 0.7;
+    padding-left: 10px;
+}
+
+.transaction__costRP {
+    flex: 0.1;
+    display: flex;
+    justify-content: center;
+}
+
+.transaction__costBalance {
+    flex: 0.1;
+    display: flex;
+    justify-content: center;
+}
+
+.transaction__remainingRP {
+    flex: 0.1;
+    display: flex;
+    justify-content: center;
+}
+
+.transaction__remainingBalance {
+    flex: 0.1;
+    display: flex;
+    justify-content: center;
+}

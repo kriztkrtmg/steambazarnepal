@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const userSlice = createSlice({
   name: "user",
   initialState: {
-    name: "Project Demo",
+    name: "Demo Project",
     photo:
       "https://upload.wikimedia.org/wikipedia/en/8/8c/Facebook_Home_logo_old.svg",
     /* name: null,

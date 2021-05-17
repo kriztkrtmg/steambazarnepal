@@ -126,6 +126,15 @@ function CommunityEachProduct({
         "https://img.favpng.com/9/17/25/trade-e-commerce-png-favpng-qXgRCswZmanhLQLwfNamrbFxG.jpg",
     });
 
+    db.collection("transaction").add({
+      date: firebase.firestore.FieldValue.serverTimestamp(),
+      message: "Community Market transaction. ( Purchase )",
+      signRP: true,
+      costRP: purchaseReward,
+      signBalance: false,
+      costBalance: price,
+    });
+
     /* dispatch(notificationCount());
     db.collection("notification").add({
       message: `An item you listed in the Community Market has been sold. Your website balance has been credited ${price} NPR.`,

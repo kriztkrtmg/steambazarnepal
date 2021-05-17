@@ -32,7 +32,7 @@ import SideDrawer from "./SideDrawer";
 import Notification from "./Notification";
 
 //Css and other imports
-import logo from "../Steambazar.jpg";
+import logo from "../logo.png";
 import "./header.css";
 import NumberFormat from "react-number-format";
 
@@ -53,6 +53,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
+import TransactionHistory from "./TransactionHistory";
 
 //A material-ui Lab code for snackbar (it's imported from material-ui)
 function Alert(props) {
@@ -77,6 +78,7 @@ function Header() {
   const [notificationDropdown, setNotificationDropdown] = useState(false); //A dropdown state of notification...
   const [tradeDialog, setTradeDialog] = useState(false); //Open set trade url dialog box
   const [tradeUrl, settradeUrl] = useState(); //To get user trade url
+  const [transactionDialog, setTransactionDialog] = useState(false); // Open transaction history dialog
 
   //Function part---------------------------------------------------------------
   //Login function - Google Auth through firebase
@@ -147,6 +149,13 @@ function Header() {
       image:
         "https://cdn1.iconfinder.com/data/icons/business-and-finance-97/64/wallet-money-finance-cash-dollar-512.png",
     });
+
+    db.collection("transaction").add({
+      date: firebase.firestore.FieldValue.serverTimestamp(),
+      message: "Wallet Credited from Esewa",
+      signBalance: true,
+      costBalance: rechargeAmount,
+    });
     setRechargeDialog(false);
   };
 
@@ -174,8 +183,20 @@ function Header() {
         image:
           "https://cdn3.iconfinder.com/data/icons/terminal-and-atm/100/ATM_terminal_pay_cash_out_cash_bank-07-512.png",
       });
+
+      db.collection("transaction").add({
+        date: firebase.firestore.FieldValue.serverTimestamp(),
+        message: "Wallet cashout to Esewa",
+        signBalance: false,
+        costBalance: transferAmount,
+      });
     }
     setTransferDialog(false);
+  };
+
+  //4: Transaction history
+  const handleTransaction = () => {
+    setTransactionDialog(true);
   };
 
   //Mobile sideDrawer toggle functions----------------
@@ -202,6 +223,7 @@ function Header() {
     }
     setProfileDropdown(false);
     setNotificationDropdown(false);
+    setTransactionDialog(false);
   };
   const prevOpen = useRef(profileDropdown);
   //End of function part------------------------------------------------------------------
@@ -351,7 +373,12 @@ function Header() {
                     <div className="dropdown__option" onClick={handleTransfer}>
                       Withdraw Balance
                     </div>
-                    <div className="dropdown__option">Transaction History</div>
+                    <div
+                      className="dropdown__option"
+                      onClick={handleTransaction}
+                    >
+                      Transaction History
+                    </div>
                     <div className="dropdown__option" onClick={handleLogOut}>
                       Log Out
                     </div>
@@ -506,6 +533,46 @@ function Header() {
         </DialogActions>
       </Dialog>
 
+      {/*Transaction History Dialog box */}
+      <Dialog
+        fullScreen
+        open={transactionDialog}
+        onClose={handleDropdownClose}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title" className="transaction__historyTop">
+          <div className="transaction__title">
+            {`${user}'s Transaction History`}
+            <CloseIcon onClick={handleDropdownClose} />
+          </div>
+        </DialogTitle>
+        <DialogContent>
+          <div className="transaction__body">
+            <div className="transaction__header">
+              <div className="transaction__headerDate">Date</div>
+              <div className="transaction__headerDescription">Description</div>
+              <div className="transaction__headerChange">
+                <div className="transaction__change">Change</div>
+                <div className="transaction__changeRB">
+                  <div className="transaction__changeRP">RP</div>
+                  <div className="transaction__changeBalance">Balance</div>
+                </div>
+              </div>
+              {/* <div className="transaction__headerWallet">
+                <div className="transaction__wallet">Wallet</div>
+                <div className="transaction__walletRB">
+                  <div className="transaction__walletRP">RP</div>
+                  <div className="transaction__walletBalance">Balance</div>
+                </div>
+              </div> */}
+            </div>
+            <div className="transaction__history">
+              <TransactionHistory />
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
       {/*Success recharge snackbar */}
       {/* <Snackbar
         open={successRecharge}
@@ -520,7 +587,6 @@ function Header() {
           Recharge Successful.
         </Alert>
       </Snackbar> */}
-
       {/*Error snackbar when user input higher cashout value than available balance */}
       <Snackbar
         open={highTransferBalance}
