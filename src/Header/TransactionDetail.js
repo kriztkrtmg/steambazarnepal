@@ -9,6 +9,8 @@ function TransactionDetail({
   costBalance,
   signRP,
   signBalance,
+  walletRP,
+  walletBalance,
 }) {
   return (
     <div>
@@ -21,8 +23,6 @@ function TransactionDetail({
           <NumberFormat
             value={costRP}
             displayType="text"
-            thousandSeparator={true}
-            thousandsGroupStyle="lakh"
             prefix={`${signRP ? "+" : "-"}`}
           />
         </div>
@@ -32,8 +32,21 @@ function TransactionDetail({
             displayType="text"
             thousandSeparator={true}
             thousandsGroupStyle="lakh"
-            prefix={`${signBalance ? "+" : "-"}Rs:`}
-            suffix={"/-"}
+            prefix={`${signBalance ? "+" : "-"}Rs: `}
+            suffix={" /-"}
+          />
+        </div>
+        <div className="transaction__remainingRP">
+          <NumberFormat value={walletRP} displayType="text" />
+        </div>
+        <div className="transaction__remainingBalance">
+          <NumberFormat
+            value={walletBalance}
+            displayType="text"
+            thousandSeparator={true}
+            thousandsGroupStyle="lakh"
+            prefix={"Rs: "}
+            suffix={" /-"}
           />
         </div>
       </div>

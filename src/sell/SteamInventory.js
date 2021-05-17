@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 
 //Redux and slices
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { notificationCount } from "../features/user/userSlice";
-import { recharge, rewardUp } from "../features/balance/balanceSlice";
+import {
+  recharge,
+  rewardUp,
+  selectBalance,
+  selectReward,
+} from "../features/balance/balanceSlice";
 
 //Material-UI imports
 import Dialog from "@material-ui/core/Dialog";
@@ -45,6 +50,9 @@ function SteamInventory({
 
   const [noInputPrice, setNoInputPrice] = useState(false); // Error Snackbar open if user click (Ok, sell on community) button without putting price in You Receive Input field.
   const [itemSetOnCommunity, setItemSetOnCommunity] = useState(false); //Snackbar open after user successfully listed the item in community market.
+
+  const balance = useSelector(selectBalance); //Fetch balance from balanceSlice
+  const reward = useSelector(selectReward); //Fetch reward from balanceSlice
 
   const communityBuyerRate = Number(
     parseInt(Number(communitySell) + Number(communitySell * 0.1))
@@ -102,9 +110,11 @@ function SteamInventory({
       date: firebase.firestore.FieldValue.serverTimestamp(),
       message: "Store transaction. ( Item sold Instantly )",
       signRP: true,
-      costRP: instantReward,
+      costRP: Number(instantReward),
       signBalance: true,
-      costBalance: instantSellRate,
+      costBalance: Number(instantSellRate),
+      walletRP: Number(reward) + Number(instantReward),
+      walletBalance: Number(balance) + Number(instantSellRate),
     });
   };
 
@@ -168,9 +178,11 @@ function SteamInventory({
       date: firebase.firestore.FieldValue.serverTimestamp(),
       message: "Community Market transaction. ( Purchase )",
       signRP: true,
-      costRP: purchaseReward,
+      costRP: Number(purchaseReward),
       signBalance: false,
-      costBalance: price,
+      costBalance: Number(price),
+      walletRP: Number(reward) + Number(purchaseReward),
+      walletBalance: Number(balance) + Number(price),
     }); */
   };
 

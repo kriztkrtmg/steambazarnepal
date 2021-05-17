@@ -154,7 +154,8 @@ function Header() {
       date: firebase.firestore.FieldValue.serverTimestamp(),
       message: "Wallet Credited from Esewa",
       signBalance: true,
-      costBalance: rechargeAmount,
+      costBalance: Number(rechargeAmount),
+      walletBalance: Number(rechargeAmount) + Number(balance),
     });
     setRechargeDialog(false);
   };
@@ -188,7 +189,8 @@ function Header() {
         date: firebase.firestore.FieldValue.serverTimestamp(),
         message: "Wallet cashout to Esewa",
         signBalance: false,
-        costBalance: transferAmount,
+        costBalance: Number(transferAmount),
+        walletBalance: Number(balance) - Number(transferAmount),
       });
     }
     setTransferDialog(false);
@@ -558,13 +560,13 @@ function Header() {
                   <div className="transaction__changeBalance">Balance</div>
                 </div>
               </div>
-              {/* <div className="transaction__headerWallet">
+              <div className="transaction__headerWallet">
                 <div className="transaction__wallet">Wallet</div>
                 <div className="transaction__walletRB">
                   <div className="transaction__walletRP">RP</div>
                   <div className="transaction__walletBalance">Balance</div>
                 </div>
-              </div> */}
+              </div>
             </div>
             <div className="transaction__history">
               <TransactionHistory />

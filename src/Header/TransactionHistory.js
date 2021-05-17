@@ -31,6 +31,8 @@ function TransactionHistory() {
           costRP={item.data.costRP}
           signBalance={item.data.signBalance}
           costBalance={item.data.costBalance}
+          walletRP={item.data.walletRP}
+          walletBalance={item.data.walletBalance}
         />
       ))}
     </div>

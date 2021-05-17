@@ -99,9 +99,11 @@ function StoreBotItem({
         date: firebase.firestore.FieldValue.serverTimestamp(),
         message: "Item purchased from store. ( Balance )",
         signRP: true,
-        costRP: purchaseReward,
+        costRP: Number(purchaseReward),
         signBalance: false,
-        costBalance: price,
+        costBalance: Number(price),
+        walletRP: Number(reward) + Number(purchaseReward),
+        walletBalance: Number(balance) - Number(price),
       });
     }
   };
@@ -141,7 +143,9 @@ function StoreBotItem({
         date: firebase.firestore.FieldValue.serverTimestamp(),
         message: "Item purchased from store. ( Reward Point )",
         signRP: false,
-        costRP: price,
+        costRP: Number(price),
+        walletRP: Number(reward) - Number(price),
+        walletBalance: Number(balance),
       });
     }
   };

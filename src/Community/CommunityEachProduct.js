@@ -6,6 +6,7 @@ import {
   selectBalance,
   balanceCut,
   rewardUp,
+  selectReward,
 } from "../features/balance/balanceSlice";
 import { notificationCount, selectUser } from "../features/user/userSlice";
 
@@ -45,6 +46,7 @@ function CommunityEachProduct({
   const [noUser, setNoUser] = useState(false); //No user message snackbar
 
   const balance = useSelector(selectBalance); //Fetch balance from balanceSlice
+  const reward = useSelector(selectReward); //Fetch balance from balanceSlice
   const purchaseReward = Number(parseInt(0.02 * price).toFixed()); // reward point calculation
   const user = useSelector(selectUser); //User name
   //Dialog box open after clicking a button (Buy now)
@@ -130,9 +132,11 @@ function CommunityEachProduct({
       date: firebase.firestore.FieldValue.serverTimestamp(),
       message: "Community Market transaction. ( Purchase )",
       signRP: true,
-      costRP: purchaseReward,
+      costRP: Number(purchaseReward),
       signBalance: false,
-      costBalance: price,
+      costBalance: Number(price),
+      walletRP: Number(reward) + Number(purchaseReward),
+      walletBalance: Number(balance) - Number(price),
     });
 
     /* dispatch(notificationCount());

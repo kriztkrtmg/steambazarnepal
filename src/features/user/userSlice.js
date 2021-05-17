@@ -5,7 +5,7 @@ export const userSlice = createSlice({
   initialState: {
     name: "Demo Project",
     photo:
-      "https://upload.wikimedia.org/wikipedia/en/8/8c/Facebook_Home_logo_old.svg",
+      "https://icon-library.com/images/cool-profile-icon/cool-profile-icon-10.jpg",
     /* name: null,
     photo: null, */
     count: 0,
