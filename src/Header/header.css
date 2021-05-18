@@ -416,45 +416,50 @@
     flex: 0.2;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     border: 1px solid #1a4011;
 }
 
 .transaction__change{
     display: flex;
     justify-content: center;
-    border: 1px solid #1a4011;
+    border-bottom: 1px solid #1a4011;
 }
 
 .transaction__changeRB{
     display: flex;
     justify-content: space-around;
+    align-items: center;
+    
 }
 
 .transaction__changeRP{
     display: flex;
     justify-content: center;
     flex: 1;
-    border: 1px solid #1a4011;
+    background-color: #232035;
 }
 
 .transaction__changeBalance{
     display: flex;
     justify-content: center;
     flex: 1;
-    border: 1px solid #1a4011;
+    background-color: #722f37;
+    
 }
 
 .transaction__headerWallet{
     flex: 0.2;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     border: 1px solid #1a4011;
 }
 
 .transaction__wallet{
     display: flex;
     justify-content: center;
-    border: 1px solid #1a4011;
+    border-bottom: 1px solid #1a4011;
 }
 
 .transaction__walletRB{
@@ -466,14 +471,15 @@
     display: flex;
     justify-content: center;
     flex: 1;
-    border: 1px solid #1a4011;
+    background-color: #232035;
+    
 }
 
 .transaction__walletBalance{
     display: flex;
     justify-content: center;
-    border: 1px solid #1a4011;
     flex: 1;
+    background-color: #722f37;
 }
 
 .transaction__history {
