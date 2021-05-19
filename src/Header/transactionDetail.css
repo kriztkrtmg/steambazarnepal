@@ -42,3 +42,16 @@
     display: flex;
     justify-content: center;
 }
+
+
+@media screen and (max-width: 992px) {
+    .transaction__historyDetail {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+   .transaction__historyDetail{
+       font-size: 10px;
+   }
+}

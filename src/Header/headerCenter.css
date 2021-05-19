@@ -1,0 +1,45 @@
+.header__center {
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 75%;
+}
+
+.header__option {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0px 10px;
+    margin: 0px 1px;
+    cursor: pointer;
+    height: 100%;
+}
+
+.header__option::after {
+    z-index: -1;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #1a1830;
+    transform: skewX(-20deg);
+}
+
+.header__option>.MuiSvgIcon-root {
+    font-size: x-large;
+    color: #9ACD32;
+}
+
+.header__optionTitle {
+    font-weight: 600;
+    margin-left: 2px;
+    text-transform: capitalize;
+}
+
+.header__option:hover::after {
+    color: green;
+    background-color: #1a4011;
+    transform: skewX(-20deg);
+}

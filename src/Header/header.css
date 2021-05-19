@@ -23,52 +23,6 @@
 }
 
 
-.header__center {
-    display: flex;
-    align-items: center;
-    position: relative;
-    height: 75%;
-}
-
-.header__option {
-    position: relative;
-    display: flex;
-    align-items: center;
-    padding: 0px 10px;
-    margin: 0px 1px;
-    cursor: pointer;
-    height: 100%;
-}
-
-.header__option::after{
-    z-index: -1;
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background-color: #1a1830;
-    transform: skewX(-20deg);
-}
-
-.header__option > .MuiSvgIcon-root {
-    font-size:x-large;
-    color: #9ACD32;
-}
-
-.header__optionTitle{
-    font-weight: 600;
-    margin-left: 2px;
-    text-transform: capitalize;
-}
-
-.header__option:hover::after  {
-    color: green;
-    background-color: #1a4011;
-    transform: skewX(-20deg);
-}
-
 /*---------------Right side of header------------------------*/
 
 .header__right{
@@ -164,6 +118,32 @@
     background-color: red;
 }
 
+.header__mobileNotification {
+    cursor: pointer;
+    display: flex;
+    position: relative;
+    margin-right: 20px;
+}
+
+.notification__countMobile{
+    position: absolute;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.85);
+    border-radius: 50px;
+    height: 20px;
+    width: 20px;
+    align-items: center;
+    justify-content: center;
+    background-color: red;
+    display: flex;
+    font-weight: 600;
+    left: 50%;
+    bottom: 50%;
+}
+
+.header__mobileNotification:hover>.MuiSvgIcon-root {
+    color: #fff;
+}
 
 .header__accountInfo{
     margin-left: 10px;
@@ -356,6 +336,10 @@
     cursor: pointer;
 }
 
+.header__mobile{
+    display: none;
+}
+
 .header__toggle {
     display: none;
 }
@@ -382,112 +366,7 @@
     cursor: pointer;
 }
 
-.transaction__body{
-    display: flex;
-    flex-direction: column;
-    margin: 0% 7%;
-}
-
-.transaction__header{
-    display: flex;
-    color: #61c9ce;
-    background-color: #0d0c1b;
-}
-
-.transaction__headerDate{
-    flex: 0.1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #1a4011;
-    text-transform: capitalize;
-}
-
-.transaction__headerDescription{
-    flex: 0.5;
-    display: flex;
-    align-items: center;
-    padding-left: 10px;
-    border: 1px solid #1a4011;
-    text-transform: capitalize;
-}
-
-.transaction__headerChange{
-    flex: 0.2;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border: 1px solid #1a4011;
-}
-
-.transaction__change{
-    display: flex;
-    justify-content: center;
-    border-bottom: 1px solid #1a4011;
-}
-
-.transaction__changeRB{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    
-}
-
-.transaction__changeRP{
-    display: flex;
-    justify-content: center;
-    flex: 1;
-    background-color: #232035;
-}
-
-.transaction__changeBalance{
-    display: flex;
-    justify-content: center;
-    flex: 1;
-    background-color: #722f37;
-    
-}
-
-.transaction__headerWallet{
-    flex: 0.2;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border: 1px solid #1a4011;
-}
-
-.transaction__wallet{
-    display: flex;
-    justify-content: center;
-    border-bottom: 1px solid #1a4011;
-}
-
-.transaction__walletRB{
-    display: flex;
-    justify-content: space-around;
-}
-
-.transaction__walletRP{
-    display: flex;
-    justify-content: center;
-    flex: 1;
-    background-color: #232035;
-    
-}
-
-.transaction__walletBalance{
-    display: flex;
-    justify-content: center;
-    flex: 1;
-    background-color: #722f37;
-}
-
-.transaction__history {
-    display: flex;
-    flex-direction: column;
-    color: #61c9ce;
-}
-
+/*-----Remaining transaction styling in transactionHistory.css----------*/
 
 /*-----Toggle option profile dropdown-------*/
 
@@ -639,6 +518,12 @@
        display: none;
    }
 
+   .header__mobile {
+       display: flex;
+       align-items: center;
+   }
+
+
    .header__toggle{
        display: flex;
    }
@@ -649,6 +534,20 @@
 
    .MuiSvgIcon-root {
        z-index: 1;
+   }
+
+   .notification__container {
+        width: 50%;
+        min-width: 200px;
+        top: 80%;
+        flex-direction: column;
+        height: 80vh;
+   }
+
+   .notification__header {
+       font-size: 18px;
+       font-weight: 600;
+      
    }
 
 }

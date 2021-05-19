@@ -1,24 +1,13 @@
 import React, { useState } from "react";
-import "./sidedrawer.css";
-import SideDrawerOption from "./SideDrawerOption";
-import StoreRoundedIcon from "@material-ui/icons/StoreRounded";
-import DeckRoundedIcon from "@material-ui/icons/DeckRounded";
-import LocalAtmIcon from "@material-ui/icons/LocalAtm";
-import EmailIcon from "@material-ui/icons/Email";
-import ContactSupportIcon from "@material-ui/icons/ContactSupport";
-
-import NumberFormat from "react-number-format";
-import { selectUser, selectPhoto } from "../features/user/userSlice";
-import StyleIcon from "@material-ui/icons/Style";
 import { useHistory } from "react-router-dom";
+
+//Redux and slices
+import {
+  selectUser,
+  selectPhoto,
+  notificationCount,
+} from "../features/user/userSlice";
 import { useSelector, useDispatch } from "react-redux";
-
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Button from "@material-ui/core/Button";
 import {
   selectBalance,
   recharge,
@@ -26,8 +15,34 @@ import {
   balanceCut,
 } from "../features/balance/balanceSlice";
 
+//Css import
+import "./sidedrawer.css";
+
+//Material-Ui import
+import StoreRoundedIcon from "@material-ui/icons/StoreRounded";
+import DeckRoundedIcon from "@material-ui/icons/DeckRounded";
+import LocalAtmIcon from "@material-ui/icons/LocalAtm";
+import EmailIcon from "@material-ui/icons/Email";
+import ContactSupportIcon from "@material-ui/icons/ContactSupport";
+import StyleIcon from "@material-ui/icons/Style";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import CloseIcon from "@material-ui/icons/Close";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
+
+//Database import
+import db from "../CONFIG";
+import firebase from "firebase";
+
+//Components import
+import SideDrawerOption from "./SideDrawerOption";
+import TransactionHistory from "./TransactionHistory";
+
+//Other imports
+import NumberFormat from "react-number-format";
 
 //A material-ui Lab code for snackbar (it's imported from material-ui)
 function Alert(props) {
@@ -40,6 +55,9 @@ function SideDrawer({ show, handleLogin, handleLogOut }) {
   const photo = useSelector(selectPhoto);
   const history = useHistory();
 
+  const [tradeDialog, setTradeDialog] = useState(false); //Open set trade url dialog box
+  const [tradeUrl, settradeUrl] = useState(); //To get user trade url
+
   const balance = useSelector(selectBalance);
   const reward = useSelector(selectReward);
   const [rechargeDialog, setRechargeDialog] = useState(false); //To open recharge dialog box....
@@ -50,35 +68,98 @@ function SideDrawer({ show, handleLogin, handleLogOut }) {
   const [highTransferBalance, setHighTransferBalance] = useState(false);
   const [successTransfer, setSuccessTransfer] = useState(false);
 
+  const [transactionDialog, setTransactionDialog] = useState(false); // Open transaction history dialog
+
+  //A function to open trade Url dialog box
+  const handleTradeUrl = () => {
+    setTradeDialog(true);
+  };
+  //Trade Url dialog box close
+  const handleTradeUrlClose = () => {
+    setTradeDialog(false);
+  };
+  //Save button function
+  const handleTradeUrlSuccess = () => {
+    //Need to save the user input trade url in user's database....so some stuffs is need to be done later here..
+    setTradeDialog(false);
+  };
+
+  //Recharge functions-----------------------------------
+  //1: Recharge Dialog Box open
   const handleRecharge = () => {
     setRechargeDialog(true);
   };
 
+  //Recharge dialogBox close
   const handleRechargeClose = () => {
     setRechargeDialog(false);
   };
 
+  //Recharge balance proceed
   const handleRechargeSuccess = () => {
     dispatch(recharge(Number(rechargeAmount) || 0));
+    dispatch(notificationCount());
+
+    db.collection("notification").add({
+      message: `Your steamBazar wallet has been credited for Rs: ${rechargeAmount} /-`,
+      time: firebase.firestore.FieldValue.serverTimestamp(),
+      image:
+        "https://cdn1.iconfinder.com/data/icons/business-and-finance-97/64/wallet-money-finance-cash-dollar-512.png",
+    });
+
+    db.collection("transaction").add({
+      date: firebase.firestore.FieldValue.serverTimestamp(),
+      message: "Wallet Credited from Esewa",
+      signBalance: true,
+      costBalance: Number(rechargeAmount),
+      walletBalance: Number(rechargeAmount) + Number(balance),
+    });
     setRechargeDialog(false);
   };
 
+  //Cash out transfer balance functions
+  //1: Open cashout dialog box
   const handleTransfer = () => {
     setTransferDialog(true);
   };
 
+  //2: Close cashout dialog box
   const handleTransferClose = () => {
     setTransferDialog(false);
   };
 
+  //3: Cashout proceed function
   const handleTransferSuccess = () => {
     if (transferAmount > balance) {
       setHighTransferBalance(true);
     } else {
       dispatch(balanceCut(Number(transferAmount) || 0));
+      dispatch(notificationCount());
+      db.collection("notification").add({
+        message: `A transfer from webpage to your Esewa has been made. Cashout value Rs: ${transferAmount} /-`,
+        time: firebase.firestore.FieldValue.serverTimestamp(),
+        image:
+          "https://cdn3.iconfinder.com/data/icons/terminal-and-atm/100/ATM_terminal_pay_cash_out_cash_bank-07-512.png",
+      });
+
+      db.collection("transaction").add({
+        date: firebase.firestore.FieldValue.serverTimestamp(),
+        message: "Wallet cashout to Esewa",
+        signBalance: false,
+        costBalance: Number(transferAmount),
+        walletBalance: Number(balance) - Number(transferAmount),
+      });
       setSuccessTransfer(true);
     }
     setTransferDialog(false);
+  };
+
+  const handleTransaction = () => {
+    setTransactionDialog(true);
+  };
+
+  const handleDropdownClose = () => {
+    setTransactionDialog(false);
   };
 
   const handleErrorSnackbar = () => {
@@ -160,70 +241,163 @@ function SideDrawer({ show, handleLogin, handleLogOut }) {
               />
             </div>
           </div>
-          <div className="account__dropdown">Set Trade Url</div>
+          <div className="account__dropdown" onClick={handleTradeUrl}>
+            Set Trade Url
+          </div>
           <div className="account__dropdown" onClick={handleRecharge}>
             Recharge Balance
           </div>
           <div className="account__dropdown" onClick={handleTransfer}>
             Withdraw Balance
           </div>
-          <div className="account__dropdown">Transaction History</div>
+          <div className="account__dropdown" onClick={handleTransaction}>
+            Transaction History
+          </div>
           <div className="account__dropdown" onClick={handleLogOut}>
             Log Out
           </div>
         </div>
       )}
+
+      {/*Trade Url dialog box */}
+      <Dialog
+        open={tradeDialog}
+        onClose={handleTradeUrlClose}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title" className="balance__title">
+          Enter your trade URL
+        </DialogTitle>
+        <DialogContent className="tradeUrl__content">
+          <div className="trade__message">
+            We need to know your Trade URL so our site can send you trade offer
+            requests.
+          </div>
+          <div className="tradeUrl__input">
+            <input
+              placeholder="Trade URL"
+              type="text"
+              value={tradeUrl}
+              onChange={(e) => settradeUrl(e.target.value)}
+            />
+          </div>
+          <div className="tradeUrl__guide">
+            " Steps to find your steam Trade Url "
+            <ol>
+              <li>
+                Go to your steam inventory and click "Trade Offers" button.
+              </li>
+              <li>
+                After that, click on "Who can send me Trade Offers?" button.
+              </li>
+              <li>
+                You'll see 3 options : "Friends", "Trading Forums" and
+                "Third-Party Sites".
+              </li>
+              <li>
+                Copy Trade URL from Third-Party Sites option and paste it here.
+              </li>
+              <li>
+                Your Trade Url looks something like this :
+                https://steamcommunity.com/tradeoffer/new/?partner="number"&token="words"
+              </li>
+              <li>Click "Save".</li>
+            </ol>
+          </div>
+        </DialogContent>
+        <DialogActions>
+          <button
+            onClick={handleTradeUrlClose}
+            className="button__rechargeCancel"
+          >
+            Cancel
+          </button>
+          <button onClick={handleTradeUrlSuccess} className="button__recharge">
+            Save
+          </button>
+        </DialogActions>
+      </Dialog>
+
+      {/*Recharge balance dialog box */}
       <Dialog
         open={rechargeDialog}
         onClose={handleRechargeClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Balance Recharge</DialogTitle>
+        <DialogTitle id="form-dialog-title" className="balance__title">
+          Filling up the balance
+        </DialogTitle>
         <DialogContent>
-          <input
-            className="balanceRechargeInputBox"
-            placeholder="Enter amount"
-            type="number"
-            value={rechargeAmount}
-            onChange={(e) => setRechargeAmount(e.target.value)}
-          />
+          <div className="balance__input">
+            <input
+              placeholder="Enter amount (Rs)"
+              type="number"
+              value={rechargeAmount}
+              onChange={(e) => setRechargeAmount(e.target.value)}
+            />
+          </div>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleRechargeClose} color="primary">
+          <button
+            onClick={handleRechargeClose}
+            className="button__rechargeCancel"
+          >
             Cancel
-          </Button>
-          <Button onClick={handleRechargeSuccess} color="primary">
+          </button>
+          <button onClick={handleRechargeSuccess} className="button__recharge">
             Recharge
-          </Button>
+          </button>
         </DialogActions>
       </Dialog>
 
+      {/*Cashout balance dialog box */}
       <Dialog
         open={transferDialog}
         onClose={handleTransferClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">
-          Transfer Balance to your Esewa
+        <DialogTitle id="form-dialog-title" className="balance__title">
+          Cashout
         </DialogTitle>
         <DialogContent>
-          <input
-            className="balanceRechargeInputBox"
-            placeholder="Enter amount"
-            type="number"
-            value={transferAmount}
-            onChange={(e) => setTransferAmount(e.target.value)}
-          />
+          <div className="balance__input">
+            <input
+              placeholder="Enter amount (Rs)"
+              type="number"
+              value={transferAmount}
+              onChange={(e) => setTransferAmount(e.target.value)}
+            />
+          </div>
         </DialogContent>
-        <p>This dialog box is not complete</p>
         <DialogActions>
-          <Button onClick={handleTransferClose} color="primary">
+          <button
+            onClick={handleTransferClose}
+            className="button__rechargeCancel"
+          >
             Cancel
-          </Button>
-          <Button onClick={handleTransferSuccess} color="primary">
+          </button>
+          <button onClick={handleTransferSuccess} className="button__recharge">
             Transfer
-          </Button>
+          </button>
         </DialogActions>
+      </Dialog>
+
+      {/*Transaction History Dialog box */}
+      <Dialog
+        fullScreen
+        open={transactionDialog}
+        onClose={handleDropdownClose}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title" className="transaction__historyTop">
+          <div className="transaction__title">
+            {`${user}'s Transaction History`}
+            <CloseIcon onClick={handleDropdownClose} />
+          </div>
+        </DialogTitle>
+        <DialogContent>
+          <TransactionHistory />
+        </DialogContent>
       </Dialog>
 
       <Snackbar

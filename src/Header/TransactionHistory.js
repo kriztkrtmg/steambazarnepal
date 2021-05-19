@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+
 import TransactionDetail from "./TransactionDetail";
 
 import db from "../CONFIG";
+import "./transactionHistory.css";
 
 function TransactionHistory() {
   const [transactionData, setTransactionData] = useState([]); //store all transaction history data
@@ -41,8 +42,26 @@ function TransactionHistory() {
   }, []);
 
   return (
-    <React.Fragment>
-      <div>
+    <div className="transaction__body">
+      <div className="transaction__header">
+        <div className="transaction__headerDate">Date</div>
+        <div className="transaction__headerDescription">Description</div>
+        <div className="transaction__headerChange">
+          <div className="transaction__change">Change</div>
+          <div className="transaction__changeRB">
+            <div className="transaction__changeRP">RP</div>
+            <div className="transaction__changeBalance">Balance</div>
+          </div>
+        </div>
+        <div className="transaction__headerWallet">
+          <div className="transaction__wallet">Wallet</div>
+          <div className="transaction__walletRB">
+            <div className="transaction__walletRP">RP</div>
+            <div className="transaction__walletBalance">Balance</div>
+          </div>
+        </div>
+      </div>
+      <div className="transaction__history">
         {currentPost.map((item) => (
           <TransactionDetail
             id={item.id}
@@ -57,38 +76,16 @@ function TransactionHistory() {
             walletBalance={item.data.walletBalance}
           />
         ))}
+        <div className="transaction__pagination">
+          {totalItem !== totalItemPagination && (
+            <button className="transaction__btn" onClick={handlePagination}>
+              Load More Transaction
+            </button>
+          )}
+        </div>
       </div>
-      <TransactionPagination>
-        {totalItem !== totalItemPagination && (
-          <ButtonTransaction onClick={handlePagination}>
-            Load More Transaction
-          </ButtonTransaction>
-        )}
-      </TransactionPagination>
-    </React.Fragment>
+    </div>
   );
 }
 
 export default TransactionHistory;
-
-const TransactionPagination = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-`;
-
-const ButtonTransaction = styled.button`
-  position: relative;
-  height: 40px;
-  background-color: #0d0c1b;
-  color: #61c9ce;
-  border: none;
-  cursor: pointer;
-  outline-width: 0;
-  padding: 10px;
-  border-radius: 5px;
-
-  :hover {
-    background-color: #1a4055;
-  }
-`;

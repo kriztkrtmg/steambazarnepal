@@ -27,6 +27,7 @@ import db from "../CONFIG";
 import firebase from "firebase";
 
 //Component imports
+import HeaderCenter from "./HeaderCenter";
 import Backdrop from "./Backdrop";
 import SideDrawer from "./SideDrawer";
 import Notification from "./Notification";
@@ -37,16 +38,10 @@ import "./header.css";
 import NumberFormat from "react-number-format";
 
 //Material-UI imports
-import StoreRoundedIcon from "@material-ui/icons/StoreRounded";
-import LocalAtmIcon from "@material-ui/icons/LocalAtm";
-import EmailIcon from "@material-ui/icons/Email";
-import ContactSupportIcon from "@material-ui/icons/ContactSupport";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
-import DeckRoundedIcon from "@material-ui/icons/DeckRounded";
 import { Avatar, ClickAwayListener, IconButton } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import CloseIcon from "@material-ui/icons/Close";
-import StyleIcon from "@material-ui/icons/Style";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -54,7 +49,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import TransactionHistory from "./TransactionHistory";
-
+import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 //A material-ui Lab code for snackbar (it's imported from material-ui)
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -246,43 +241,7 @@ function Header() {
         <img src={logo} alt="SteamBazar" />
       </div>
 
-      <div className="header__center">
-        <div className="header__option" onClick={() => history.push("/store")}>
-          <StoreRoundedIcon />
-          <div className="header__optionTitle">Store</div>
-        </div>
-
-        <div
-          className="header__option"
-          onClick={() => history.push("/community")}
-        >
-          <DeckRoundedIcon />
-          <div className="header__optionTitle">Marketplace</div>
-        </div>
-
-        <div
-          className="header__option"
-          onClick={() => history.push("/inventory")}
-        >
-          <StyleIcon />
-          <div className="header__optionTitle">inventory</div>
-        </div>
-
-        <div className="header__option" onClick={() => history.push("/sell")}>
-          <LocalAtmIcon />
-          <div className="header__optionTitle">sell</div>
-        </div>
-
-        <div className="header__option">
-          <EmailIcon />
-          <div className="header__optionTitle">support</div>
-        </div>
-
-        <div className="header__option">
-          <ContactSupportIcon />
-          <div className="header__optionTitle">guide</div>
-        </div>
-      </div>
+      <HeaderCenter />
 
       <div className="header__right">
         {/*If user is not logged in*/}
@@ -394,20 +353,49 @@ function Header() {
         )}
       </div>
       {/*Mobile view toggle option */}
-      <div className="header__toggle" onClick={handleToggle}>
-        <IconButton>
-          {sideDrawerToggle ? <CloseIcon /> : <MenuIcon />}
-        </IconButton>
-        <SideDrawer
-          show={sideDrawerToggle}
-          handleLogin={handleLogin}
-          handleLogOut={handleLogOut}
-        />
-        {sideDrawerToggle ? (
-          <Backdrop backdropClickHandler={backdropClickHandler} />
+      <div className="header__mobile">
+        <div
+          className="header__mobileNotification"
+          onClick={handleNotificationDropdown}
+        >
+          <NotificationsNoneIcon />
+          {/*No new notification and new notification*/}
+          {notificationCountValue === 0 ? (
+            <div className="notification__countNull"></div>
+          ) : (
+            <div className="notification__countMobile">
+              {notificationCountValue}
+            </div>
+          )}
+        </div>
+        {/*Notification drop down component part */}
+        {notificationDropdown ? (
+          <ClickAwayListener onClickAway={handleDropdownClose}>
+            <div className="notification__container">
+              <div className="notification__header">Notifications</div>
+              <Notification />
+            </div>
+          </ClickAwayListener>
         ) : (
           ""
         )}
+        {/*End of notification dropdown component part */}
+
+        <div className="header__toggle" onClick={handleToggle}>
+          <IconButton>
+            {sideDrawerToggle ? <CloseIcon /> : <MenuIcon />}
+          </IconButton>
+          <SideDrawer
+            show={sideDrawerToggle}
+            handleLogin={handleLogin}
+            handleLogOut={handleLogOut}
+          />
+          {sideDrawerToggle ? (
+            <Backdrop backdropClickHandler={backdropClickHandler} />
+          ) : (
+            ""
+          )}
+        </div>
       </div>
 
       {/*Starting of header function dialog box */}
@@ -549,46 +537,10 @@ function Header() {
           </div>
         </DialogTitle>
         <DialogContent>
-          <div className="transaction__body">
-            <div className="transaction__header">
-              <div className="transaction__headerDate">Date</div>
-              <div className="transaction__headerDescription">Description</div>
-              <div className="transaction__headerChange">
-                <div className="transaction__change">Change</div>
-                <div className="transaction__changeRB">
-                  <div className="transaction__changeRP">RP</div>
-                  <div className="transaction__changeBalance">Balance</div>
-                </div>
-              </div>
-              <div className="transaction__headerWallet">
-                <div className="transaction__wallet">Wallet</div>
-                <div className="transaction__walletRB">
-                  <div className="transaction__walletRP">RP</div>
-                  <div className="transaction__walletBalance">Balance</div>
-                </div>
-              </div>
-            </div>
-            <div className="transaction__history">
-              <TransactionHistory />
-            </div>
-          </div>
+          <TransactionHistory />
         </DialogContent>
       </Dialog>
 
-      {/*Success recharge snackbar */}
-      {/* <Snackbar
-        open={successRecharge}
-        autoHideDuration={6000}
-        onClose={handleSuccessSnackbar}
-        anchorOrigin={{
-          horizontal: "center",
-          vertical: "top",
-        }}
-      >
-        <Alert onClose={handleSuccessSnackbar} severity="success">
-          Recharge Successful.
-        </Alert>
-      </Snackbar> */}
       {/*Error snackbar when user input higher cashout value than available balance */}
       <Snackbar
         open={highTransferBalance}
@@ -603,20 +555,6 @@ function Header() {
           Transfer failed!!! Transfer amount is higher than your balance.
         </Alert>
       </Snackbar>
-      {/*Success cashout snackbar */}
-      {/*  <Snackbar
-        open={successTransfer}
-        autoHideDuration={6000}
-        onClose={handleSuccessSnackbar}
-        anchorOrigin={{
-          vertical: "center",
-          horizontal: "center",
-        }}
-      >
-        <Alert onClose={handleSuccessSnackbar} severity="success">
-          Transfer successful.
-        </Alert>
-      </Snackbar> */}
     </div>
   );
 }
