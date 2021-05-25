@@ -105,6 +105,7 @@ function CommunitySelectItem() {
         {currentPost.map((item) => (
           <CommunityEachProduct
             id={item.id}
+            key={item.id}
             name={item.data.name}
             price={item.data.price}
             gameIcon={item.data.gameIcon}

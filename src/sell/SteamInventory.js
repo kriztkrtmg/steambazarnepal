@@ -159,6 +159,17 @@ function SteamInventory({
       rarity: rarity,
     });
 
+    db.collection("listing").doc(id).set({
+      image: image,
+      name: name,
+      sellPrice: communityBuyerRate,
+      getPrice: communitySell,
+      time: firebase.firestore.FieldValue.serverTimestamp(),
+      quality: quality,
+      type: type,
+      rarity: rarity,
+    });
+
     setItemSetOnCommunity(true);
     setCommunityDialogOpen(false);
     setSell(false);

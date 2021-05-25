@@ -76,9 +76,9 @@
     transition: all 0.3s ease-in-out;
 }
 
-.webInventory__item:hover > .webInventory__itemTop > img {
+/* .webInventory__item:hover > .webInventory__itemTop > img {
     transform: scale(1.2);
-}
+} */
 
 .webInventory__name{
     max-width: 200px;

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-function NotificationMessage({ id, key, image, time, message }) {
+function NotificationMessage({ id, image, time, message }) {
   return (
     <NotificationComponent>
       <Image src={image} alt="" />

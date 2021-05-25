@@ -30,7 +30,6 @@ import NumberFormat from "react-number-format";
 
 function StoreBotItem({
   id,
-  key,
   image,
   name,
   price,

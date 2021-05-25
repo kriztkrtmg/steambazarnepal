@@ -59,7 +59,7 @@ function Inventory() {
           {inventoryItem.map((item) => (
             <ItemInventory
               id={item.id}
-              key={item.data.id}
+              key={item.id}
               image={item.data.image}
               name={item.data.name}
               rarity={item.data.rarity}

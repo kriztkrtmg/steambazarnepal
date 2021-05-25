@@ -1,0 +1,172 @@
+
+.active__listing{
+    padding: 0% 10% 60% 10%;
+    height: 100%;
+    display: flex;
+    background-color: transparent;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.listing__item {
+    width: 225px;
+    height: 400px;
+    background-color: transparent;
+    margin: 10px 5px;
+    padding: 10px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+    justify-content: space-between;
+    cursor: pointer;
+     background-image: linear-gradient(#1a1830, #000);
+     color: #61c9ce;
+}
+
+.listing__itemTop > img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    object-fit: contain;
+    transition: all 0.3s ease-in-out;
+}
+
+.listing__date{
+    font-size: 14px;
+    color: #38bd1b;
+}
+
+.listing__price{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.listing__price > p{
+    color: #9ACD32;
+    font-weight: 600;
+    background-color: transparent;
+}
+
+.listing__price > h5{
+    font-weight: normal;
+}
+
+.listing__itemName{
+     max-width: 200px;
+     text-align: center;
+     font-size: 18px;
+}
+
+.listing__itemRarity{
+    max-width: 200px;
+    text-align: center;
+    color: #00efba;
+    font-size: 14px;
+}
+
+.listing__remove {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: 40px;
+    background-color: #0d0c1b;
+    margin: 0 28.87px;
+    color: #61c9ce;
+    border-radius: 0;
+    border: none;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.listing__remove::before,
+.listing__remove::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+}
+
+.listing__remove::before {
+    right: 100%;
+    border-right: 11.55px solid #0d0c1b;
+}
+
+.listing__remove::after {
+    left: 100%;
+    width: 0;
+    border-left: 11.55px solid #0d0c1b;
+}
+
+.listing__remove:hover {
+    background-color: #cf3464;
+    color: #fff;
+    font-weight: 400;
+}
+
+.listing__remove:hover::before{
+    border-right: 11.55px solid #cf3464;
+}
+
+.listing__remove:hover::after{
+    border-left: 11.55px solid #cf3464;
+}
+
+/* @media screen and (max-width: 768px) {
+    .listing__item {
+        width: 120px;
+        height: 250px;
+        margin: 5px 2px;
+        padding: 5px 0px;
+    }
+
+    .listing__itemTop>img {
+        height: 100px;
+        width: 120px;
+    }
+
+    .listing__itemName {
+        max-width: 120px;
+        font-size: 14px;
+    }
+
+    .listing__itemRarity {
+        max-width: 120px;
+        font-size: 12px;
+    }
+
+    .listing__remove {
+        height: 20px;
+        background-color: #0d0c1b;
+        margin: 0 5.77px;
+    }
+
+    .listing__remove::before,
+    .listing__remove::after {
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+    }
+
+    .listing__remove::before {
+        border-right: 5.77px solid #0d0c1b;
+    }
+
+    .listing__remove::after {
+        border-left: 5.77px solid #0d0c1b;
+    }
+
+    .listing__remove:hover::before {
+        border-right: 5.77px solid #cf3464;
+    }
+
+    .listing__remove:hover::after {
+        border-left: 5.77px solid #cf3464;
+    }
+
+} */

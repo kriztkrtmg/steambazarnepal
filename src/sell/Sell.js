@@ -64,6 +64,7 @@ function Sell() {
   //Sort game item
   //Dota2
   const handleDota2 = () => {
+    setCurrentPage(1);
     db.collection("sell")
       .where("gameName", "==", "Dota 2")
       .onSnapshot((snapshot) =>
@@ -78,6 +79,7 @@ function Sell() {
 
   //Csgo
   const handleCsgo = () => {
+    setCurrentPage(1);
     db.collection("sell")
       .where("gameName", "==", "Counter-Strike: Global Offensive")
       .onSnapshot((snapshot) =>
@@ -180,7 +182,7 @@ function Sell() {
             </div>
             <Pagination
               count={noOfPage}
-              defaultPage={currentPage}
+              page={currentPage}
               size="small"
               onChange={handlePagination}
             />

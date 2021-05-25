@@ -24,6 +24,7 @@
     align-items: center;
     padding: 0px 10px;
     height: 50px;
+    flex: 0.1;
 }
 
 .sellHeader__left>.MuiSvgIcon-root {
@@ -43,6 +44,7 @@
     justify-content: center;
     height: 90%;
     flex: 0.9;
+    margin: 0px 10px;
 }
 
 .filter__byGame {
@@ -99,6 +101,7 @@
 
 .sellHeader__right {
     display: flex;
+    flex: 0.1;
     align-items: center;
     background: rgba(97, 201, 206, 0.1);
     border-radius: 50px;

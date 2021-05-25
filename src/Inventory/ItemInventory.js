@@ -4,7 +4,7 @@ import firebase from "firebase"; //Timestamp from firebase : like this "firebase
 import { notificationCount } from "../features/user/userSlice";
 import { useDispatch } from "react-redux";
 
-function ItemInventory({ name, image, rarity, type, id, key }) {
+function ItemInventory({ name, image, rarity, type, id }) {
   //Can't perform a React state update on an unmounted component.
   //This is a no-op, but it indicates a memory leak in your application.
   //To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
