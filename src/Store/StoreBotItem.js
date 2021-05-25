@@ -80,6 +80,19 @@ function StoreBotItem({
         gameName: gameName,
         type: type,
       });
+
+      db.collection("sell").doc().set({
+        gameIcon: gameIcon,
+        name: name,
+        image: image,
+        price: price,
+        hero: hero,
+        rarity: rarity,
+        quality: quality,
+        gameName: gameName,
+        type: type,
+      });
+
       dispatch(balanceCut(price));
       dispatch(rewardUp(Number(purchaseReward) || 0));
       setOpenBuy(false);
