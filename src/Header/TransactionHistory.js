@@ -10,7 +10,7 @@ function TransactionHistory() {
 
   /*--------------Pagination---------------*/
   const [currentPage, setCurrentPage] = useState(1); //Current page
-  const itemPerPage = Number(10); //Number of extra item load on each click
+  const itemPerPage = Number(50); //Number of extra item load on each click
 
   //Get current items:
   const indexOfLastItem = currentPage * itemPerPage; //get index of last item of every page...

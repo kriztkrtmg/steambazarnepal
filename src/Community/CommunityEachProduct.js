@@ -8,7 +8,11 @@ import {
   rewardUp,
   selectReward,
 } from "../features/balance/balanceSlice";
-import { notificationCount, selectUser } from "../features/user/userSlice";
+import {
+  notificationCount,
+  selectUser,
+  selectPhoto,
+} from "../features/user/userSlice";
 
 //Material-Ui imports
 import Dialog from "@material-ui/core/Dialog";
@@ -49,6 +53,7 @@ function CommunityEachProduct({
   const reward = useSelector(selectReward); //Fetch balance from balanceSlice
   const purchaseReward = Number(parseInt(0.02 * price).toFixed()); // reward point calculation
   const user = useSelector(selectUser); //User name
+  const photo = useSelector(selectPhoto); //User photo
   //Dialog box open after clicking a button (Buy now)
   const handleClickOpenBalance = () => {
     if (user) {
@@ -137,6 +142,18 @@ function CommunityEachProduct({
       costBalance: Number(price),
       walletRP: Number(reward) + Number(purchaseReward),
       walletBalance: Number(balance) - Number(price),
+    });
+
+    db.collection("liveData").add({
+      image: image,
+      name: name,
+      rarity: rarity,
+      type: type,
+      price: price,
+      source: "community",
+      RpOrBal: true,
+      time: firebase.firestore.FieldValue.serverTimestamp(),
+      userImg: photo,
     });
 
     /* dispatch(notificationCount());

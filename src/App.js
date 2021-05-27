@@ -8,11 +8,13 @@ import Inventory from "./Inventory/Inventory";
 import Sell from "./sell/Sell";
 import CommunityMarket from "./Community/CommunityMarket";
 import CommunitySelectItem from "./Community/CommunitySelectItem";
+import LiveData from "./LiveData/LiveData";
 
 function App() {
   return (
     <div className="app">
       <Router>
+        <LiveData />
         <Header />
         <Switch>
           <Route exact path="/store">

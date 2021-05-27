@@ -2,7 +2,11 @@ import React, { useState } from "react";
 
 //Redux and slices
 import { useSelector, useDispatch } from "react-redux";
-import { selectUser, notificationCount } from "../features/user/userSlice";
+import {
+  selectUser,
+  selectPhoto,
+  notificationCount,
+} from "../features/user/userSlice";
 import {
   selectBalance,
   balanceCut,
@@ -41,6 +45,7 @@ function StoreBotItem({
   quality,
 }) {
   const user = useSelector(selectUser); // fetching logged user using redux
+  const photo = useSelector(selectPhoto); //get photo of user
   const dispatch = useDispatch();
   const balance = useSelector(selectBalance); //fetch balance of user
   const reward = useSelector(selectReward); //fetch reward of user
@@ -117,6 +122,18 @@ function StoreBotItem({
         walletRP: Number(reward) + Number(purchaseReward),
         walletBalance: Number(balance) - Number(price),
       });
+
+      db.collection("liveData").add({
+        image: image,
+        name: name,
+        rarity: rarity,
+        type: type,
+        price: price,
+        source: "store",
+        RpOrBal: true,
+        time: firebase.firestore.FieldValue.serverTimestamp(),
+        userImg: photo,
+      });
     }
   };
 
@@ -158,6 +175,18 @@ function StoreBotItem({
         costRP: Number(price),
         walletRP: Number(reward) - Number(price),
         walletBalance: Number(balance),
+      });
+
+      db.collection("liveData").add({
+        image: image,
+        name: name,
+        rarity: rarity,
+        type: type,
+        price: price,
+        source: "store",
+        RpOrBal: false,
+        time: firebase.firestore.FieldValue.serverTimestamp(),
+        userImg: photo,
       });
     }
   };
