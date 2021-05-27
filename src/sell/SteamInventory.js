@@ -106,6 +106,18 @@ function SteamInventory({
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaD0Q45xrXb6J_YCgnefcHz76apJspQSho7M0mqS7vQnZP3mPj1jjWkBJngPSD4Lhi2UI&usqp=CAU",
     });
 
+    db.collection("instantSell").add({
+      image: image,
+      name: name,
+      rarity: rarity,
+      type: type,
+      price: instantSellRate,
+      gameName: gameName,
+      gameIcon: gameIcon,
+      hero: hero,
+      quality: quality,
+    });
+
     db.collection("transaction").add({
       date: firebase.firestore.FieldValue.serverTimestamp(),
       message: "Store transaction. ( Item sold Instantly )",

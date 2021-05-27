@@ -1,0 +1,15 @@
+
+.discountContainer{
+    background-color: #1a1830;
+    color: rgba(255, 255, 255, 0.7);
+    height: 100%;
+    padding: 1% 7%;
+}
+
+.discountBody{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    background-color: transparent;
+    padding-bottom: 50px;
+}
