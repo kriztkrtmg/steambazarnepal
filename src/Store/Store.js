@@ -1,150 +1,73 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import StandardStore from "./StandardStore";
 
-//Redux and slices
-import { useDispatch } from "react-redux";
-import { loadGameName } from "../features/product/productSlice";
+//Material-Imports
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
+import PropTypes from "prop-types"; // Other import
 
-import db from "../CONFIG"; //Database import firebase firestore
-
-//Material-UI imports
-import StoreRoundedIcon from "@material-ui/icons/StoreRounded";
-import SearchIcon from "@material-ui/icons/Search";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import ExpandLessIcon from "@material-ui/icons/ExpandLess";
-
-//Component Import
-import StoreBotItem from "./StoreBotItem";
-
-//Css import
-import "./store.css";
-
-function LandingPage() {
-  const dispatch = useDispatch();
-  const [storeItem, setStoreItem] = useState([]); //All object type items of the bot account in a array....
-  const [sort, setSort] = useState(false); //Price sorting
-
-  //Use effect hook--------------------
-  useEffect(() => {
-    db.collection("product").onSnapshot((snapshot) =>
-      setStoreItem(
-        snapshot.docs.map((doc) => ({
-          id: doc.id,
-          data: doc.data(),
-        }))
-      )
-    );
-  }, []);
-
-  //Price sorting
-  const sortPrice = () => {
-    setSort(!sort);
-    sort
-      ? storeItem.sort((first, second) => {
-          return first.data.price - second.data.price;
-        })
-      : storeItem.sort((first, second) => {
-          return second.data.price - first.data.price;
-        });
-  };
-
-  //Game sorting----------------------
-  //Dota2
-  const handleDota2 = () => {
-    dispatch(loadGameName("Dota 2"));
-    db.collection("product")
-      .where("gameName", "==", "Dota 2")
-      .onSnapshot((snapshot) =>
-        setStoreItem(
-          snapshot.docs.map((doc) => ({
-            id: doc.id,
-            data: doc.data(),
-          }))
-        )
-      );
-  };
-  //Csgo
-  const handleCsgo = () => {
-    dispatch(loadGameName("Counter-Strike: Global Offensive"));
-    db.collection("product")
-      .where("gameName", "==", "Counter-Strike: Global Offensive")
-      .onSnapshot((snapshot) =>
-        setStoreItem(
-          snapshot.docs.map((doc) => ({
-            id: doc.id,
-            data: doc.data(),
-          }))
-        )
-      );
-  };
-  //Function invoked when clicking "Store in secondary navbar(navbar of body container)"
-  const resetFilter = () => {
-    db.collection("product").onSnapshot((snapshot) =>
-      setStoreItem(
-        snapshot.docs.map((doc) => ({
-          id: doc.id,
-          data: doc.data(),
-        }))
-      )
-    );
-  };
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
 
   return (
-    <div className="store">
-      <div className="storeHeader">
-        <div className="storeHeader__left" onClick={resetFilter}>
-          <StoreRoundedIcon />
-          <p>Store</p>
-        </div>
-
-        <div className="storeHeader__center">
-          <div className="filterByGame" onClick={handleDota2}>
-            <img
-              src="https://1.bp.blogspot.com/-GplgZlvkXSc/Uk_3BipvAlI/AAAAAAAAAJE/NIU9Sm2vSVU/s1600/Dota2-Filled.png"
-              alt=""
-            />
-            <div className="gameTitle">Dota2</div>
-          </div>
-          <div className="filterByGame" onClick={handleCsgo}>
-            <img
-              src="https://www.meme-arsenal.com/memes/d81f1fc73c38e2cfacbd493b5d58509c.jpg"
-              alt=""
-            />
-            <div className="gameTitle">CSGO</div>
-          </div>
-          <div className="filterByPrice" onClick={sortPrice}>
-            <p>Price</p>
-            {sort ? <ExpandMoreIcon /> : <ExpandLessIcon />}
-          </div>
-        </div>
-
-        <div className="storeHeader__right">
-          <div className="searchBox">
-            <input placeholder="search item" />
-          </div>
-          <div className="search__icon">
-            <SearchIcon />
-          </div>
-        </div>
-      </div>
-      <div className="storeBody">
-        {storeItem.map((item) => (
-          <StoreBotItem
-            id={item.id}
-            key={item.id}
-            image={item.data.image}
-            name={item.data.name}
-            price={item.data.price}
-            hero={item.data.hero}
-            gameIcon={item.data.gameIcon}
-            gameName={item.data.gameName}
-            type={item.data.type}
-            rarity={item.data.rarity}
-            quality={item.data.quality}
-          />
-        ))}
-      </div>
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box span={2}>
+          <Typography component={"span"}>{children}</Typography>
+        </Box>
+      )}
     </div>
   );
 }
 
-export default LandingPage;
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
+}
+
+function Store() {
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  return (
+    <div className="community">
+      <div className="community__choice">
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          aria-label="simple tabs example"
+        >
+          <Tab label="Standard Store" {...a11yProps(0)} />
+          <Tab label="Items on discount" {...a11yProps(1)} />
+        </Tabs>
+      </div>
+      <TabPanel value={value} index={0}>
+        <StandardStore />
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        Hello
+      </TabPanel>
+    </div>
+  );
+}
+
+export default Store;
