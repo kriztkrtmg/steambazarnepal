@@ -1,0 +1,215 @@
+.webInventory{
+     background-color: #1a1830;
+     color: rgba(255, 255, 255, 0.7);
+     height: 100%;
+     padding: 1% 7%;
+}
+
+.webInventory__header {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    background-color: #0d0c1b;
+    margin-bottom: 10px;
+    cursor: default;
+}
+
+.webInventory__title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 5px;
+    box-shadow: 0px 5px 8px -9px rgba(255, 255, 255, 0.75);
+}
+
+.webInventory__title>.MuiSvgIcon-root {
+    background-color: transparent;
+    font-size: x-large;
+}
+
+.webInventory__title>h4 {
+    background-color: transparent;
+    margin-left: 5px;
+    text-transform:capitalize;
+    font-size: 24px;
+    font-weight: normal;
+    
+}
+
+.webInventory__message{
+    font-size: 16px;
+    margin: 10px 0px 0px 10px;
+}
+
+.webInventory__itemContainer {
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    background-color: transparent;
+    justify-content: center;
+    flex-wrap: wrap;
+    height: 100%;  
+    padding-bottom: 600px;
+}
+
+.webInventory__item {
+    width: 250px;
+    height: 320px;
+    background-color: transparent;
+    margin: 10px 5px;
+    padding: 10px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+    justify-content: space-between;
+    background-image: linear-gradient(#1a1830, #000);
+   
+}
+
+.webInventory__itemTop >img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    object-fit: contain;
+    transition: all 0.3s ease-in-out;
+}
+
+/* .webInventory__item:hover > .webInventory__itemTop > img {
+    transform: scale(1.2);
+} */
+
+.webInventory__name{
+    max-width: 200px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.webInventory__rarity{
+    max-width: 200px;
+    text-align: center;
+    color: #00efba;
+    font-size: 14px;
+}
+
+.webInventory__send {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: 40px;
+    background-color: #0d0c1b;
+    margin: 0 28.87px;
+    color: #61c9ce;
+    border-radius: 0;
+    border: none;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.webInventory__send::before,
+.webInventory__send::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+}
+
+.webInventory__send::before {
+    right: 100%;
+    border-right: 11.55px solid #0d0c1b;
+}
+
+.webInventory__send::after {
+    left: 100%;
+    width: 0;
+    border-left: 11.55px solid #0d0c1b;
+}
+
+/* .webInventory__item:hover>.webInventory__send {
+    background-color: #cf3464;
+    color: #fff;
+    font-weight: 400;
+}
+
+.webInventory__item:hover>.webInventory__send::before {
+    border-right: 11.55px solid #cf3464;
+}
+
+.webInventory__item:hover>.webInventory__send::after {
+    border-left: 11.55px solid #cf3464;
+} */
+
+.webInventory__send:hover {
+    background-color: #cf3464;
+    color: #fff;
+    font-weight: 400;
+}
+
+.webInventory__send:hover::before {
+    border-right: 11.55px solid #cf3464;
+}
+
+.webInventory__send:hover::after {
+    border-left: 11.55px solid #cf3464;
+}
+
+@media screen and (max-width: 768px) {
+    .webInventory__item{
+        width: 120px;
+        height: 200px;
+        margin: 5px 2px;
+        padding: 5px 0px;
+    }
+
+    
+
+    .webInventory__itemTop>img {
+        height: 100px;
+        width: 120px;
+    }
+
+    .webInventory__item:hover>.webInventory__itemTop>img {
+        transform: scale(1.1);
+    }
+
+    .webInventory__name {
+        max-width: 120px;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    .webInventory__rarity {
+        max-width: 120px;
+        font-size: 12px;
+    }
+
+    .webInventory__send {
+        height: 20px;
+        margin: 0 5.77px;
+    }
+
+    .webInventory__send::before,
+    .webInventory__send::after {
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+    }
+
+    .webInventory__send::before {
+        border-right: 5.77px solid #0d0c1b;
+    }
+
+    .webInventory__send::after {
+        border-left: 5.77px solid #0d0c1b;
+    }
+
+    .webInventory__send:hover::before {
+        border-right: 5.77px solid #cf3464;
+    }
+
+    .webInventory__send:hover::after {
+        border-left: 5.77px solid #cf3464;
+    }
+}

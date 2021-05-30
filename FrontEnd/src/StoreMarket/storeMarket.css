@@ -1,0 +1,17 @@
+.storeMarket{
+    padding: 15px 20px;
+    background-color: #171a21;
+}
+
+.storeSection{
+    display: flex;
+    flex-direction: row-reverse;
+    height: 100vh;
+}
+
+@media screen and (max-width: 768px) {
+    .storeSection{
+        flex-direction: column;
+        height: 100%;
+    }
+}

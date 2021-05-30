@@ -1,0 +1,21 @@
+.community{
+    padding-top: 10px;
+    background-color: #1a1830;
+    height: 1000px;
+}
+
+.community__topBar{
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0px 10%;
+    background-image: linear-gradient(#1a1830, #1a4011, #1a1830);
+    margin-bottom: 10px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.community__choice{
+   color: #61c9ce;
+   margin: 1% 10%;
+}
