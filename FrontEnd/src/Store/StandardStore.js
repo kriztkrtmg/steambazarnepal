@@ -6,7 +6,7 @@ import { loadGameName } from "../features/product/productSlice";
 
 //DB import
 import db from "../CONFIG"; //Database import firebase firestore
-import axios from "../axios"; //Local axios that we created--because we need to connect to our backend...which we have set in axios.js file...
+//import axios from "../axios"; //Local axios that we created--because we need to connect to our backend...which we have set in axios.js file...
 
 //Material-UI imports
 import StoreRoundedIcon from "@material-ui/icons/StoreRounded";
@@ -28,24 +28,24 @@ function StandardStore() {
   //Use effect hook--------------------
   useEffect(() => {
     //Here we tried to get data from mongo db which we connect through express.
-    async function fetchProduct() {
+    /* async function fetchProduct() {
       const request = await axios.get("/store/product");
       setStoreItem(request.data);
     }
-    fetchProduct();
+    fetchProduct(); */
 
     //this is fetching data from firebase
-    /* db.collection("product").onSnapshot((snapshot) =>
+    db.collection("product").onSnapshot((snapshot) =>
       setStoreItem(
         snapshot.docs.map((doc) => ({
           id: doc.id,
           data: doc.data(),
         }))
       )
-    ); */
+    );
   }, []);
 
-  console.log(storeItem);
+  //console.log(storeItem);
 
   //Price sorting
   const sortPrice = () => {
@@ -143,15 +143,15 @@ function StandardStore() {
           <StoreBotItem
             id={item.id}
             key={item.id}
-            image={item.image}
-            name={item.name}
-            price={item.price}
-            hero={item.hero}
-            gameIcon={item.gameIcon}
-            gameName={item.gameName}
-            type={item.type}
-            rarity={item.rarity}
-            quality={item.quality}
+            image={item.data.image}
+            name={item.data.name}
+            price={item.data.price}
+            hero={item.data.hero}
+            gameIcon={item.data.gameIcon}
+            gameName={item.data.gameName}
+            type={item.data.type}
+            rarity={item.data.rarity}
+            quality={item.data.quality}
           />
         ))}
       </div>

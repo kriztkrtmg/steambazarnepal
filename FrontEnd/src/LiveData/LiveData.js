@@ -9,7 +9,6 @@ import RecentPurchase from "./RecentPurchase";
 
 function LiveData() {
   const [liveData, setLiveData] = useState([]);
-
   useEffect(() => {
     db.collection("liveData")
       .orderBy("time", "desc")

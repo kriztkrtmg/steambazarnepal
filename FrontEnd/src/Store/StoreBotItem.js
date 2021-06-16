@@ -206,7 +206,11 @@ function StoreBotItem({
   return (
     <div>
       <div className="storeBotItem" onClick={handleOpenBuy}>
-        <img src={image} alt="" />
+        <img
+          src={image}
+          //src={` https://community.akamai.steamstatic.com/economy/image/${image}`}
+          alt=""
+        />
         <div className="storeBotItem__name">{name}</div>
         <div className="storeBotItem__rarity">
           {rarity} {type}

@@ -18,7 +18,7 @@
     padding: 0px 20px ;
     align-items: center;
     justify-content: center;
-    background-image: linear-gradient(#1a4011, #141225);
+    background-image: linear-gradient(#1a4011, #0d0c1b);
 }
 
 .liveData__dataContainer{
@@ -37,7 +37,7 @@
 .recentPurchase{
     width: 120px;
     height: 100px;
-    background-image: linear-gradient(to bottom right, #000, #1a1830, #141225, #1a4011); 
+    background-image: linear-gradient(to bottom right, #1a1830, #003, #0d0c1b, #1a4011); 
     display: flex;
     justify-content: center;
     position: relative;

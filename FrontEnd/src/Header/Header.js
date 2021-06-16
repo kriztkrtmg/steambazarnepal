@@ -77,7 +77,7 @@ function Header() {
 
   //Function part---------------------------------------------------------------
   //Login function - Google Auth through firebase
-  const handleLogin = () => {
+  const handleLogin = async () => {
     auth
       .signInWithPopup(provider)
       .then((result) => {

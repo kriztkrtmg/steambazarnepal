@@ -223,7 +223,11 @@ function SteamInventory({
     <>
       <div className="steamInventory__item" onClick={handleSell}>
         <div className="steamInventory__itemTop">
-          <img src={image} alt="" />
+          <img
+            src={image}
+            /* src={` https://community.akamai.steamstatic.com/economy/image/${image}`} */
+            alt=""
+          />
           <div className="steamInventory__name">{name}</div>
           <div className="steamInventory__rarity">
             {rarity} {type}

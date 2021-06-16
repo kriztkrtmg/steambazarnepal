@@ -1,6 +1,6 @@
 
 .community__body {
-    padding: 0px 10%;
+    padding: 1% 7%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -12,8 +12,8 @@
     justify-content: space-between;
     background-color: #0d0c1b;
     position: relative;
-    height: 80px;
-    margin: 0 23.09px;
+    height: 60px;
+    margin: 0 17.32px;
     color: #61c9ce;
 }
 
@@ -22,25 +22,25 @@
     content: "";
     position: absolute;
     width: 0;
-    border-top: 40px solid transparent;
-    border-bottom: 40px solid transparent;
+    border-top: 30px solid transparent;
+    border-bottom: 30px solid transparent;
 }
 
 .community__navbar::before {
     right: 100%;
-    border-right: 23.09px solid #0d0c1b;
+    border-right: 17.32px solid #0d0c1b;
 }
 
 .community__navbar::after {
     left: 100%;
     width: 0;
-    border-left: 23.09px solid #0d0c1b;
+    border-left: 17.32px solid #0d0c1b;
 }
 
 .community__navbarLeft {
     display: flex;
     align-items: center;
-    flex: 0.9;
+    flex: 0.8;
 }
 
 .community__navbarLeftGameFilter {
@@ -50,8 +50,8 @@
     justify-content: center;
     background-color: #1a1830;
     position: relative;
-    height: 70px;
-    margin: 0 20.21px;
+    height: 56px;
+    margin: 0 16.17px;
     color: #61c9ce;
     flex: 1;
 }
@@ -61,19 +61,19 @@
     content: "";
     position: absolute;
     width: 0;
-    border-top: 35px solid transparent;
-    border-bottom: 35px solid transparent;
+    border-top: 28px solid transparent;
+    border-bottom: 28px solid transparent;
 }
 
 .community__navbarLeftGameFilter::before {
     right: 100%;
-    border-right: 20.21px solid #1a1830;
+    border-right: 16.17px solid #1a1830;
 }
 
 .community__navbarLeftGameFilter::after {
     left: 100%;
     width: 0;
-    border-left: 20.21px solid #1a1830;
+    border-left: 16.17px solid #1a1830;
 }
 
 .community__navbarLeftGameFilter:hover {
@@ -81,34 +81,47 @@
 }
 
 .community__navbarLeftGameFilter:hover::before {
-    border-right: 20.21px solid #1a4011;
+    border-right: 16.17px solid #1a4011;
 }
 
 .community__navbarLeftGameFilter:hover::after {
-    border-left: 20.21px solid #1a4011;
+    border-left: 16.17px solid #1a4011;
 }
 
 .community__navbarLeftGameFilter>img {
     padding: 0px 10px;
-    height: 40px;
+    height: 36px;
     object-fit: contain;
 }
 
 .filterPriceQuantity {
     display: flex;
     align-items: center;
+    justify-content: center;
+}
+
+.filterBy{
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    margin: 0px 5px;
+    cursor: pointer;
+}
+
+.filterBy>.MuiSvgIcon-root{
+    color: #9acd32;
 }
 
 .community__navbarRight {
     cursor: pointer;
     display: flex;
-    flex: 0.1;
+    flex: 0.2;
     align-items: center;
     justify-content: center;
     background-color: #1a1830;
     position: relative;
-    height: 70px;
-    margin: 0 20.21px 0 30px;
+    height: 56px;
+    margin: 0 20px;
     color: #61c9ce;
 }
 
@@ -117,35 +130,23 @@
     content: "";
     position: absolute;
     width: 0;
-    border-top: 35px solid transparent;
-    border-bottom: 35px solid transparent;
+    border-top: 28px solid transparent;
+    border-bottom: 28px solid transparent;
 }
 
 .community__navbarRight::before {
     right: 100%;
-    border-right: 20.21px solid #1a1830;
+    border-right: 16.17px solid #1a1830;
 }
 
 .community__navbarRight::after {
     left: 100%;
     width: 0;
-    border-left: 20.21px solid #1a1830;
+    border-left: 16.17px solid #1a1830;
 }
-
-/* .community__navbarRight:hover {
-    background-color: #1a4011;
-}
-
-.community__navbarRight:hover::before {
-    border-right: 20.21px solid #1a4011;
-}
-
-.community__navbarRight:hover::after {
-    border-left: 20.21px solid #1a4011;
-} */
 
 .community__data {
-    margin: 5px;
+    margin-top: 10px;
     flex-direction: column;
 }
 
@@ -163,9 +164,8 @@
 
 .community__product {
     margin: 10px;
-    padding-bottom: 5px;
-    width: 200px;
-    height: 270px;
+    width: 180px;
+    height: 250px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -183,8 +183,8 @@
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
-    height: 200px;
-    width: 200px;
+    height: 180px;
+    width: 180px;
     /* background-color: #0d0c1b; */
     background-image: linear-gradient(#1a1830, #1a4011);
     cursor: pointer;
@@ -195,28 +195,30 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 200px;
+    height: 180px;
     object-fit: contain;
 }
 
 .product__gameIcon>img {
-    width: 25px;
+    width: 22px;
     object-fit: contain;
     position: absolute;
-    bottom: 3px;
-    right: 3px;
+    bottom: 2px;
+    right: 2px;
 }
 
 .community__productTitle {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin-top: 5px;
     align-items: center;
+    
 }
 
 .community__productTitle>h4 {
     text-align: center;
+    font-size: 14px;
+    font-weight: 400;
 }
 
 .community__productQuantity {
@@ -224,8 +226,7 @@
     bottom: 5px;
     left: 5px;
     color: white;
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 12px;
 }
 
 .community__productPrice {
@@ -235,9 +236,8 @@
 }
 
 .community__productPrice>p {
-    font-size: 14px;
-    color: #12cc82;
-    font-weight: 600;
+    font-size: 12px;
+    color: #9acd32;
 }
 
 .community__pagination {
@@ -349,120 +349,9 @@
 }
 
 
-@media screen and (max-width: 1500px) {
-    .community__product {
-        margin: 5px;
-        padding-bottom: 5px;
-        width: 170px;
-        height: 250px;
-    }
-
-    .community__productImage {
-        height: 170px;
-        width: 170px;
-    }
-
-    .community__productImage>img {
-        height: 170px;
-    }
-
-    .product__gameIcon>img {
-        width: 24px;
-        bottom: 2px;
-        right: 3px;
-    }
-
-    .community__productTitle {
-        font-size: 14px;
-    }
-
-    .community__productQuantity {
-        font-size: 14px;
-        font-weight: 600;
-    }
-
-    .community__productPrice {
-        text-align: center;
-        display: flex;
-        justify-content: center;
-    }
-
-    .community__productPrice>p {
-        font-size: 14px;
-        font-weight: 600;
-    }
-}
-
 @media screen and (max-width: 1200px) {
 
-    .community__navbar {
-        height: 70px;
-        margin: 0 20.21px;
-    }
-
-    .community__navbar::before,
-    .community__navbar::after {
-        border-top: 35px solid transparent;
-        border-bottom: 35px solid transparent;
-    }
-
-    .community__navbar::before {
-        border-right: 20.21px solid #0d0c1b;
-    }
-
-    .community__navbar::after {
-        border-left: 20.21px solid #0d0c1b;
-    }
-
-    .community__navbarLeftGameFilter {
-        height: 60px;
-        margin: 0 17.32px;
-    }
-
-    .community__navbarLeftGameFilter::before,
-    .community__navbarLeftGameFilter::after {
-        border-top: 30px solid transparent;
-        border-bottom: 30px solid transparent;
-    }
-
-    .community__navbarLeftGameFilter::before {
-        border-right: 17.32px solid #1a1830;
-    }
-
-    .community__navbarLeftGameFilter::after {
-        border-left: 17.32px solid #1a1830;
-    }
-
-    .community__navbarLeftGameFilter:hover::before {
-        border-right: 17.32px solid #1a4011;
-    }
-
-    .community__navbarLeftGameFilter:hover::after {
-        border-left: 17.32px solid #1a4011;
-    }
-
-    .community__navbarLeftGameFilter>img {
-        height: 36px;
-    }
-
-    .community__navbarRight {
-        height: 60px;
-        margin: 0 17.32px 0 20px;
-    }
-
-    .community__navbarRight::before,
-    .community__navbarRight::after {
-        border-top: 30px solid transparent;
-        border-bottom: 30px solid transparent;
-    }
-
-    .community__navbarRight::before {
-        border-right: 17.32px solid #1a1830;
-    }
-
-    .community__navbarRight::after {
-        border-left: 17.32px solid #1a1830;
-    }
+    
 
     .gameTitle {
         display: none;

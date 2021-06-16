@@ -144,11 +144,11 @@ function CommunityMarket() {
             <div className="gameTitle">CSGO</div>
           </div>
           <div className="filterPriceQuantity">
-            <div className="filterByPrice" onClick={sortPrice}>
+            <div className="filterBy" onClick={sortPrice}>
               <p>Price</p>
               {priceSort ? <ExpandMoreIcon /> : <ExpandLessIcon />}
             </div>
-            <div className="filterByPrice" onClick={sortQuantity}>
+            <div className="filterBy" onClick={sortQuantity}>
               <p>Quantity</p>
               {quantitySort ? <ExpandMoreIcon /> : <ExpandLessIcon />}
             </div>

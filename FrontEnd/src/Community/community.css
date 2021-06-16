@@ -19,3 +19,9 @@
    color: #61c9ce;
    margin: 1% 10%;
 }
+
+@media screen and (max-width: 768px){
+    .community{
+        height: 100%;
+    }
+}

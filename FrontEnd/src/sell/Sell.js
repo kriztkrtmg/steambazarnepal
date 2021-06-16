@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectUser } from "../features/user/userSlice";
+//import axios from "../axios";
 
 //Css import
 import "./sell.css";
@@ -13,7 +14,6 @@ import SteamInventory from "./SteamInventory";
 
 //Import Material-UI
 import SearchIcon from "@material-ui/icons/Search";
-import StoreRoundedIcon from "@material-ui/icons/StoreRounded";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import Pagination from "@material-ui/lab/Pagination";
@@ -24,7 +24,7 @@ function Sell() {
   const user = useSelector(selectUser);
   /*----------Pagination-----------------*/
   const [currentPage, setCurrentPage] = useState(1); //Current page of pagination
-  const itemPerPage = Number(10); //Number of items in each page
+  const itemPerPage = Number(5); //Number of items in each page
   const totalItem = sellItem.length;
   //Get current items:
   const indexOfLastItem = currentPage * itemPerPage; //get index of last item of every page...
@@ -36,7 +36,14 @@ function Sell() {
 
   /*----------------Functions------------------------------------------------------*/
   //Use effect hook------loads dota2 game item as default(later it will use AppID of 570 and 730 for csgo)
-  useEffect(() => {
+   useEffect(() => {
+    /*async function steamItem() {
+      const request = await axios.get("/userSteamItem");
+      setSellItem(request.data);
+    }
+
+    steamItem(); */
+
     db.collection("sell")
       .where("gameName", "==", "Dota 2")
       .onSnapshot((snapshot) =>
@@ -48,6 +55,8 @@ function Sell() {
         )
       );
   }, []);
+
+  console.log(sellItem);
 
   //Price sorting
   const sortPrice = () => {
@@ -124,7 +133,6 @@ function Sell() {
         <div className="sell">
           <div className="sellHeader">
             <div className="sellHeader__left">
-              <StoreRoundedIcon />
               <p>Steam Inventory</p>
             </div>
 
@@ -163,12 +171,9 @@ function Sell() {
               <SteamInventory
                 id={item.id}
                 key={item.id}
-                gameIcon={item.data.gameIcon}
                 name={item.data.name}
                 image={item.data.image}
                 price={item.data.price}
-                quantity={item.data.quantity}
-                hero={item.data.hero}
                 quality={item.data.quality}
                 gameName={item.data.gameName}
                 type={item.data.type}

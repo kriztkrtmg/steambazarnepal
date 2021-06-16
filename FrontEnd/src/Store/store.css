@@ -5,28 +5,47 @@
     padding: 1% 7%;
 }
 
-
-
 .storeBody{
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     background-color: transparent;
     padding-bottom: 50px;
+    margin-top: 10px;
 }
 
 
 
 /*-----------------------Store Header-----------------*/
 .storeHeader {
-    padding: 5px 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 60px;
-    background-color: #0d0c1b;
-    border-radius: 50px;
-    margin-bottom: 10px;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     background-color: #0d0c1b;
+     position: relative;
+     height: 60px;
+     margin: 0 17.32px;
+     color: #61c9ce;
+}
+
+.storeHeader::before,
+.storeHeader::after{
+    content: "";
+    position: absolute;
+    width: 0;
+    border-top: 30px solid transparent;
+    border-bottom: 30px solid transparent;
+}
+
+.storeHeader::before{
+    right: 100%;
+    border-right: 17.32px solid #0d0c1b;
+}
+
+.storeHeader::after{
+    left: 100%;
+    width: 0;
+    border-left: 17.32px solid #0d0c1b;
 }
 
 .storeHeader__left {
@@ -35,66 +54,80 @@
     align-items: center;
     padding: 0px 10px;
     height: 50px;
-    flex: 0.1;
+    flex: 0.05;
+    transition: all 0.15s ease;
 }
 
 .storeHeader__left>.MuiSvgIcon-root {
-    font-size: xx-large;
+    font-size: x-large;
     color: #9ACD32;
 }
 
 .storeHeader__left>p {
-    margin-left: 5px;
-    font-size: 24px;
+    font-size: 20px;
 }
 
 .storeHeader__left:hover{
-    background-color:#1a4011;
-    border-radius: 50px;
+    transform: scale(1.1);
 }
 
 .storeHeader__center {
     display: flex;
     position: relative;
     align-items: center;
-    height: 90%;
-    flex: 0.8;
+    height: 56px;
+    flex: 0.85;
     margin: 0px 10px;
 }
 
 .filterByGame {
-    display: flex;
-    position: relative;
-    flex: 1;
-    margin: 0px 1px;
     cursor: pointer;
-    height: 100%;
-    z-index: 1;
+    display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #1a1830;
+    position: relative;
+    height: 56px;
+    margin: 0 16.17px;
+    color: #61c9ce;
+    flex: 1;
+}
+
+.filterByGame::before,
+.filterByGame::after{
+    content: "";
+    position: absolute;
+    width: 0;
+    border-top: 28px solid transparent;
+    border-bottom: 28px solid transparent;
+}
+
+.filterByGame::before{
+    right: 100%;
+    border-right: 16.17px solid #1a1830;
 }
 
 .filterByGame::after {
-    z-index: -1;
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background-color: #1a1830;
-    transform: skewX(-20deg);
+   left: 100%;
+   width: 0;
+   border-left: 16.17px solid #1a1830;
+}
+
+.filterByGame:hover {
+     background-color: #1a4011;
+}
+
+.filterByGame:hover::before{
+    border-right: 16.17px solid #1a4011;
 }
 
 .filterByGame:hover::after {
-    color: green;
-    background-color: #1a4011;
-    transform: skewX(-20deg);
+    border-left: 16.17px solid #1a4011;
 }
 
 .filterByGame>img {
     padding: 0px 10px;
-    height: 40px;
+    height: 36px;
     object-fit: contain;
 }
 
@@ -115,13 +148,36 @@
 }
 
 .storeHeader__right {
-    display: flex;
-    flex: 0.1;
-    align-items: center;
-    background: rgba(97, 201, 206, 0.1);
-    border-radius: 50px;
-    height: 50px;
-    padding: 0px 10px;
+   cursor: pointer;
+   display: flex;
+   flex: 0.1;
+   align-items: center;
+   justify-content: center;
+   background-color: #1a1830;
+   position: relative;
+   height: 56px;
+   margin: 0 16.17px;
+   color: #61c9ce;
+}
+
+.storeHeader__right::before,
+.storeHeader__right::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    border-top: 28px solid transparent;
+    border-bottom: 28px solid transparent;
+}
+
+.storeHeader__right::before {
+    right: 100%;
+    border-right: 16.17px solid #1a1830;
+}
+
+.storeHeader__right::after {
+    left: 100%;
+    width: 0;
+    border-left: 16.17px solid #1a1830;
 }
 
 .searchBox {
@@ -136,7 +192,7 @@
     outline-width: 0;
     background-color: transparent;
     padding: 0px 10px;
-    height: 50px;
+    height: 56px;
     align-items: center;
     justify-content: center;
     border-radius: 50px;
@@ -179,17 +235,35 @@
     .storeHeader__right {
         padding: 0px 5px;
     }
+
+    .storeHeader__right>.searchBox>input{
+        max-width: 150px;
+    }
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 768px) {
     .storeHeader {
         flex-direction: column;
-        height: 150px;
-        border-radius: 5px;
+        justify-content: center;
+        height: 160px;
+        margin: 0 35px;
+        padding: 5px 0px;
+    }
+    .storeHeader::before,
+    .storeHeader::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        border-top: 85px solid transparent;
+        border-bottom: 85px solid transparent;
     }
 
-    .storeHeader__left>.MuiSvgIcon-root {
-        font-size: x-large;
+    .storeHeader::before {
+        border-right: 49.19px solid #0d0c1b;
+    }
+
+    .storeHeader::after {
+        border-left: 49.09px solid #0d0c1b;
     }
 
     .storeHeader__left{
@@ -197,7 +271,7 @@
     }
 
     .storeHeader__center {
-        width: 80%;
-        flex: 0.5;
+        width: 100%;
+        flex: 1;
     }
 }

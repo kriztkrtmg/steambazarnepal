@@ -1,6 +1,6 @@
 
 .active__listing{
-    padding: 0% 10% 10% 10%;
+    height: 100vh;
     display: flex;
     background-color: transparent;
     align-items: flex-start;
@@ -115,6 +115,12 @@
 
 .listing__remove:hover::after{
     border-left: 11.55px solid #cf3464;
+}
+
+@media screen and (max-width: 768px){
+    .active__listing{
+        height: 100%;
+    }
 }
 
 /* @media screen and (max-width: 768px) {
